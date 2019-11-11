@@ -33,10 +33,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 2: Deploy resources to Azure](#Task-2-Deploy-resources-to-Azure)
     - [Task 3: Explore the Contoso Sports League sample](#Task-3-Explore-the-Contoso-Sports-League-sample)
 
-
 <!-- /TOC -->
 
-# Modern cloud apps before the hands-on lab setup guide 
+# Modern cloud apps before the hands-on lab setup guide
 
 ## Requirements
 
@@ -69,55 +68,35 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 ### Task 2: Deploy resources to Azure
 
-1. Click the following link to deploy the ARM Template with the resources for this lab.
+1. Click the following **Deploy to Azure** button to deploy the ARM Template with the resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fubuntu-desktop-gnome-rdp%2Fazuredeploy.json" target="_blank"><img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/></a>
+    [![Deploy to Azure](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcrpietschmann%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Ftemplate.json)
 
-1. Open your Azure Portal.
+    >**Note:** If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/template.json' ARM Template within the lab files.
 
-2. Select **Resource groups**.
+2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `ContosoSports-[your initials or first name]`.
 
-3. Select **+Add**.
- 
-4. Type a resource group name, such as *ContosoSports-[your initials or first name]*.
-
-5. Select **Review + Create**, then select **Create**.
-
-6. Select **Refresh** to see your new resource group displayed and select it.
-
-7. Select **Export template**, and then select **Deploy**.
-
-    ![Select Deploy](images/Setup/2019-06-24-17-15-18.png)
-
-8. Select **Build your own template in the editor**.
-
-9. In the extracted folder, open the `\Hands-on lab\Scripts\template.json` file.
-
-10. Copy and paste it into the window.
-
-11. Select **Save**
-
-12. Select **Edit parameters**
+3. Select **Edit parameters**
 
     ![Select Edit Parameters.](images/Setup/2019-06-24-17-17-05.png)
 
-13. In the extracted folder, open the **\Hands-on lab\Scripts\parameters.json** file.
+4. On the **Edit parameters** pane, select the **Load file** button.
 
-14. Copy and paste it into the window.
+5. Locate and open the **\Hands-on lab\Scripts\parameters.json** file within the extracted files.
 
-15. Select **Save**.
+6. Select **Save**.
 
-16. Check the **I agree to the terms and conditions stated above** checkbox.
+7. Check the **I agree to the terms and conditions stated above** checkbox.
 
-17. Select **Purchase**.
+8. Select **Purchase**.
 
     ![Select Purchase.](images/Setup/2019-06-24-17-20-12.png)
 
-18. The deployment will take 15-30 minutes to complete. To view the progress, select the **Deployments** link, then select the **Microsoft.Template** deployment.
+9. The deployment will take 15-30 minutes to complete. To view the progress, select the **Deployments** link, then select the **Microsoft.Template** deployment.
 
     ![View template deployment status.](images/Setup/2019-06-24-17-22-19.png "Resource group deployments")
 
-19. **Note**: A configuration script to install SSMS and the require lab files will run after the deployment of the LabVM completes. The task will be listed on the deployment progress screen as `LabVM/CustomScriptExtension`. You should wait for this task to complete before attempting to log into the LabVM in the next task, as it downloads and installs files you will need for the next task.
+10. **Note**: A configuration script to install SSMS and the requires lab files will run after the deployment of the LabVM completes. The task will be listed on the deployment progress screen as `LabVM/CustomScriptExtension`. You should wait for this task to complete before attempting to log into the LabVM in the next task, as it downloads and installs files you will need.
 
     ![The CustomScriptExtension task in highlighted in the list of deployment tasks.](media/deployment-progress.png "Deployment progress")
 
