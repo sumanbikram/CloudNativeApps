@@ -69,6 +69,10 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 ### Task 2: Deploy resources to Azure
 
+1. Click the following link to deploy the ARM Template with the resources for this lab.
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fubuntu-desktop-gnome-rdp%2Fazuredeploy.json" target="_blank"><img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/></a>
+
 1. Open your Azure Portal.
 
 2. Select **Resource groups**.
