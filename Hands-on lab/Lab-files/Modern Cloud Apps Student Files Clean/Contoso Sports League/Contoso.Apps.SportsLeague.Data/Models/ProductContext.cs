@@ -1,10 +1,14 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+
 namespace Contoso.Apps.SportsLeague.Data.Models
 {
+    // Helpful Links:
+    // https://docs.microsoft.com/en-us/ef/core/miscellaneous/configuring-dbcontext
+
   public class ProductContext : DbContext
   {
-    public ProductContext()
-      : base("ContosoSportsLeague")
+    public ProductContext(DbContextOptions<ProductContext> options)
+            : base(options)
     {
     }
 

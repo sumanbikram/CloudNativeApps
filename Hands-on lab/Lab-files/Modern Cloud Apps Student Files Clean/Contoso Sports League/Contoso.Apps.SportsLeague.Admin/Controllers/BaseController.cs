@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Contoso.Apps.SportsLeague.Admin.Controllers
 {
@@ -7,9 +7,9 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
     {
         public string DisplayName { get; set; }
 
-        protected override void EndExecute(IAsyncResult asyncResult)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
-            if (Request.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
                 if (claimsIdentity != null)
@@ -23,7 +23,8 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
                 }
                 //DisplayName = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("http://schemas.microsoft.com/identity/claims/displayname").Value;
             }
-            base.EndExecute(asyncResult);
+
+            base.OnActionExecuted(context);
         }
     }
 }

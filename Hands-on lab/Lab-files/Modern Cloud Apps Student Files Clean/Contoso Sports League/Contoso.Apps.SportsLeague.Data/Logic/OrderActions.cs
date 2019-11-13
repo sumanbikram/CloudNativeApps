@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Contoso.Apps.SportsLeague.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contoso.Apps.SportsLeague.Data.Logic
 {
-    public class OrderActions : IDisposable
+    public class OrderActions
     {
         private readonly ProductContext _db;
 
-        public OrderActions()
+        public OrderActions(ProductContext context)
         {
-            _db = new ProductContext();
+            _db = context;
         }
 
         /// <summary>
@@ -24,7 +22,10 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
         /// <returns></returns>
         public List<Order> GetCompletedOrders()
         {
-            var orders = _db.Orders.Include(od => od.OrderDetails.Select(p => p.Product)).Where(o => !(o.PaymentTransactionId == null || o.PaymentTransactionId.Trim() == string.Empty)).ToList();
+            var orders = _db.Orders
+                //.Include(od => od.OrderDetails.Select(p => p.Product))
+                .Where(o => !(o.PaymentTransactionId == null || o.PaymentTransactionId.Trim() == string.Empty))
+                .ToList();
             return orders;
         }
 
@@ -62,14 +63,6 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
             catch (Exception exp)
             {
                 throw new Exception("ERROR: Unable to Update Order - " + exp.Message.ToString(), exp);
-            }
-        }
-
-        public void Dispose()
-        {
-            if (_db != null)
-            {
-                _db.Dispose();
             }
         }
     }

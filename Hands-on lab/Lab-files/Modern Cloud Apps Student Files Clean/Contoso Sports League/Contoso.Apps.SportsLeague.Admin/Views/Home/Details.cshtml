@@ -1,5 +1,4 @@
 ﻿@model Contoso.Apps.SportsLeague.Admin.Models.DetailsModel
-@using AspNet.Mvc.Grid
 @{
     ViewBag.Title = "Order Details";
 }
@@ -91,13 +90,27 @@
 <h2>Order Details</h2>
 <h3>Order date: @Model.Order.OrderDate</h3>
 
-@Html.Grid(Model.Order.OrderDetails).Columns(cb =>
-{
-    cb.For(p => p.Product.ProductName).Named("Item");
-    cb.For(p => p.Quantity);
-    cb.For(p => p.UnitPrice).Format("{0:c}").Named("Price");
-    cb.For(p => p.Cost).Format("{0:c}").Named("Total");
-}).Attributes(@class => "table table-striped table-hover table-condensed").HeaderRowAttributes(new Dictionary<string, object> { { "class", "active" } })
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr class="active">
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Order.OrderDetails)
+        {
+            <tr>
+                <td>@(item.Product.ProductName)</td>
+                <td>@(item.Quantity)</td>
+                <td>@(item.UnitPrice?.ToString("{0:c}"))</td>
+                <td>@(item.Cost.ToString("{0:c"))</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @if (!string.IsNullOrWhiteSpace(Model.Order.ReceiptUrl))
 {

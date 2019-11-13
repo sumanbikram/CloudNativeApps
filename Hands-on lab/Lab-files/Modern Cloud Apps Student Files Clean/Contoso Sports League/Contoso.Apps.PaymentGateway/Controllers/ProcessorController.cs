@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.Web.Cors;
 using Contoso.Apps.Common;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Contoso.Apps.PaymentGateway.Controllers
 {
-    public class ProcessorController : ApiController
+    public class ProcessorController : ControllerBase
     {
+        private const string _success = "success";
+
         [Route("api/nvp")]
         [HttpPost]
         public HttpResponseMessage PerformAction([FromBody] string data)
@@ -44,7 +45,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
                             if (status)
                             {
                                 // Success!
-                                encoder[NVPProperties.Properties.ACK] = "success";
+                                encoder[NVPProperties.Properties.ACK] = _success;
                                 encoder[NVPProperties.Properties.TOKEN] = token;
                             }
                         }
@@ -57,7 +58,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
                             if (status)
                             {
                                 // Success!
-                                encoder[NVPProperties.Properties.ACK] = "success";
+                                encoder[NVPProperties.Properties.ACK] = _success;
                                 encoder[NVPProperties.Properties.TRANSACTIONID] = transactionId;
                             }
                         }
