@@ -123,6 +123,10 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 6. Select **Save**.
 
+7. on the **Location** field for the Custom deployment, choose the Azure Region closest to you.
+
+    > **Note:** For this lab, it is recommended you use the **East US**, **North Europe**, or **Australia East** Azure Region. There are certain Azure regions that don't support all the resources provisioned by the ARM Template. This limitation can also vary depending on restrictions applied to the type of Azure Subscription you are using.
+
 7. Check the **I agree to the terms and conditions stated above** checkbox.
 
 8. Select **Purchase**.

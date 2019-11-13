@@ -34,8 +34,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Help references](#help-references)
   - [Exercise 1: Proof of concept deployment](#exercise-1-proof-of-concept-deployment)
     - [Task 1: Deploy the e-commerce website, SQL Database, and storage](#task-1-deploy-the-e-commerce-website-sql-database-and-storage)
-      - [Subtask 1: Create the Web App and SQL database instance](#subtask-1-create-the-web-app-and-sql-database-instance)
-      - [Subtask 2: Provision the storage account](#subtask-2-provision-the-storage-account)
+      - [Subtask 1: Configure SQL Database Firewall and Retrieve Connection String](#subtask-1-configure-sql-database-firewall-and-retrieve-connection-string)
+      - [Subtask 2: Retrieve Storage Account Access Keys](#subtask-2-Retrieve-Storage-Account-Access-Keys)
       - [Subtask 3: Update the configuration in the starter project](#subtask-3-update-the-configuration-in-the-starter-project)
       - [Subtask 4: Deploy the e-commerce Web App from Visual Studio](#subtask-4-deploy-the-e-commerce-web-app-from-visual-studio)
     - [Task 2: Setup SQL Database Geo-Replication](#task-2-setup-sql-database-geo-replication)
@@ -159,131 +159,45 @@ Contoso has asked you to create a proof of concept deployment in Microsoft Azure
 
 In this exercise, you will provision a website via the Azure **Web App + SQL** template using the Microsoft Azure Portal. You will then edit the necessary configuration files in the starter project and deploy the e-commerce website.
 
-#### Subtask 1: Create the Web App and SQL database instance
+#### Subtask 1: Configure SQL Database Firewall and Retrieve Connection String
 
 1. Navigate to the Azure Management portal, [http://portal.azure.com](http://portal.azure.com/), using a new tab or instance and login with your lab-provided Azure credentials.
 
-2. In the navigation menu to the left, select **+Create a resource** and in the Marketplace search text box, enter **Web App + SQL** and select the appropriate auto-suggestion.
-
-    ![In the Azure Portal on the left, "+Create a resource", search box text and auto-suggestion are surrounded by red boxes.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image11.png "Azure Portal")
-
-3. In the new product blade, select **Create**.
-
-    ![The Web App + SQL blade](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image13.png "Web App + SQL blade")
-
-4. On the Web App blade, specify the following configuration:
-
-   - A unique and valid name (until the green check mark appears). We've used ContosoAp2010. Make note of your selection.
-
-   - Select **contososports** resource group.
-
-   - **ContosoSportsPlan** as a new App Service Plan. Make sure it's in the same location as the **contososports** resource group you created earlier. Use the default **Standard S1** pricing tier.
-
-    ![App Service Plan configuration settings are displayed. The values listed in the instructions are entered into the fields.](media/2019-03-22-11-29-13.png "App Service Plan configuration settings")
-
-    - Select **OK**
-
-5. Select **SQL Database *Configure required settings***, and then **+ Create a new database**.
-
-    ![The tile for the Create a new database option is displayed.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image16.png " Create a new database")
-
-6. On the **SQL Database** blade, specify **ContosSportsDB** as the database name and then select **Target** **Server *Configure required settings***.
-
-    ![Screenshot of the Target Server Configure required settings option.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image18.png "Target Server Configure required settings option")
-
-7. On the **New server** blade, specify the following configuration:
-
-   - Server name: **A unique value (ensure the green checkmark appears)**
-
-   - Server admin login: **demouser**
-
-   - Password and Confirm Password: **Password.1!!**
-
-   - Ensure the **Target server** is the same region as the Web app.
-
-8. Once the values are accepted in the **New server** blade, click **Select**.
-
-    ![Screenshot of the Select button.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image20.png "Select button")
-
-9. On the **SQL Database** blade, click **Select**.
-
-    ![Screenshot of the Select button.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image20.png "Select button")
-
-11. Application Insights should be disabled.
-
-    ![Application Insight configuration. Disabled option selected.](media/2019-04-19-13-24-11.png "Application Insight configuration")
-
-12. After the values are accepted on the **Web App + SQL** creation blade, check select **Create**.
-
-    ![Final web app configuration settings.  Arrow pointing to the Create button.](media/2019-04-19-13-32-16.png "Final web app configuration settings")
-
-    >**Note**: This may take a couple minutes to provision the Web App and SQL Database resources.
-
-    ![The bell icon located at the top of the web page has been clicked.  Notifications message tells you deployment in progress.](media/2019-03-22-11-36-59.png "Check provision progress")
-
-12. After the Web App and SQL Database are provisioned, click **SQL databases** in the left-hand navigation menu followed by the name of the SQL Database you just created and select it.
+2. Click **SQL databases** in the left-hand navigation menu followed by the name of the SQL Database you just created and select it.
 
     ![In the Azure Portal, on the left side, "SQL Databases" is surrounded by a red box. In the right pane, "ContosoSportsDB" is surrounded by a red box](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image22.png "Azure Portal")
 
-13. On the **SQL Database** blade, click the **Show database connection strings** link.
+3. On the **SQL Database** blade, click the **Show database connection strings** link.
 
     ![On the SQL Database blade, in the left pane, Overview is selected. In the right pane, under Essentials, the Connection strings (Show database connection strings) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image23.png "SQL Database blade")
 
-14. On the **Database connection strings** blade, select and copy the **ADO.NET** connection string. Then, save it in **Notepad** for use later, being sure to replace the placeholders with your username and password with **demouser** and **Password.1!!**, respectively.
+4. On the **Database connection strings** blade, select and copy the **ADO.NET** connection string. Then, save it in **Notepad** for use later, being sure to replace the placeholders with your username and password with **demouser** and **Password.1!!**, respectively.
 
     ![In the Database connection strings blade, the ADO.NET connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image24.png "Database connection strings blade")
 
-15. On the **Overview** screen of the **SQL Server** blade, click **Set server firewall** link at the top.
+5. On the **Overview** screen of the **SQL Server** blade, click **Set server firewall** link at the top.
 
     ![In the SQL Server Blade, Overview section, the Set server firewall tile is in a box.](media/2019-03-31-14-37-31.png "SQL Server Blade, Essentials section")
 
-16. On the **Firewall Settings** blade, specify a new rule named **ALL**, with START IP **0.0.0.0**, and END IP **255.255.255.255**.
+6. On the **Firewall Settings** blade, specify a new rule named **ALL**, with START IP **0.0.0.0**, and END IP **255.255.255.255**.
 
     ![Screenshot of the Rule name, Start IP. and End IP fields on the Firewall Settings blade.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image27.png "Firewall Settings blade")
 
     >**Note**: This is only done to make the lab easier to do. In production, you do **NOT** want to open up your SQL Database to all IP Addresses this way. Instead, you will want to specify just the IP Addresses you wish to allow through the Firewall.
 
-17. Click **Save**.
+7. Click **Save**.
 
     ![Screenshot of the Firewall settings Save button.](media/2019-04-10-16-00-29.png "Firewall settings Save button")
 
-18. Update progress can be found by clicking on the **Notifications** link located at the top of the page.
+8. Update progress can be found by clicking on the **Notifications** link located at the top of the page.
 
     ![Screenshot of the Success dialog box, which says that the server firewall rules have been successfully updated.](media/2019-04-19-13-39-41.png "Success dialog box")
 
-19. Close all configuration blades.
+9. Close all configuration blades.
 
-#### Subtask 2: Provision the storage account
+#### Subtask 2: Retrieve Storage Account Access Keys
 
->**Note:** You can skip the storage account provisioning steps if you use the storage account created during the Lab VM provisioning.
-
-1. Using a new tab or instance of your browser, navigate to the Azure Management portal <http://portal.azure.com>.
-
-2. From the navigation menu to the left, click **Storage Accounts** and then click **+Add** at the top of the new blade.
-
-    ![In the Azure Portal, in the navigation menu on the left, Storage Account is surrounded by a red box. To the right, the "+Add" tile is likewise surrounded](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image30.png "Azure Portal - Storage Accounts")
-
-3. On the **Create storage account** blade, specify the following configuration options:
-
-   - Name: Unique value for the storage account (ensure the green check mark appears).
-
-   - Specify the existing resource group **contososports**.
-
-   - Specify the same **Location** as the Contoso Sports resource group.
-
-   - Accept the defaults for all other settings.
-
-    ![The fields in the Create Storage Account blade are set to the previously defined settings. In addition, the Name field set to contososports2101, Deployment model is Resource Manager, Account kind is General purpose, and Performance is standard.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image31.png "Create Storage Account blade")
-
-4. Click **Review + create**.
-
-    ![Screenshot of the Review + create button.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image32.png "Create button")
-
-5. Click **Create** after Validation passed.
-
-    ![Screenshot of the Create button.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image32a.png "Create button")
-
-6. Once the storage account has completed provisioning, open the storage account by clicking **Storage accounts** in the navigation menu to the left and clicking on the storage account name.
+1. Open the storage account by clicking **Storage accounts** in the navigation menu to the left and clicking on the `contoso` storage account name.
 
     ![The Storage Account menu link in the Azure Portal.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image33.png "Azure Portal, More services")
 
@@ -1653,25 +1567,9 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 
     Claims information page![On the Contoso website, the following links are circled: Russell, Sign out, and Edit Profile.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image183.png "Contoso website, Claims information page")
 
-## Exercise 4: Enabling Telemetry with Application Insights 
+## Exercise 4: Enabling Telemetry with Application Insights
 
 To configure the application for logging and diagnostics, you have been asked to configure Microsoft Azure Application Insights and add some custom telemetry.
-
->**Note**: You may need to create an Application Insights Resource in Azure portal depending on your subscription rights. After it is created, you can configure it and add to the project using the tasks below. To create a new Application Insights resource.
-
-1. Click **+Create a resource**. Search the Marketplace for Application Insights. **Select** Application Insights.
-
-    ![In this screenshot a new application insights instance is created using the Azure portal.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image184.png "Screenshot of creating a resource")
-
-2. Click the **Create** button.
-
-    ![A screenshot that provides an overview of Application Insights and a button to click Create.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image185.png "Application insights resource")
-
-3. Enter the name as **Contoso.Apps.SportsLeague.Web** Choose the existing resource group of **contososports**. Location should be the same location as your resource group.
-
-    ![A dialog that shows the properties of the application insights resource.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image186.png "Application insights creation dialog")
-
-4. Click **Review + create**, then **Create**.
 
 ### Task 1: Configure the application for telemetry
 
