@@ -163,43 +163,47 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
 1. Navigate to the Azure Management portal, [http://portal.azure.com](http://portal.azure.com/), using a new tab or instance and login with your lab-provided Azure credentials.
 
-2. Click **SQL databases** in the left-hand navigation menu followed by the name of the SQL Database you just created and select it.
+2. Navigate to the **contososports** resource group.
 
-    ![In the Azure Portal, on the left side, "SQL Databases" is surrounded by a red box. In the right pane, "ContosoSportsDB" is surrounded by a red box](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image22.png "Azure Portal")
+3. Click on the **ContosoSportsDB** SQL Database.
 
-3. On the **SQL Database** blade, click the **Show database connection strings** link.
+    ![The contososports Resource Group blade with the "ContosoSportsDB" highlighted.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image22.png "Azure Portal")
+
+4. On the **SQL Database** blade, click the **Show database connection strings** link.
 
     ![On the SQL Database blade, in the left pane, Overview is selected. In the right pane, under Essentials, the Connection strings (Show database connection strings) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image23.png "SQL Database blade")
 
-4. On the **Database connection strings** blade, select and copy the **ADO.NET** connection string. Then, save it in **Notepad** for use later, being sure to replace the placeholders with your username and password with **demouser** and **Password.1!!**, respectively.
+5. On the **Database connection strings** blade, select and copy the **ADO.NET** connection string. Then, save it in **Notepad** for use later, being sure to replace the placeholders with your username and password with **demouser** and **demo@pass123**, respectively.
 
     ![In the Database connection strings blade, the ADO.NET connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image24.png "Database connection strings blade")
 
-5. On the **Overview** screen of the **SQL Server** blade, click **Set server firewall** link at the top.
+6. Go back to the **contososports** resource group blade, and click on the **contososports** SQL Server.
+
+    ![The contososports resource group with the contososports sql server highlighted.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/2019-11-15-17-47-46.png "Azure Portal")
+
+7. On the **Overview** screen of the **SQL Server** blade, click **Set server firewall** link at the top.
 
     ![In the SQL Server Blade, Overview section, the Set server firewall tile is in a box.](media/2019-03-31-14-37-31.png "SQL Server Blade, Essentials section")
 
-6. On the **Firewall Settings** blade, specify a new rule named **ALL**, with START IP **0.0.0.0**, and END IP **255.255.255.255**.
+8. On the **Firewall Settings** blade, specify a new rule named **ALL**, with START IP **0.0.0.0**, and END IP **255.255.255.255**.
 
     ![Screenshot of the Rule name, Start IP. and End IP fields on the Firewall Settings blade.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image27.png "Firewall Settings blade")
 
     >**Note**: This is only done to make the lab easier to do. In production, you do **NOT** want to open up your SQL Database to all IP Addresses this way. Instead, you will want to specify just the IP Addresses you wish to allow through the Firewall.
 
-7. Click **Save**.
+9. Click **Save**.
 
     ![Screenshot of the Firewall settings Save button.](media/2019-04-10-16-00-29.png "Firewall settings Save button")
 
-8. Update progress can be found by clicking on the **Notifications** link located at the top of the page.
+10. Update progress can be found by clicking on the **Notifications** link located at the top of the page.
 
     ![Screenshot of the Success dialog box, which says that the server firewall rules have been successfully updated.](media/2019-04-19-13-39-41.png "Success dialog box")
 
-9. Close all configuration blades.
+11. Close all configuration blades.
 
 #### Subtask 2: Retrieve Storage Account Access Keys
 
-1. Open the storage account by clicking **Storage accounts** in the navigation menu to the left and clicking on the `contoso` storage account name.
-
-    ![The Storage Account menu link in the Azure Portal.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image33.png "Azure Portal, More services")
+1. Go back to the **contososports** blade resource group, and click on the **contoso** Storage account.
 
 7. On the **Storage account** blade, scroll down, and, under the **SETTINGS** menu area, select the **Access keys** option.
 
@@ -211,11 +215,9 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
 #### Subtask 3: Update the configuration in the starter project
 
-1. In the Azure Portal, click on **Resource Groups**. Then, click on the **contososports** resource group.
+1. Go back to the **contososports** resource group blade.
 
-    ![In the Azure Portal left menu, Resource groups selected. In the Resource groups blade, under Name, contososports is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image37.png "Azure Portal")
-
-2. Click on the **Web App** (App Service type) created previously.
+2. Click on the **contosoapp** web app (**App Service** type).
 
     ![Resources listed for ContosoSports. Web app selected.](media/2019-04-19-13-46-40.png "Resources listed for ContosoSports")
 
@@ -267,13 +269,13 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
     >Note: Don't publish if the configuration does not show your settings. Choose **New Profile** to publish to your Azure portal.
     > ![Visual Studio Publish configuration left over from developer. A don't publish message is displayed. There is a box around New Profile link.](media/2019-03-22-12-42-48.png "Select New Profile")
 
-3. Choose **Azure App Service** as the publish target, and choose **Select Existing** and then **Publish** at the bottom of the wizard.
+3. Choose **Azure App Service** as the publish target, and choose **Select Existing** and then **Create Profile** at the bottom of the wizard.
 
     ![On the Publish tab, the Microsoft Azure App Service tile is selected, as is the radio button for Select Existing.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image47.png "Publish tab")
 
-    ![App Service Select Existing App Service dialog is displayed. The Sign In link is highlighted](media/2019-04-19-14-07-19.png "Azure Sign In")
-
 4. If prompted, log on with your Azure Subscription credentials.
+
+    ![App Service Select Existing App Service dialog is displayed. The Sign In link is highlighted](media/2019-04-19-14-07-19.png "Azure Sign In")
 
     >**Note:** If you Sign In and nothing happens, shut down Visual Studio reopen to the solution. Repeat the publishing steps.
 
@@ -281,7 +283,13 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![Under Subscriptions, under contososports, contososportsweb0 is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image49.png "Subscriptions")
 
-6. Click **OK**, and click **Publish** to publish the Web application.
+6. Click **OK**.
+
+7. Click **Publish** to publish the Web application.
+
+    >**Note:** If prompted with a warning about App Service supporting .NET Core 3.0.0, select **OK** to dismiss the warning.
+    >
+    > ![App Service .NET Core 3.0.0 support warning](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/2019-11-15-18-12-21.png "App Service .NET Core 3.0.0 support warning")
 
 7. In the Visual Studio **Output** view, you will see a status that indicates the Web App was published successfully.
 
@@ -333,7 +341,7 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
 
    - Server admin login: **demouser**
 
-   - Password and Confirm Password: **Password.1!!**
+   - Password and Confirm Password: **demo@pass123**
 
     ![The fields in the New Server blade display with the previously defined settings.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image56.png "New Server blade")
 
@@ -427,8 +435,6 @@ The failover may take a few minutes to complete. You can continue with the next 
 
 3. From the Azure portal, click on **Resource Groups**, and select **contososports**.
 
-    ![In the Azure Portal, on the left, Resource groups is circled. On the right, under Name, contososports is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image37.png "Azure Portal")
-
 4. Click on the **Web App** created earlier.
 
 5. On the **App Service** blade, scroll down in the left pane, and click on **Configuration settings**.
@@ -441,7 +447,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
     ![On the App Service blade, in the Connection strings section, the ContosoSportsLeague connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image70.png "App Service blade")
 
-    >**Note**: Ensure you replace the string placeholder values **{your\_username}** and **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & Password.1!!).
+    >**Note**: Ensure you replace the string placeholder values **{your\_username}** and **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
 
     ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder values")
 
@@ -493,8 +499,6 @@ The failover may take a few minutes to complete. You can continue with the next 
 
 1. In the Azure Portal, click on **Resource Groups** **\>** **contososports** resource group.
 
-    ![In the left menu of the Azure Portal, Resource groups is selected. On the right, under Resource groups, contososports is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image37.png "Azure Portal")
-
 2. Click on the **Web App** created in a previous step.
 
 3. On the **App Service** blade, scroll down in the left pane, and click on **Configuration settings**.
@@ -507,7 +511,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
     ![In the App Service blade Connection strings section, the ContosoSportsLeague connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image70.png "App Service blade")
 
-    > **Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & Password.1!!).
+    > **Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
 
     ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder value")
 
@@ -535,7 +539,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
 In this exercise, you will provision a website via the Azure Web App template using the Microsoft Azure Portal. You will then edit the necessary configuration files in the Starter Project and deploy the call center admin website.
 
-#### Subtask 1: Provision the call center admin Web App 
+#### Subtask 1: Provision the call center admin Web App
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management portal <http://portal.azure.com>.
 
@@ -573,7 +577,7 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     ![The Connection Strings fields display the previously defined values.](media/2019-04-11-04-31-51.png "Connection Strings fields")
 
-    >**Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & Password.1!!).
+    >**Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
 
     ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder values")
 
@@ -706,7 +710,7 @@ click **App Services** and then clicking the Offer API app you just created.
 
         ![The Connection Strings fields display the previously defined values.](media/2019-04-11-04-31-51.png "Connection Strings fields")
 
-        >**Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & Password.1!!).
+        >**Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
 
         ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder value")
 

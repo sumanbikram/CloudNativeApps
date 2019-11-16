@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Contoso.Apps.SportsLeague.Data.Models
 {
     public static class ProductDatabaseInitializer
     {
-        public static void Configure(ProductContext context)
+        public static async Task Configure(ProductContext context)
         {
             // Database Initialization
             context.Database.EnsureCreated();
@@ -15,20 +16,22 @@ namespace Contoso.Apps.SportsLeague.Data.Models
             context.Database.OpenConnection();
             try
             {
-                if (!context.Categories.AnyAsync().Wait(new TimeSpan(0, 1, 0)))
+                if (!await context.Categories.AnyAsync())
                 {
                     context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Categories ON");
 
                     GetCategories().ForEach(c => context.Categories.Add(c));
+                    await context.SaveChangesAsync();
 
                     context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Categories OFF");
                 }
 
-                if (!context.Products.AnyAsync().Wait(new TimeSpan(0, 1, 0)))
+                if (!await context.Products.AnyAsync())
                 {
                     context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Products ON");
 
                     GetProducts().ForEach(p => context.Products.Add(p));
+                    await context.SaveChangesAsync();
 
                     context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Products OFF");
                 }

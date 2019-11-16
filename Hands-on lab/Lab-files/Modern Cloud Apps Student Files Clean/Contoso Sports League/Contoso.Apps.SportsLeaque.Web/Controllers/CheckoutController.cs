@@ -21,20 +21,26 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
         {
             _db = context;
             _mapper = mapper;
-            _cartId = new Helpers.CartHelpers().GetCartId(HttpContext);
             _config = config;
         }
 
         private readonly ProductContext _db;
-        private readonly string _cartId;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
+
+        private string CartId
+        {
+            get
+            {
+                return new Helpers.CartHelpers().GetCartId(HttpContext);
+            }
+        }
 
         // GET: Checkout
         public ActionResult Index()
         {
             var vm = new CheckoutModel();
-            var usersShoppingCart = new ShoppingCartActions(_db, _cartId);
+            var usersShoppingCart = new ShoppingCartActions(_db, CartId);
             
             var shoppingCartItems = usersShoppingCart.GetCartItems();
             var cartItemsVM = _mapper.Map<List<CartItemModel>>(shoppingCartItems);
@@ -97,7 +103,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
                         await _db.SaveChangesAsync();
 
                         // Get the shopping cart items and process them.
-                        var usersShoppingCart = new ShoppingCartActions(_db, _cartId);
+                        var usersShoppingCart = new ShoppingCartActions(_db, CartId);
                         
                         List<CartItem> myOrderList = usersShoppingCart.GetCartItems();
 
@@ -236,7 +242,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
                     }
 
                     // Clear shopping cart.
-                    var usersShoppingCart = new ShoppingCartActions(_db, _cartId);
+                    var usersShoppingCart = new ShoppingCartActions(_db, CartId);
                     
                     await usersShoppingCart.EmptyCart();
                     

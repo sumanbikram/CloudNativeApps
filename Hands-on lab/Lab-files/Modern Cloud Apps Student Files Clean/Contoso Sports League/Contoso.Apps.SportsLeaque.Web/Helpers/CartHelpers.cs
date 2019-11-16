@@ -17,7 +17,7 @@ namespace Contoso.Apps.SportsLeague.Web.Helpers
         }
 
         public string GetCartId(HttpContext context) {
-            if (context.Session.Get(CartSessionKey) == null) {
+            if (context.Session.GetString(CartSessionKey) == null) {
                 if (!string.IsNullOrWhiteSpace(context.User.Identity.Name)) {
                     context.Session.SetString(CartSessionKey, context.User.Identity.Name);
                 }

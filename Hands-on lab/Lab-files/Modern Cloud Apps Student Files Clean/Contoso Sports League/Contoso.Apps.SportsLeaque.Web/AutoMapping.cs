@@ -10,7 +10,10 @@ namespace Contoso.Apps.SportsLeaque.Web
         public AutoMapping()
         {
             CreateMap<CartItem, CartItemModel>();
-            CreateMap<List<CartItem>, List<CartItemModel>>();
+            CreateMap<Product, ProductListModel>();
+            CreateMap<Product, ProductModel>();
+            CreateMap<Category, CategoryModel>();
+            CreateMap<Order, OrderModel>();
         }
     }
 
