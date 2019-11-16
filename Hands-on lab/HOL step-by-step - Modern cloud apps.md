@@ -1211,13 +1211,10 @@ To enable profile editing on your application, you will need to create a profile
 1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Startup.cs** code file, locate the `public void Configure(` method declaration, then add the following line of code to this method:
 
     ```csharp
-    app.UseOwin(pipeline =>
-    {
-        pipeline(next => OwinHello);
-    });
+    app.UseOwin();
     ```
 
-    ![The Startup.cs file with the "app.UseOwin(" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
+    ![The Startup.cs file with the "app.UseOwin();" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
 
 2. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
@@ -1392,7 +1389,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
 
     ![In Solution Explorer, in the right-click menu for the Controllers folder, Add is selected, and from its menu, Controller is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image177.png "Solution Explorer")
 
-2. Select **MVC 5 Controller -- Empty** and then click **Add**. Replace **DefaultController** value with **AccountController** in the **Add Controller** dialog box.
+2. Select **MVC Controller -- Empty** and then click **Add**. Replace **DefaultController** value with **AccountController** in the **Add Controller** dialog box.
 
     ![On the left of the Add Scaffold window, Installed / Controller is selected. In the center of the window, MVC 5 Controller - Empty is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image178.png "Add Scaffold window")
 
@@ -1400,6 +1397,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
 
     ```csharp
     using Microsoft.Owin.Security;
+    using Microsoft.Extensions.Configuration;
     ```
 
 4. Replace the default controller method Index... and Save.
@@ -1411,41 +1409,52 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
     ```csharp
     // Controllers\AccountController.cs
 
-    public void SignIn()
+    public static string SignUpPolicyId;
+    public static string SignInPolicyId;
+    public static string ProfilePolicyId;
+
+    public AccountController(IConfiguration configuration)
     {
-        if (!Request.IsAuthenticated)
+        SignUpPolicyId = configuration.GetValue<string>("ida:SignUpPolicyId");
+        SignInPolicyId = configuration.GetValue<string>("ida:SignInPolicyId");
+        ProfilePolicyId = configuration.GetValue<string>("ida:UserProfilePolicyId");
+    }
+
+    public async Task SignIn()
+    {
+        if (!User.Identity.IsAuthenticated)
         {
             // To execute a policy, you simply need to trigger an OWIN challenge.
             // You can indicate which policy to use by specifying the policy id as the AuthenticationType
-            HttpContext.GetOwinContext().Authentication.Challenge(
-                new AuthenticationProperties () { RedirectUri = "/" }, Startup.SignInPolicyId);
+            await HttpContext.ChallengeAsync(SignInPolicyId,
+                new AuthenticationProperties() { RedirectUri = "/" });
         }
     }
 
-    public void SignUp()
+    public async Task SignUp()
     {
-        if (!Request.IsAuthenticated)
+        if (!User.Identity.IsAuthenticated)
         {
-            HttpContext.GetOwinContext().Authentication.Challenge(
-                new AuthenticationProperties() { RedirectUri = "/" }, Startup.SignUpPolicyId);
+            await HttpContext.ChallengeAsync(SignUpPolicyId,
+                new AuthenticationProperties() { RedirectUri = "/" });
         }
     }
 
 
-    public void Profile()
+    public async Task Profile()
     {
-        if (Request.IsAuthenticated)
+        if (User.Identity.IsAuthenticated)
         {
-            HttpContext.GetOwinContext().Authentication.Challenge(
-                new AuthenticationProperties() { RedirectUri = "/" }, Startup.ProfilePolicyId);
+            await HttpContext.ChallengeAsync(ProfilePolicyId,
+                new AuthenticationProperties() { RedirectUri = "/" });
         }
     }
-    
-    public void SignOut()
+
+    public async Task SignOut()
     {
-        if (Request.IsAuthenticated)
+        if (User.Identity.IsAuthenticated)
         {
-            HttpContext.GetOwinContext().Authentication.SignOut();
+            await HttpContext.SignOutAsync();
         }
     }
 
@@ -1460,6 +1469,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
     ```csharp
     using System.Linq;
     using System.Security.Claims;
+    using Microsoft.AspNetCore.Authorization
     ```
 
 2. Still in the **Controllers\\HomeController.cs** file, add the following method to the **HomeController** class:
@@ -1474,9 +1484,9 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
     }
     ```
 
-3. You can access any claim that your application receives in the same way. A list of all the claims the app receives is available for you on the **Claims** page. In Visual Studio on the Contoso.Apps.SportsLeague.Web object, right click on **Views -\> Home,** click **Add -\> MVC 5 View Page (Razor)** and name it **Claims.**  Select **OK**.
+3. You can access any claim that your application receives in the same way. A list of all the claims the app receives is available for you on the **Claims** page. In Visual Studio on the Contoso.Apps.SportsLeague.Web object, right click on **Views -\> Home,** click **Add -\> View** and name it **Claims.**  Select **OK**.
 
-    ![In Solution Explorer, on the right-click menu for Views\\Home, Add is selected, and from its menu, MVC 5 View Page (Razor) is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image180.png "Solution Explorer")
+    ![In Solution Explorer, on the right-click menu for Views\\Home, Add is selected, and from its menu, View is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image180.png "Solution Explorer")
 
 4. Open the **Claims.cshtml** file and replace the code with the following:
 
@@ -1506,14 +1516,16 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 
     ```
 
-5. Right click on the **Views -\> Shared** folder, click **Add**, and add a new **MVC 5 Partial Page (Razor)**. Specify **\_LoginPartial** for the name.
+5. Right click on the **Views -\> Shared** folder, click **Add**, add a new **View**, and set tit o **Create as a partial view**. Specify **\_LoginPartial** for the name.
 
-    ![In Solution Explorer, on the right-click menu for Views\\Shared, Add is selected, and from its menu, MVC 5 Partial Page (Razor) is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image181.png "Solution Explorer")
+    ![In Solution Explorer, on the right-click menu for Views\\Shared, Add is selected, and from its menu, View is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image180.png  "Solution Explorer")
+
+    !["Create as a partial view" is highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image180-b.png "Add MVC View")
 
 6. Add the following code to the razor partial view to provide a sign-in and sign-out link as well as a link to edit the user's profile:
 
     ```html
-    @if (Request.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated)
     {
         <text>
             <ul class="nav navbar-nav navbar-right">
