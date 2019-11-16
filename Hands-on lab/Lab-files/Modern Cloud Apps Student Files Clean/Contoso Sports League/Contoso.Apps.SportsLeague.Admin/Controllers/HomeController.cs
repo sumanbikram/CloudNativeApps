@@ -1,6 +1,7 @@
 ﻿using Contoso.Apps.SportsLeague.Admin.Models;
 using Contoso.Apps.SportsLeague.Data.Logic;
 using Contoso.Apps.SportsLeague.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,16 +17,17 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
 
         private readonly ProductContext _db;
 
+        [Authorize(AuthenticationSchemes = "EasyAuth")]
         public ActionResult Index()
         {
             //var orderId = 2;
             //var order = new Order();
             List<Order> orders = new List<Order>();
             var orderActions = new OrderActions(_db);
-            
+
             //order = orderActions.GetOrder(orderId);
             orders = orderActions.GetCompletedOrders();
-            
+
 
             var vm = new Models.HomeModel
             {
@@ -57,9 +59,9 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
         {
             var order = new Order();
             var orderActions = new OrderActions(_db);
-            
+
             order = orderActions.GetOrder(Id);
-            
+
             var vm = new Models.DetailsModel
             {
                 DisplayName = base.DisplayName,

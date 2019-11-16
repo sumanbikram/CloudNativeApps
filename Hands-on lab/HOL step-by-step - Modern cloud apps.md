@@ -892,9 +892,9 @@ The Contoso call center admin application will only be accessible by users of th
 
     ![Screenshot of the App Services button.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image135.png "App Services button")
 
-2. On the **Web Apps** page, select the **Call Center Administration Web app**.
+2. On the **App Services** blade, select the **Call Center Administration Web app**.
 
-    ![In the App Services blade, under Name, contososportsadmin2101 is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image136.png "App Services blade")
+    ![In the App Services blade, under Name, contososportscallcentercp is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image136.png "App Services blade")
 
 3. Click the **Authentication / Authorization** tile.
 
@@ -926,7 +926,7 @@ The Contoso call center admin application will only be accessible by users of th
 
 #### Subtask 2: Verify the call center administration website uses the access control logon
 
-1. Close your browser (or use an alternative), and launch a browser is InPrivate or Incognito mode. Navigate to the **Call Center Administration** website.
+1. Close your browser (or use an alternative), and launch a browser is **InPrivate or Incognito mode**. Navigate to the **Call Center Administration** website.
 
 2. The browser will redirect to the non-branded Access Control logon URL. You can log on with your Microsoft account or the **Contoso test user** you created earlier.
 
