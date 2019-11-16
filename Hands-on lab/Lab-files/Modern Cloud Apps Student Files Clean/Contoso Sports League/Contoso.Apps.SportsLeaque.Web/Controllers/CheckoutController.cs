@@ -248,7 +248,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
                     
 
                     // Clear order id.
-                    HttpContext.Session.Set("currentOrderId", null);
+                    HttpContext.Session.Remove("currentOrderId");
                 }
                 else
                 {
