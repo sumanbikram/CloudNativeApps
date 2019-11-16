@@ -986,9 +986,7 @@ The Contoso call center admin application will only be accessible by users of th
 
     ![Screenshot of the Logged in message.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image146.png "Logged in message")
 
-    >**Note:** If you run the app using localhost, ensure connection strings for all of the web.config files in the solution have the placeholders removed with actual values. Search on web.config in the Visual Studio Solution Explorer to come up with the list.
-
-    ![In Solution Explorer, the following path is expanded: API\\Contoso.Apps.PaymentGateway\\Areas\\HelpPage\\Views. In the Views folder, Web.config is selected. In addition, the Web.config file is highlighted in several other folders.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image154.png "Solution Explorer")
+    >**Note:** If you run the app using localhost, ensure connection strings within all the appsettings.json files in the solution have the placeholders removed with actual values. Search on appsettings.json in the Visual Studio Solution Explorer to come up with the list.
 
 ## Exercise 3: Enable Azure B2C for customer site
 
@@ -1135,7 +1133,7 @@ To enable ``sign-in`` on your application, you will need to create a ``sign-in``
 
 4. Click **Sign in**.
 5. Enter **Name** value **SignIn**.
-6. Select the Local Account Sign-in checkbox.
+6. Select the **Local Account Sign-in** checkbox.
 
     ![Azure AD B2C Create SignIn options](media/2019-03-28-13-29-47.png "Create SignIn options")
 
@@ -1172,15 +1170,17 @@ To enable profile editing on your application, you will need to create a profile
 
     ![The Create a user flow pane is displayed.  The ALL tab is selected. All user flows are displayed. The Profile editing has an arrow pointing at it.](media/2019-03-28-16-19-55.png "Select Profile Editing")
 
-4. The Name determines the profile editing policy name used by your application. For example, enter **EditProfile**.
+3. Select **Profile editing**.
 
-5. Click Identity providers, and select \"**Local Account SignIn**."
+5. The Name determines the profile editing policy name used by your application. For example, enter **EditProfile**.
 
     ![In the Add policy blade, Identity providers (1 Selected) is selected. Identities providers - select Local Account SignIn.](media/2019-03-28-16-24-26.png "select Local Account SignIn")
 
-6. Click the Show more... link
+6. Click Identity providers, and select \"**Local Account SignIn**."
 
-7. Click **Collect attributes**. Here, you choose attributes the consumer can view and edit. For now, select:
+7. Click the Show more... link
+
+8. Click **Collect attributes**. Here, you choose attributes the consumer can view and edit. For now, select:
 
     - **Country/Region**
     - **Display Name**
@@ -1189,7 +1189,7 @@ To enable profile editing on your application, you will need to create a profile
     - **State/Province**
     - **Street Address**
 
-8. Click **Return claims**. Here, you choose claims you want returned in the tokens sent back to your application after a successful profile editing experience. For now, select:
+9. Click **Return claims**. Here, you choose claims you want returned in the tokens sent back to your application after a successful profile editing experience. For now, select:
 
     - **Display Name**
     - **Postal Code**
@@ -1198,19 +1198,26 @@ To enable profile editing on your application, you will need to create a profile
 
     Click **OK**.
 
-9. Click **Create**. Observe the policy just created appears as \"**B2C\_1\_EditProfile**\" (the **B2C\_1\_** fragment is automatically added) in the **Profile editing policies** blade.
+10. Click **Create**. Observe the policy just created appears as \"**B2C\_1\_EditProfile**\" (the **B2C\_1\_** fragment is automatically added) in the **Profile editing policies** blade.
 
-10. Open the policy by clicking **B2C\_1\_EditProfile**, then click **Run user flow**.
+11. Open the policy by clicking **B2C\_1\_EditProfile**, then click **Run user flow**.
 
-11. Select **Contoso B2C application** in the **Select Application** drop-down.
+12. Select **Contoso B2C application** in the **Select Application** drop-down.
 
-12. Click **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
+13. Click **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
 
 ### Task 6: Modify the Contoso.App.SportsLeague.Web
 
-1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Web.config** file and update the AppSetting key, ```<add key="owin:AutomaticAppStartup" value="false"/>``` to **true** or delete the key. This step is necessary because the Owin libraries, already installed, will try to look for dependent files like **Startup.cs** which you are about to create. There would have been several errors in the beginning of the lab without this key.
+1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Startup.cs** code file, locate the `public void Configure(` method declaration, then add the following line of code to this method:
 
-    ![The Web.config file is highlighted within the Visual Studio solution explorer. appSettings node is displayed. Owin AutomaticStartup key is highlighted.](media/2019-04-19-15-08-40.png "Owin AutomaticStartup to be deleted")
+    ```csharp
+    app.UseOwin(pipeline =>
+    {
+        pipeline(next => OwinHello);
+    });
+    ```
+
+    ![The Startup.cs file with the "app.UseOwin(" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
 
 2. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
