@@ -162,7 +162,7 @@ public class NVPAPICaller
         objRequest.Timeout = Timeout;
         objRequest.Method = "POST";
         objRequest.ContentLength = strPost.Length;
-        objRequest.ContentType = "text/plain";
+        objRequest.ContentType =  "text/plain";
 
         try
         {

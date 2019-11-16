@@ -1,3 +1,4 @@
+using Contoso.Apps.PaymentGateway.Formatters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,8 @@ namespace Contoso.Apps.PaymentGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddMvc(options => options.InputFormatters.Insert(0, new TextPlainFormatter()));
 
             services.AddCors(options =>
             {

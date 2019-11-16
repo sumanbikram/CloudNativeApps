@@ -218,7 +218,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
                     int currentOrderId = -1;
                     if (HttpContext.Session.GetInt32("currentOrderId") != null && HttpContext.Session.GetInt32("currentOrderId")?.ToString() != string.Empty)
                     {
-                        currentOrderId = Convert.ToInt32(HttpContext.Session.GetInt32("currentOrderID"));
+                        currentOrderId = Convert.ToInt32(HttpContext.Session.GetInt32("currentOrderId"));
                     }
                     Order myCurrentOrder;
                     if (currentOrderId >= 0)
@@ -235,7 +235,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
 
                         // Report successful event to Application Insights.
                         var eventProperties = new Dictionary<string, string>();
-                        eventProperties.Add("CustomerEmail", order.Email);
+                        eventProperties.Add("CustomerEmail", myCurrentOrder.Email);
                         eventProperties.Add("OrderTotal", finalPaymentAmount);
                         eventProperties.Add("PaymentTransactionId", PaymentConfirmation);
                         TelemetryHelper.TrackEvent("OrderCompleted", eventProperties);

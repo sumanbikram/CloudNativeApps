@@ -1,50 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
+using System;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Contoso.Apps.PaymentGateway.Formatters
 {
-    public class TextPlainFormatter : MediaTypeFormatter
+    public class TextPlainFormatter : InputFormatter
     {
         public TextPlainFormatter()
         {
             this.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
         }
 
-        public override bool CanWriteType(Type type)
+        public override Boolean CanRead(InputFormatterContext context)
         {
-            return type == typeof(string);
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
+            var contentType = context.HttpContext.Request.ContentType;
+            if (string.IsNullOrEmpty(contentType) || contentType == "text/plain")
+                return true;
+
+            return false;
         }
 
-        public override bool CanReadType(Type type)
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
-            return type == typeof(string);
-        }
+            var request = context.HttpContext.Request;
+            var contentType = context.HttpContext.Request.ContentType;
 
-        public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, System.Net.Http.HttpContent content, TransportContext transportContext)
-        {
-            return Task.Factory.StartNew(() =>
+
+            if (string.IsNullOrEmpty(contentType) || contentType == "text/plain")
             {
-                StreamWriter writer = new StreamWriter(writeStream);
-                writer.Write(value);
-                writer.Flush();
-            });
-        }
+                using (var reader = new StreamReader(request.Body))
+                {
+                    var content = await reader.ReadToEndAsync();
+                    return await InputFormatterResult.SuccessAsync(content);
+                }
+            }
 
-        public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, System.Net.Http.HttpContent content, IFormatterLogger formatterLogger)
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                StreamReader reader = new StreamReader(readStream);
-                return (object)reader.ReadToEnd();
-            });
+            return await InputFormatterResult.FailureAsync();
         }
-
     }
 }
