@@ -45,7 +45,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <img src="@Url.Content("~/Images/Products/")@item.ProductThumbnailPath" alt="@item.ProductProductName" class="center-block">
+                                        <img src="@Url.Content("~/images/Products/")@item.ProductThumbnailPath" alt="@item.ProductProductName" class="center-block">
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Details", "Store", new { id = item.ProductId })">@Html.DisplayFor(modelItem => item.ProductProductName)</a>

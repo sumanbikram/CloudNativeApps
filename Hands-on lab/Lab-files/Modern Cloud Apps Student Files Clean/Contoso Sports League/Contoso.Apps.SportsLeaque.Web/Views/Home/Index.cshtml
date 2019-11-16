@@ -34,18 +34,18 @@
                                 <div class="figure">
                                     <div class="item">
                                         <div class="item-img">
-                                            <img data-bind="attr: {'src':  '/Images/Products/' + ImagePath, 'alt': 'Add ' + ProductName + ' to cart'}" class="center-block">
+                                            <img data-bind="attr: {'src':  '/Images/Products/' + imagePath, 'alt': 'Add ' + productName + ' to cart'}" class="center-block">
                                             <div class="item-cart">
-                                                <a data-bind="attr: {'href':  '/Cart/AddToCart?productId=' + ProductID}">Add to cart</a>
+                                                <a data-bind="attr: {'href':  '/Cart/AddToCart?productId=' + productID}">Add to cart</a>
                                             </div>
                                         </div>
                                         <div class="item-content">
                                             <div class="item-header clearfix">
-                                                <span class="headline-lato" data-bind="text: ProductName"></span>
-                                                <span class="" data-bind="money: UnitPrice"></span>
+                                                <span class="headline-lato" data-bind="text: productName"></span>
+                                                <span class="" data-bind="money: unitPrice"></span>
                                             </div>
                                             <p>
-                                                <a data-bind="attr: {'href':  '/Store/Details/' + ProductID}" class="btn trans-btn">Product Details</a>
+                                                <a data-bind="attr: {'href':  '/Store/Details/' + productID}" class="btn trans-btn">Product Details</a>
                                             </p>
                                         </div>
                                     </div>

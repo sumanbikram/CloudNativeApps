@@ -543,13 +543,11 @@ In this exercise, you will provision a website via the Azure Web App template us
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management portal <http://portal.azure.com>.
 
-2. Select **+Create a new resource** **\>** **Web** **\>** **Web App**.
+2. Select **+Create a resource** then select **Web**, then **Web App**.
 
-   ![In the left menu of the Azure Portal, the New button is selected. In middle section, under Marketplace, Web + mobile is selected. In the right, Web + mobile section, under Featured apps, Web App is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image78.png "Azure Portal")
+3. Specify a **unique URL** for the Web App, and ensure the **same App Service Plan** and **resource group** you have used throughout the lab are selected. Also, specify **.NET Core 3.0** as the **Runtime stack**.
 
-3. Specify a **unique URL** for the Web App, and ensure the **same App Service Plan** and **resource group** you have used throughout the lab are selected.
-
-    ![On the Web App blade, the App name field is set to contososportsadmin2101](media/2019-03-28-05-29-59.png "Web App blade")
+    ![On the Web App blade, the App name field is set to contososportscallcentercp](media/2019-03-28-05-29-59.png "Web App blade")
 
 4. Click on **Windows Plan**, and select the **ContosoSportsPlan** used by the front-end Web app.
 
@@ -595,7 +593,7 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     ![In Solution Explorer, the right-click menu for Contoso.Apps.SportsLeague.Admin displays, and Publish is selected.](media/2019-04-19-14-30-03.png "Right-Click menu")
 
-3. Choose **App Service** as the publish target, choose **Select Existing**, then click **Publish**
+3. Choose **App Service** as the publish target, choose **Select Existing**, then click **Create Profile**
 
     ![On the Publish tab, Microsoft Azure App Service is selected. Below that, the radio button is selected for Select Existing.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image87.png "Publish tab")
 
@@ -603,7 +601,9 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     ![In the App Service section, in the tree view at the bottom, the contososports folder is expanded, and the Call Center Web App is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image88.png "App Service section")
 
-5. Click **OK** to deploy the site.
+5. Click **OK**.
+
+6. Click **Publish**.
 
     ![Display the Visual Studio Contoso.Apps.SportsLeague.Admin publish success message in the output.](media/2019-03-28-05-45-28.png "Publish Succeeded")
 
@@ -643,7 +643,7 @@ In this exercise, the attendee will provision an Azure API app template using th
 
     ![In Solution Explorer, Contoso.Apps.PaymentGateway is selected, and in its right-click menu, Publish is selected.](media/2019-04-19-14-52-22.png "Solution Explorer")
 
-3. On the **Publish Web** dialog box, select **Azure App Service**, then choose **Select Existing**, and **Publish**.
+3. On the **Publish Web** dialog box, select **Azure App Service**, then choose **Select Existing**, and **Create Profile**.
 
     > **Note**: If your Azure resource group does not show, choose **New Profile**.
 
@@ -651,15 +651,17 @@ In this exercise, the attendee will provision an Azure API app template using th
 
     ![In the App Service section, the contososports folder is expanded, and PaymentsAPIO is selected. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image98.png "App Service section")
 
-5. In the Visual Studio **Output** view, you will see a status indicating the Web App was published successfully.
+5. Click **Publish**.
+
+6. In the Visual Studio **Output** view, you will see a status indicating the Web App was published successfully.
 
     ![The Visual Studio output shows that the web app was published successfully. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image99.png "Visual Studio output")
 
-6. Copy and paste the gateway **URL** of the deployed **API App** into Notepad for later use.
+7. Copy and paste the gateway **URL** of the deployed **API App** into Notepad for later use.
 
-7. Viewing the Web App in a browser will display the following web page:
+8. Viewing the Web App in a browser will display the Swagger UI for the API.
 
-   ![Your App Service app is up and running web page displayed](media/2019-04-11-04-58-04.png "App is up and running")
+   ![Payment Gateway is up and running and the Swagger UI is displayed](media/2019-04-11-04-58-04.png "Swagger UI")
 
 ### Task 5: Deploying the Offers Web API
 
@@ -669,7 +671,7 @@ In this exercise, the attendee will provision an Azure API app template using th
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management Portal (<http://portal.azure.com>).
 
-2. In the navigation menu to the left, select **+Create a resource** -\> **Web** -\> **API App**.
+2. Click **+Create a resource**, type **API App** into the marketplace search box, and press **Enter**.  Click the **Create** button.
 
 3. On the new **API App** blade, specify a unique name for the **API App**, and ensure the previously used Resource Group and App Service Plan are selected.
 
@@ -677,8 +679,7 @@ In this exercise, the attendee will provision an Azure API app template using th
 
 4. After the values are accepted, click the **Create** button.
 
-5. When the Web App template has completed provisioning, open the new API App by, in the navigation menu to the left,
-click **App Services** and then clicking the Offer API app you just created.
+5. When the Web App template has completed provisioning, open the new API App by, in the navigation menu to the left, click **App Services** and then clicking the Offer API app you just created.
 
    ![In the Azure Portal, on the left More services is selected, and on the right under Web + Mobile, App Services displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image101.png "Azure Portal, More Services")
 
@@ -690,7 +691,7 @@ click **App Services** and then clicking the Offer API app you just created.
 
 2. In the **Allowed Origins** text box, specify `*` to allow all origins, and click **Save**.
 
-    >**Note**: You should not normally do this in a production environment.
+    >**Note**: You should not normally do this in a production environment. In production, you should enter the specific domains as allowed origins you need to allow CORS access to the API. The wildcard (*) is used for this lab to make it easier just for this lab.
 
     ![CORS configuration blade displayed.  Entering * as the Allowed Origins value.](media/2019-03-28-08-20-57.png "CORS configuration blade")
 
@@ -728,21 +729,23 @@ click **App Services** and then clicking the Offer API app you just created.
 
     ![In Solution Explorer, from the Contoso.Apps.SportsLeague.Admin right-click menu, Publish is selected.](media/2019-04-19-15-03-45.png "Solution Explorer")
 
-3. On the **Publish Web** dialog box, click **Azure App Service**, choose **Select Existing**, and select **Publish**.
+3. On the **Publish Web** dialog box, click **Azure App Service**, choose **Select Existing**, and select **Create Profile**.
 
     ![On the Publish tab, the Microsoft Azure App Service tile is selected, and under it, the radio button for Select Existing is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image109.png "Publish tab")
 
-4. Select the Offers API app created earlier, and click **OK** **\>** **Publish**.
+4. Select the Offers API app created earlier, and click **OK**.
 
     ![In the App Service section, the contososports folder is expanded, and OffersAPI4 is selected. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image110.png "App Service section")
 
-5. In the Visual Studio **Output** view, you will see a status the API app was published successfully.
+5. Click **Publish**.
 
-6. Record the value of the deployed API app URL into Notepad for later use.
+6. In the Visual Studio **Output** view, you will see a status the API app was published successfully.
 
-7. Your browser should open and display the following web page:
+7. Record the value of the deployed API app URL into Notepad for later use.
 
-   ![Your App Service app is up and running web page displayed](media/2019-04-11-05-20-40.png "App is up and running")
+8. Viewing the Web App in a browser will display the Swagger UI for the API.
+
+    ![Payment Gateway is up and running and the Swagger UI is displayed](media/2019-04-11-05-20-40.png "Swagger UI")
 
 ### Task 6: Update and deploy the e-commerce website
 
@@ -750,13 +753,11 @@ click **App Services** and then clicking the Offer API app you just created.
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management Portal <http://portal.azure.com>.
 
-2. Click on **Resource groups** **\>** **contososports** resource group.
-
-    ![In the Azure Portal left menu, Resource groups is selected. On the right, under Resource groups, under Name, contososports is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image112.png "Azure Portal")
+2. Click on **Resource groups** then the **contososports** resource group.
 
 3. Click on the **App Service Web App** for the front-end web application.
 
-    ![In the Resource Group blade on the right, under Name, contososportsweb2101 is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image113.png "Resource Group blade")
+    ![In the Resource Group blade on the right, under Name, contosoapp is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image113.png "Resource Group blade")
 
 4. On the **App Service** blade, scroll down, and click on **Configuration** in the left pane.
 

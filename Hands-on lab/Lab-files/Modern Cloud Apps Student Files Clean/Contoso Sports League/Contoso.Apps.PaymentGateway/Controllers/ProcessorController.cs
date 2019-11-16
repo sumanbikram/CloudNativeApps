@@ -15,7 +15,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
 
         [Route("api/nvp")]
         [HttpPost]
-        public HttpResponseMessage PerformAction([FromBody] string data)
+        public HttpResponseMessage PerformAction([FromForm] string data)
         {
             string response = string.Empty;
             HttpResponseMessage resp = new HttpResponseMessage();

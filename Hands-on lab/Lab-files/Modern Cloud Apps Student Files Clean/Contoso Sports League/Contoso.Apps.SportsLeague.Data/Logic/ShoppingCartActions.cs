@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contoso.Apps.SportsLeague.Data.Logic
 {
@@ -54,8 +55,9 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
         {
             //ShoppingCartId = GetCartId();
 
-            return _db.ShoppingCartItems.Where(
-                c => c.CartId == ShoppingCartId).ToList();
+            return (from c in _db.ShoppingCartItems.Include("Product")
+                   where c.CartId == ShoppingCartId
+                   select c).ToList();
         }
 
         public decimal GetTotal()
