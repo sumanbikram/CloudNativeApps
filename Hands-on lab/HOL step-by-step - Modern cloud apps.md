@@ -1603,31 +1603,12 @@ To configure the application for logging and diagnostics, you have been asked to
 
 2. Navigate to the **Contoso.Apps.SportsLeague.Web** project located in the **Web** folder using the **Solution Explorer** in Visual Studio.
 
-3. Right-click the **Contoso.Apps.SportsLeague.Web** project, and select **Add \| Application Insights Telemetry..**.
+3. Expand the **Contoso.Apps.SportsLeague.Web** project, then right-click on the **Dependencies** node, and select **Manage Nuget Packages...**.
 
-    ![In Solution Explorer, on the Web folder\'s right-click menu, Add is selected, and from its menu, Application Insight Telemetry is selected.](media/2019-04-19-15-35-52.png "Solution Explorer")
+4. Within the **Nuget Package Manager**, select the **Browse** tab, then search for and install the following Nuget package:
 
-4. Expand the **Sending telemetry to** section.
-
-    ![On the Application Insights tab, under Resource Settings, the expand arrow is circled for the Sending telemetry to section.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image189.png "Application Insights tab")
-
-5. Click on the **Configure settings...** link.
-
-    ![In the Sending telemetry to section, the link to Configure settings is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image190.png "Sending telemetry to section")
-
-6. In the **Application Insights Configuration** dialog box, change the **Resource Group** to the **contososports** resource group used to host the Web App, and choose the New Application Insights Resource. Next, click **OK**, followed by **Update resource**.
-
-    ![In the Application Insights Configuration dialog box, the Resource Group contososports is selected. In the Application Insights Resource drop-down list box, Contoso.Apps.SportsLeague.Web is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image191.png "Application Insights Configuration dialog box")
-
-7. Press **Finish** on the Application Insights window.
-
-    >**Note**: You may also have to configure Trace Collection depending on your ID and subscription.
-
-    ![The Finish button is circled in the Application Insights window.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image192.png "Application Insights window")
-
-8. Once it completes, it displays the following Output and opens a new browser window:
-
-    ![Screenshot of Output.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image193.png "Output")
+    - **Microsoft.ApplicationInsights**
+    - **Microsoft.ApplicationInsights.Web**
 
 9. Open the file `\Helpers\TelemetryHelper.cs` located in the **Contoso.Apps.SportsLeague.Web** project.
 
@@ -1655,13 +1636,9 @@ To configure the application for logging and diagnostics, you have been asked to
 
 #### Subtask 2: Enable client side telemetry
 
-1. Open the Azure Management Portal (<http://portal.azure.com>). In the navigation menu to the left, click **All Services**. Filter by **Application Insights** and then select the appropriate result.
+1. Open the Azure Management Portal (<http://portal.azure.com>), and navigate to the **contososports** Resource Group.
 
-    ![On the left of the Azure Portal, All services is selected. On the right, Application Insights is in the search box and the result is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image194.png "Azure Portal")
-
-2. Click the Application Insights instance associated with the Contoso E-Commerce Site.
-
-    ![Under Name, Contoso.Apps.SportsLeague.Web displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image195.png "Name section")
+2. Select the **Application Insights** instance with the name that starts with **contososportsai** that is associated with the Contoso E-Commerce Site.
 
 3. Capture the **Instrumentation Key**
        - Click on the **Overview** menu item.
@@ -1673,11 +1650,11 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![From the Configure menu, Getting started is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image196.png "Configure menu")
 
-5. In the portal, navigate to **How-to Guides** -> **Monitor resources** -> **Applications** -> **Code-based monitoring** -> **Web pages** -> **Client-side JavaScript**, then navigate to the **Adding the Javascript SDK** section of the documentation page.
+5. In the portal, navigate to **How-to Guides** -> **Application Insights** -> **Code-based monitoring** -> **Web pages** -> **Client-side JavaScript**, then navigate to the **Snippet based setup** section under **Adding the Javascript SDK** within the documentation page.
 
     ![Screenshot of the MONITOR AND DIAGNOSE CLIENT SIDE APPLICATION arrow.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image197.png "MONITOR AND DIAGNOSE CLIENT SIDE APPLICATION ")
 
-    > **Note**: You can find the documentation page at the following URL: <https://docs.microsoft.com/en-us/azure/azure-monitor/app/javascript#snippet-based-setup>
+    > **Note**: You can find the documentation page at the following URL: <https://docs.microsoft.com/azure/azure-monitor/app/javascript#snippet-based-setup>
 
 6. Select and copy the full contents of the JavaScript under the **Snippet based setup** heading.
 
@@ -1685,15 +1662,15 @@ To configure the application for logging and diagnostics, you have been asked to
 
     Here's the Javascript code to copy/paste for quick reference:
 
-```javascript
-    <script type="text/javascript">
-    var sdkInstance="appInsightsSDK";window[sdkInstance]="appInsights";var aiName=window[sdkInstance],aisdk=window[aiName]||function(e){function n(e){t[e]=function(){var n=arguments;t.queue.push(function(){t[e].apply(t,n)})}}var t={config:e};t.initialize=!0;var i=document,a=window;setTimeout(function(){var n=i.createElement("script");n.src=e.url||"https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js",i.getElementsByTagName("script")[0].parentNode.appendChild(n)});try{t.cookie=i.cookie}catch(e){}t.queue=[],t.version=2;for(var r=["Event","PageView","Exception","Trace","DependencyData","Metric","PageViewPerformance"];r.length;)n("track"+r.pop());n("startTrackPage"),n("stopTrackPage");var s="Track"+r[0];if(n("start"+s),n("stop"+s),n("setAuthenticatedUserContext"),n("clearAuthenticatedUserContext"),n("flush"),!(!0===e.disableExceptionTracking||e.extensionConfig&&e.extensionConfig.ApplicationInsightsAnalytics&&!0===e.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)){n("_"+(r="onerror"));var o=a[r];a[r]=function(e,n,i,a,s){var c=o&&o(e,n,i,a,s);return!0!==c&&t["_"+r]({message:e,url:n,lineNumber:i,columnNumber:a,error:s}),c},e.autoExceptionInstrumented=!0}return t}(
-    {
-        instrumentationKey:"INSTRUMENTATION_KEY"
-    }
-    );window[aiName]=aisdk,aisdk.queue&&0===aisdk.queue.length&&aisdk.trackPageView({});
-    </script>
-```
+    ```javascript
+        <script type="text/javascript">
+        var sdkInstance="appInsightsSDK";window[sdkInstance]="appInsights";var aiName=window[sdkInstance],aisdk=window[aiName]||function(e){function n(e){t[e]=function(){var n=arguments;t.queue.push(function(){t[e].apply(t,n)})}}var t={config:e};t.initialize=!0;var i=document,a=window;setTimeout(function(){var n=i.createElement("script");n.src=e.url||"https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js",i.getElementsByTagName("script")[0].parentNode.appendChild(n)});try{t.cookie=i.cookie}catch(e){}t.queue=[],t.version=2;for(var r=["Event","PageView","Exception","Trace","DependencyData","Metric","PageViewPerformance"];r.length;)n("track"+r.pop());n("startTrackPage"),n("stopTrackPage");var s="Track"+r[0];if(n("start"+s),n("stop"+s),n("addTelemetryInitializer"),n("setAuthenticatedUserContext"),n("clearAuthenticatedUserContext"),n("flush"),t.SeverityLevel={Verbose:0,Information:1,Warning:2,Error:3,Critical:4},!(!0===e.disableExceptionTracking||e.extensionConfig&&e.extensionConfig.ApplicationInsightsAnalytics&&!0===e.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)){n("_"+(r="onerror"));var o=a[r];a[r]=function(e,n,i,a,s){var c=o&&o(e,n,i,a,s);return!0!==c&&t["_"+r]({message:e,url:n,lineNumber:i,columnNumber:a,error:s}),c},e.autoExceptionInstrumented=!0}return t}(
+        {
+          instrumentationKey:"INSTRUMENTATION_KEY"
+        }
+        );window[aiName]=aisdk,aisdk.queue&&0===aisdk.queue.length&&aisdk.trackPageView({});
+        </script>
+    ```
 
 7. Navigate to the **Contoso.Apps.SportsLeague.Web** project located in the **Web** folder using the **Solution Explorer** in Visual Studio.
 
@@ -1721,19 +1698,13 @@ To configure the application for logging and diagnostics, you have been asked to
 
 4. Click a few links on the published E-Commerce website, and submit several orders to generate some sample telemetry.
 
-    ![Telemetry - Live data from your app dialog is displayed showing request and failure results.](media/2019-03-28-19-38-31.png "Telemetry - Live data from your app")
-
 ### Task 2: Creating the web performance test and load test
 
 #### Subtask 1: Create the load test
 
-1. Open the Azure Management Portal (<http://portal.azure.com>). In the navigation menu to the left, click **All Services**. Filter by **Application Insights** and then select the appropriate result.
+1. Open the Azure Management Portal (<http://portal.azure.com>), and navigate to the **contososports** Resource Group.
 
-    ![On the left of the Azure Portal, All services is selected. On the right, Application Insights is in the search box and the result is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image194.png "Azure Portal")
-
-2. Click the Application Insights instance associated with the Contoso E-Commerce Site.
-
-    ![In the Name section, Contoso.Apps.SportsLeague.Web is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image204.png "Name section")
+2. Select the **Application Insights** instance with the name that starts with **contososportsai** that is associated with the Contoso E-Commerce Site.
 
 3. Click **Performance Testing**.
 
@@ -1811,11 +1782,11 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![Contoso.Apps.SportsLeague.Web Performance - Endpoint performance metrics are displayed for various types of HTTP requests.](media/2019-03-29-11-20-06.png "Endpoint performance")
 
-7. Under **Usage** menu area. click the **Events** menu option. Click the **View More Insights** button.
+7. Under **Usage** link area. click the **Events** menu option. Click the **View More Insights** button.
 
     ![A screenshot using the Events button under the Usage Preview section.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image218.png "The Usage Preview section")
 
-8. View Event metrics.  Scroll down to see event list.
+8. Click **View More Metrics**, then scroll down to see event list.
 
     ![In the Custom events section, event metrics are displayed for users and sessions. Different web pages are listed. e.g. OrderCompleted and SuccessfulPaymentAuth.](media/2019-03-29-11-35-33.png "Event Statistics")
 
@@ -1839,62 +1810,64 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
     - [**Resource Group**](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview): Use the existing resource group, **contososports**.
 
-    - **OS**: Windows
-
-    - [**Hosting plan**](https://docs.microsoft.com/en-us/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview): App Service Plan
-
-    - **App Service plan**: Select the **existing App Service Plan** you have been using so far in this lab. An App Service plan requires you to create an App Service plan/location or select an existing one. These settings determine the [location, features, cost, and compute resources](https://azure.microsoft.com/pricing/details/app-service/) associated with your app.
-
     - **Runtime Stack**: .NET Core
 
-    - **Storage account**: Each function app requires a storage account. Choose the existing storage account by clicking **Select Existing** and choosing the storage account in the **contososports** resource group.
+    - **Region**: Choose the same region used for the e-commerce web apps in this lab.
 
-    - **Application Insights**: Disabled
+3. Select **Next: Hosting >**
 
-    ![Under Function App, the App name field is set to ContosoFunctionApp, and at the bottom the Create button is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image222.png "Function App section")
+4. On the **Hosting** tab, select the following values, then select **Review + create**:
 
-3. Navigate to the Storage Account in the **contososports** resource group, go to **Access Keys** and copy the **Connection String** for the Storage Account. Paste your storage account connection string into Notepad to save for later.
+    - **Operating System**: Windows
+
+    - **Plan type**: App service plan
+
+    - **Windows Plan**: Choose the App Service Plan used for the e-commerce web app.
+
+5. Navigate to the Storage Account in the **contososports** resource group, go to **Access Keys** and copy the **Connection String** for the Storage Account. Paste your storage account connection string into Notepad to save for later.
 
     ![Display storage account list.  Pointing to Access keys.](media/2019-04-15-15-07-15.png "Storage Account Access keys")
 
-4. Navigate to the **Function App** that was just created, and click on **Configuration**.
+6. Navigate to the **Function App** that was just created, and click on **Configuration**.
 
     ![Display Contoso Function App, with the Configuration link highlighted.](media/2019-04-15-15-15-22.png "Contoso Function App Application Settings")
 
-5. Add a new Application Setting with the following values, then click **Save**:
+7. Add a new Application Setting with the following values, then click **Save**:
 
     - **Name**: `contososportsstorage`
     - **Value**: Enter the Connection String for your storage account.
 
     ![Updated Function App Application settings. Showing final values.](media/2019-04-15-16-18-36.png "Updated Function App Application settings.")
 
-6. To publish the Function App, open the Visual Studio solution, Right-click on the **ContosoFunctionApp** project, then select **Publish**.
+8. To publish the Function App, open the Visual Studio solution, Right-click on the **ContosoFunctionApp** project, then select **Publish**.
 
     ![Visual Studio Solution Explorer is open. Menu is displayed for Contoso Function App. Selecting function app publish.](media/2019-04-15-15-31-03.png "Selecting function app publish")
 
-7. On the **Pick a publish target** dialog, Select **Select existing**, then click **Publish**.
+9. On the **Pick a publish target** dialog, Select **Select existing**, then click **Create Profile**.
 
-8. Select the **Function App**, then click **OK**.
+10. Select the **Function App**, then click **OK**.
 
     ![Azure function app tree displayed. The Contoso Function App is selected.](media/2019-04-15-15-34-54.png "Azure function app tree displayed")
 
-9. The publish should only take minute or so. You can check the **Output** window for any errors that may occur.
+11. Click **Publish**.
+
+    The publish should only take minute or so. You can check the **Output** window for any errors that may occur.
 
     ![The build Output window is displayed. Publish succeeded message is shown.](media/2019-04-15-15-33-20.png "Output window.")
 
-10. To test your newly published Function App, start by navigating back to your Contoso Function App in the Azure Portal. Select the newly created **ContosoMakePDF** function listed in the functions.
+12. To test your newly published Function App, start by navigating back to your Contoso Function App in the Azure Portal. Select the newly created **ContosoMakePDF** function listed in the functions.
 
-11. Click on the **Test** link located on the right-hand blade.
+13. Click on the **Test** link located on the right-hand blade.
 
   ![Function apps are listed on the left hand side. ContosoMakePDF is selected.  There is an arrow pointing to the Test link on the right pane.](media/2019-04-15-15-40-27.png "Function Test link")
 
-12. Select **POST** for the HTTP method.
+14. Select **POST** for the HTTP method.
 
-13. Open the **sample.dat** file found in your lab files Contoso.CreatePDFReport directory.  Copy the contents into the **Request body** text box.
+15. Open the **sample.dat** file found in your lab files Contoso.CreatePDFReport directory.  Copy the contents into the **Request body** text box.
 
   ![A small screenshot of Windows Explorer is shown emphasizing the file path to the sample.dat file.](media/2019-04-15-15-47-39.png "Sample.dat File")
 
-14. Select the **Run** button located at the bottom of the blade.
+16. Select the **Run** button located at the bottom of the blade.
 
     ![The screenshot displays the Test blade with sample.dat contents. The Request body field shows the Order JSON. There is an arrow pointing to Run button.](media/2019-04-15-15-52-59.png "Display Test blade with sample.dat contents")
 
@@ -1904,18 +1877,18 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
     ![There is a screenshot displaying the Function App test result log.  A status code of 200 OK is displayed on the right side pane.](media/2019-04-15-15-58-54.png "Function App test result log.")
 
-15. Check your receipt PDF in the storage account blob.
+16. Check your receipt PDF in the storage account blob.
 
     - Navigate to the ContosoSports storage account.
     - Select the **Blobs** link.
 
     ![The Settings options are displayed. There is an arrow pointing to the Blobs link.](media/2019-04-15-16-06-17.png "Blobs link")
 
-16. Choose the newly created **receipts** blob container.
+17. Choose the newly created **receipts** blob container.
 
     ![The storage account blobs are listed. Receipts blob container is highlighted.](media/2019-04-15-16-08-35.png "Click the Blobs link")
 
-17. Open **ContosoSportsLeague-Store-Receipt-XX.pdf** link.
+18. Open **ContosoSportsLeague-Store-Receipt-XX.pdf** link.
 
     ![There is a screenshot displaying a list of the newly created PDF receipts. An arrow pointing to the Download link is located on the right side of the screen.](media/2019-04-15-16-11-24.png "PDF Receipts")
 
