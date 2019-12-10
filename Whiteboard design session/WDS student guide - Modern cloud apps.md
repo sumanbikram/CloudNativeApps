@@ -58,11 +58,11 @@ Timeframe: 15 minutes
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1.  Meet your table participants and trainer.
+1. Meet your table participants and trainer.
 
-2.  Read all of the directions for steps 1-3 in the student guide.
+2. Read all the directions for steps 1-3 in the student guide.
 
-3.  As a table team, review the following customer case study.
+3. As a table team, review the following customer case study.
 
 ### Customer situation
 
@@ -74,7 +74,7 @@ In addition to the public facing e-commerce website, they have a backend website
 
 CSLA manages the order fulfillment process. When an order arrives, they store the order details in their SQL database, and send a message for each order to their inventory management system running the warehouse. CSLA experiences a roughly 12-hour window that spans east to west coast business hours, during which they get most of their orders. The warehouse receives the message (which simply contains the order ID from the database), pulls up the order details identified in the message (by a lookup against the database), and then for each item in the order queues up a separate process to locate the item in inventory or place an order for it with their supplier. Once this initial status for each item in the order is collected, the inventory status is updated in the database and a confirmation email is sent to the customer indicating the estimated delivery date of their completed order (and if any items are in backorder). This inventory lookup rarely takes more than a few hours and never more than a day.
 
-They have reached a point where managing their server infrastructure is becoming a real challenge.  Contoso wants to understand more about platform as a service (PaaS) solutions. They wonder if PaaS could help them focus their efforts more on the core business value rather than infrastructure. They have observed that Azure has received PCI compliance certification and are interested in moving their solution to Azure. "We're finding that with every upgrade, we're spending more and more engineering time on infrastructure and less on the experience that matters most to our fan base," says Miles Strom, Chief Executive Officer (CEO) of Contoso Sports League Association, "we need to rebalance those efforts."
+They have reached a point where managing their server infrastructure is becoming a real challenge. Contoso wants to understand more about platform as a service (PaaS) solutions. They wonder if PaaS could help them focus their efforts more on the core business value rather than infrastructure. They have observed that Azure has received PCI compliance certification and are interested in moving their solution to Azure. "We're finding that with every upgrade, we're spending more and more engineering time on infrastructure and less on the experience that matters most to our fan base," says Miles Strom, Chief Executive Officer (CEO) of Contoso Sports League Association, "we need to rebalance those efforts."
 
 One example is in how they manage the usernames and passwords for call center operators and support staff, as applied to the call center admin website. Today they have a homegrown solution that stores usernames and passwords in the same database used for storing merchandise information. They have experimented with other third-party solutions in the past, and their employees found it jarring to see another company's logo displayed when logging into their own call center website. In creating their identity solution, they want to ensure they can brand the login screens with their own logo. Additionally, Contoso is concerned about hackers from foreign countries/regions gaining access to the administrator site. Before they choose an identity solution, they would like to see how it indicates such attempts.
 
@@ -84,39 +84,39 @@ Contoso is also looking to augment their data analytics story by introducing a d
 
 ### Customer needs
 
-1.  Make architectural decisions that help to minimize engineering around infrastructure in favor of those that deliver core business value. Contoso is interested in understanding more about PaaS solutions.
+1. Make architectural decisions that help to minimize engineering around infrastructure in favor of those that deliver core business value. Contoso is interested in understanding more about PaaS solutions.
 
-2.  Maintain existing PCI compliance.
+2. Maintain existing PCI compliance.
 
-3.  Ensure data privacy and protection across all aspects of the system, in transit and at rest.
+3. Ensure data privacy and protection across all aspects of the system, in transit and at rest.
 
-4.  They want to be able to scale their offers' API independently of the website.
+4. They want to be able to scale their offers' API independently of the website.
 
-5.  Ensure that they retain their core functionality, even if the way it is accomplished under the covers might change.
+5. Ensure that they retain their core functionality, even if the way it is accomplished under the covers might change.
 
-6.  Provide a better solution for the management of usernames and passwords.
+6. Provide a better solution for the management of usernames and passwords.
 
-7.  Provide a regional database failover plan that will enable the customer to initiate the failover to another region, allowing their various web applications and other hosted services to roll over to a synchronized database at minimal cost.
+7. Provide a regional database failover plan that will enable the customer to initiate the failover to another region, allowing their various web applications and other hosted services to roll over to a synchronized database at minimal cost.
 
-8.  A data warehouse for analyzing their transaction history.
+8. A data warehouse for analyzing their transaction history.
 
 ### Customer objections
 
-1.  It is not clear to us from the Azure Trust Center just how Azure helps our solution become PCI compliant.
+1. It is not clear to us from the Azure Trust Center just how Azure helps our solution become PCI compliant.
 
-2.  Can we provide a solution that scales to meet our public demand, but is also secure for use by our call center and warehouse?
+2. Can we provide a solution that scales to meet our public demand, but is also secure for use by our call center and warehouse?
 
-3.  Our PCI compliance requires us to have a quarterly audit and to conduct occasional penetration tests. Is it supported by Azure?
+3. Our PCI compliance requires us to have a quarterly audit and to conduct occasional penetration tests. Is it supported by Azure?
 
-4.  Can we audit the Azure data center?
+4. Can we audit the Azure data center?
 
-5.  In the past, we have relied on SOASTA CloudTest to design and execute our web load tests at scale. In moving to Azure, are we still take advantage of CloudTest?
+5. In the past, we have relied on SOASTA CloudTest to design and execute our web load tests at scale. In moving to Azure, are we still take advantage of CloudTest?
 
-6.  Our previous infrastructure did not have great performance monitoring of our websites. What options would you recommend we investigate that would work with our web apps in Azure?
+6. Our previous infrastructure did not have great performance monitoring of our websites. What options would you recommend we investigate that would work with our web apps in Azure?
 
-7.  We have heard that Azure's data warehouse can be paused? Does that mean we have to store all our data in Azure Storage first before we can pause the instances and risk losing our data?
+7. We have heard that Azure's data warehouse can be paused? Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
 
-8.  We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure SQL Data Warehouse?
+8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure SQL Data Warehouse?
 
 ### Infographic for common scenarios
 
@@ -134,9 +134,9 @@ Timeframe: 60 minutes
 
 Directions:  With all participants at your table, answer the following questions and list the answers on a flip chart:
 
-1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
+1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
 
-2.  What customer business needs do you need to address with your solution?
+2. What customer business needs do you need to address with your solution?
 
 **Design**
 
@@ -144,37 +144,37 @@ Directions: With all participants at your table, respond to the following questi
 
 *High-level architecture*
 
-1.  Without getting into the details, the following sections will address the details, diagram your initial vision for handling the top-level requirements for the e-commerce website, call center website, and inventory lookup process. You will refine this diagram as you proceed.
+1. Without getting into the details, the following sections will address the details, diagram your initial vision for handling the top-level requirements for the e-commerce website, call center website, and inventory lookup process. You will refine this diagram as you proceed.
 
 *Order fulfillment*
 
-1.  How would you recommend CSLA manage the inventory lookup queues? How would you help CSLA decide between Azure Queues and Service Bus? Be sure to consider details implied by CSLA's requirements such as volume, message lifetime, and sizing. Explain the details of any computations you make.
+1. How would you recommend CSLA manage the inventory lookup queues? How would you help CSLA decide between Azure Queues and Service Bus? Be sure to consider details implied by CSLA's requirements such as volume, message lifetime, and sizing. Explain the details of any computations you make.
 
 *Notifications*
 
-1.  How would you recommend CSLA manage notifying customers as their order in the CSLA orders database is processed? Are there specific Azure services that can be used? Include details on how this would be implemented and integrated into the proposed solution for CSLA.
+1. How would you recommend CSLA manage notifying customers as their order in the CSLA orders database is processed? Are there specific Azure services that can be used? Include details on how this would be implemented and integrated into the proposed solution for CSLA.
 
 *Offers service*
 
-1.  Would you propose Contoso use the Azure App Service API app to meet their requirements for the Offers service?
+1. Would you propose Contoso use the Azure App Service API app to meet their requirements for the Offers service?
 
-2.  If so, what specific configurations would you need to make to support your proposed topology? Specifically, how would you implement the changes and configurations required to allow for inter-app communication between the e-commerce application and the Offers service?
+2. If so, what specific configurations would you need to make to support your proposed topology? Specifically, how would you implement the changes and configurations required to allow for inter-app communication between the e-commerce application and the Offers service?
 
 *Geo-resiliency*
 
-1.  How would you implement high availability for the orders database to guard against regional data center outages? Be specific on how you would configure SQL Database and Azure Storage.
+1. How would you implement high availability for the orders database to guard against regional data center outages? Be specific on how you would configure SQL Database and Azure Storage.
 
-2.  What process would you recommend to the customer to failover in the event of an outage, ensuring their web applications and associated Azure services change over to a secondary region?
+2. What process would you recommend to the customer to failover in the event of an outage, ensuring their web applications and associated Azure services change over to a secondary region?
 
-3.  How long would a failover take and how much data could be lost, in terms of time?
+3. How long would a failover take and how much data could be lost, in terms of time?
 
 *Access control*
 
-1.  With respect to managing access to the call center website, explain how you would recommend Contoso implement a solution that meets their requirements. Be specific about both the implementation and the process you would use to gain Contoso's acceptance of the proposed solution.
+1. With respect to managing access to the call center website, explain how you would recommend Contoso implement a solution that meets their requirements. Be specific about both the implementation and the process you would use to gain Contoso's acceptance of the proposed solution.
 
 *Enabling PCI compliance*
 
-1.  Keeping only the e-commerce website and handling of cardholder data in scope for PCI, consider the following in your design:
+1. Keeping only the e-commerce website and handling of cardholder data in scope for PCI, consider the following in your design:
 
     a. Are web apps deployed in Azure App Service Environments an option?
 
@@ -188,23 +188,23 @@ Directions: With all participants at your table, respond to the following questi
 
     f. If your approach includes configuration scripts, please provide an example of the scripts.
 
-2.  Would you recommend they use Azure virtual machines? Why or why not?
+2. Would you recommend they use Azure virtual machines? Why or why not?
 
 *Data warehouse*
 
-1.  How would you recommend Contoso implement their data warehouse?
+1. How would you recommend Contoso implement their data warehouse?
 
-2.  How would Contoso schedule nightly data transfers from their OLTP database to their data warehouse?
+2. How would Contoso schedule nightly data transfers from their OLTP database to their data warehouse?
 
 **Prepare**
 
 Directions: With all participants at your table:
 
-1.  Identify any customer needs that are not addressed with the proposed solution.
+1. Identify any customer needs that are not addressed with the proposed solution.
 
-2.  Identify the benefits of your solution.
+2. Identify the benefits of your solution.
 
-3.  Determine how you will respond to the customer's objections.
+3. Determine how you will respond to the customer's objections.
 
 Prepare a 15-minute chalk-talk style presentation to the customer.
 
@@ -220,21 +220,21 @@ Timeframe: 30 minutes
 
 Directions:
 
-1.  Pair with another table.
+1. Pair with another table.
 
-2.  One table is the Microsoft team and the other table is the customer.
+2. One table is the Microsoft team and the other table is the customer.
 
-3.  The Microsoft team presents their proposed solution to the customer.
+3. The Microsoft team presents their proposed solution to the customer.
 
-4.  The customer makes one of the objections from the list of objections.
+4. The customer makes one of the objections from the list of objections.
 
-5.  The Microsoft team responds to the objection.
+5. The Microsoft team responds to the objection.
 
-6.  The customer team gives feedback to the Microsoft team.
+6. The customer team gives feedback to the Microsoft team.
 
-7.  Tables switch roles and repeat Steps 2-6.
+7. Tables switch roles and repeat Steps 2-6.
 
-##  Wrap-up 
+## Wrap-up
 
 Timeframe: 15 minutes
 
@@ -242,9 +242,8 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Additional references
 
-|                                                              |                                                                                                                             |
-| ------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------- |
-| **Description**                                              |                                                          **Links**                                                          |
+| Description                                                  | Links        |
+| ------------------------------------------------------------ | :--------------------------------- |
 | Compliance Commitments                                       |                              <http://azure.microsoft.com/en-us/support/trust-center/services/>                              |
 | Azure App Services                                           |                 <https://azure.microsoft.com/en-us/documentation/articles/app-service-value-prop-what-is/>                  |
 | Azure Service Environment (ASE)                              |            <https://azure.microsoft.com/en-us/documentation/articles/app-service-app-service-environment-intro/>            |

@@ -69,11 +69,11 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 ### Task 2: Deploy Lab VM Resources to Azure
 
-1. Click the following **Deploy to Azure** button to deploy the ARM Template with the Lab VM resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
+1. Select the following **Deploy to Azure** button to deploy the ARM Template with the Lab VM resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
 
     [![Deploy to Azure](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Flabvm%2Ftemplate.json)
 
-    >**Note:** If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/labvm/template.json' ARM Template within the lab files.
+    >**Note**: If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/labvm/template.json` ARM Template within the lab files.
 
 2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `ContosoSports-[your initials or first name]`.
 
@@ -93,7 +93,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
     ![Select Purchase.](images/Setup/2019-06-24-17-20-12.png)
 
-9. The deployment will take 15-30 minutes to complete. Continue on to the next Task while this is deploying.
+9. The deployment will take 15-30 minutes to complete. Continue to the next Task while this is deploying.
 
     To view the progress, select the **Deployments** link, then select the **Microsoft.Template** deployment.
 
@@ -105,11 +105,11 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 ### Task 3: Deploy Environment Resources to Azure
 
-1. Click the following **Deploy to Azure** button to deploy the ARM Template with the Environment resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
+1. Select the following **Deploy to Azure** button to deploy the ARM Template with the Environment resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
 
     [![Deploy to Azure](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Fenvironment%2Ftemplate.json)
 
-    >**Note:** If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/environment/template.json' ARM Template within the lab files.
+    >**Note**: If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/environment/template.json` ARM Template within the lab files.
 
 2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `contososports[your initials or first name]`.
 
@@ -125,7 +125,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 7. on the **Location** field for the Custom deployment, choose the Azure Region closest to you.
 
-    > **Note:** For this lab, it is recommended you use the **East US**, **North Europe**, or **Australia East** Azure Region. There are certain Azure regions that don't support all the resources provisioned by the ARM Template. This limitation can also vary depending on restrictions applied to the type of Azure Subscription you are using.
+    > **Note**: For this lab, it is recommended you use the **East US**, **North Europe**, or **Australia East** Azure Region. There are certain Azure regions that don't support all the resources provisioned by the ARM Template. This limitation can also vary depending on restrictions applied to the type of Azure Subscription you are using.
 
 7. Check the **I agree to the terms and conditions stated above** checkbox.
 
@@ -142,7 +142,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
     - **Admin username**: `demouser`
     - **Admin password**: `demo@pass123`
 
-    > **Note:** Be sure to wait until the **Lab VM** ARM Template deployment has completed before connecting to the **LabVM** virtual machine.
+    > **Note**: Be sure to wait until the **Lab VM** ARM Template deployment has completed before connecting to the **LabVM** virtual machine.
 
 2. Open the `C:\MCW` folder.
 
@@ -150,7 +150,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 4. The solution contains the following projects:
 
-    |    |            |
+    | Project | Description |
     |:----------|:-------------|
     | Contoso.Apps.SportsLeague.Web |   Contoso Sports League e-commerce application |
     | Contoso.Apps.SportsLeague.Admin |   Contoso Sports League call center admin application |
@@ -160,4 +160,4 @@ Before initiating the hands-on lab, you will setup an environment to use for the
     | Contoso.Apps.SportsLeague.Offers |  API for returning list of available products |
     | Contoso.Apps.PaymentGateway   |     API for payment processing |
 
-You should follow all of the steps provided *before* performing the Hands-on lab.
+You should follow all the steps provided *before* performing the Hands-on lab.
