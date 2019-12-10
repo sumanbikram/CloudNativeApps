@@ -243,7 +243,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 ## Additional references
 
 | Description                                                  | Links        |
-| ------------------------------------------------------------ | :--------------------------------- |
+| :------------------------------------------------------------ | :--------------------------------- |
 | Compliance Commitments                                       |                              <http://azure.microsoft.com/en-us/support/trust-center/services/>                              |
 | Azure App Services                                           |                 <https://azure.microsoft.com/en-us/documentation/articles/app-service-value-prop-what-is/>                  |
 | Azure Service Environment (ASE)                              |            <https://azure.microsoft.com/en-us/documentation/articles/app-service-app-service-environment-intro/>            |

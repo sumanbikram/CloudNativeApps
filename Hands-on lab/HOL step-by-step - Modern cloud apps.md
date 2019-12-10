@@ -123,7 +123,7 @@ The Cloud Workshop: Modern Cloud Apps lab is a hands-on exercise that will chall
 ## Help references
 
 | Description | Links |
-|----------|:-------------|
+|:---------|:-------------|
 | SQL firewall | <https://azure.microsoft.com/en-us/documentation/articles/sql-database-configure-firewall-settings/> |
 | Deploying a Web App | <https://azure.microsoft.com/en-us/documentation/articles/web-sites-deploy/> |
 | Deploying an API app | <https://azure.microsoft.com/en-us/documentation/articles/app-service-dotnet-deploy-api-app/> |
