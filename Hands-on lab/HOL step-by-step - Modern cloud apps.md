@@ -70,13 +70,12 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 3: Enable Azure B2C for customer site](#exercise-3-enable-azure-b2c-for-customer-site)
     - [Task 1: Create a new directory](#task-1-create-a-new-directory)
     - [Task 2: Add a new application](#task-2-add-a-new-application)
-    - [Task 3: Create Policies, Sign up](#task-3-create-policies-sign-up)
-    - [Task 4: Create a sign-in policy](#task-4-create-a-sign-in-policy)
-    - [Task 5: Create a profile editing policy](#task-5-create-a-profile-editing-policy)
-    - [Task 6: Modify the Contoso.App.SportsLeague.Web](#task-6-modify-the-contosoappsportsleagueweb)
-    - [Task 7: Send authentication requests to Azure AD](#task-7-send-authentication-requests-to-azure-ad)
-    - [Task 8: Display user information](#task-8-display-user-information)
-    - [Task 9: Run the sample app](#task-9-run-the-sample-app)
+    - [Task 3: Create Policies, Sign up and sign in](#task-3-create-policies-sign-up-and-sign-in)
+    - [Task 4: Create a profile editing policy](#task-4-create-a-profile-editing-policy)
+    - [Task 5: Modify the Contoso.App.SportsLeague.Web](#task-5-modify-the-contosoappsportsleagueweb)
+    - [Task 6: Send authentication requests to Azure AD](#task-6-send-authentication-requests-to-azure-ad)
+    - [Task 7: Display user information](#task-7-display-user-information)
+    - [Task 8: Run the sample app](#task-8-run-the-sample-app)
   - [Exercise 4: Enabling Telemetry with Application Insights](#exercise-4-enabling-telemetry-with-application-insights)
     - [Task 1: Configure the application for telemetry](#task-1-configure-the-application-for-telemetry)
       - [Subtask 1: Add Application Insights Telemetry to the e-commerce website project](#subtask-1-add-application-insights-telemetry-to-the-e-commerce-website-project)
@@ -1049,7 +1048,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 
      ![B2C application name and ID values are shown.](media/2019-04-11-08-36-28.png "Azure AD B2C screen")
 
-### Task 3: Create Policies, Sign up
+### Task 3: Create Policies, Sign up and sign in
 
 1. Navigate back to the **Azure AD B2C** blade that was opened in the last task.
 
@@ -1078,9 +1077,9 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 
 8. Select the following **Collect attributes**:
 
-      - **Country/Region**
-      - **Display Name**
-      - **Postal Code**
+    - **Country/Region**
+    - **Display Name**
+    - **Postal Code**
 
 9. Select the following **Return claims**:
 
@@ -1117,50 +1116,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 
    ![Sign up now fields are presented to the user](media/2019-03-28-13-02-25.png "Sign up now")
 
-### Task 4: Create a sign-in policy
-
-To enable ``sign-in`` on your application, you will need to create a ``sign-in`` policy. This policy describes the experiences consumers will go through during sign-in and the contents of tokens the application will receive on successful sign-ins. Many of the previous steps will be repeated for this policy.
-
-1. Select **User flows (polices)** link on the left blade.
-
-    ![The User flows item is highlighted.](media/2019-08-25-18-01-57.png "Azure Portal")
-
-2. Select **+ New user flow** link at the top of the blade.
-
-3. Select the **All** tab link.
-
-    ![The Create a user flow pane is displayed.  The ALL tab is selected. All user flows are displayed. The Sign in link is highlighted.](media/2019-03-28-13-26-02.png "Select a user flow type")
-
-4. Select **Sign in**.
-5. Enter **Name** value **SignIn**.
-6. Select the **Local Account Sign-in** checkbox.
-
-    ![Azure AD B2C Create SignIn options](media/2019-03-28-13-29-47.png "Create SignIn options")
-
-7. Select **Show more...**. Here you choose return claims that you want returned in the tokens sent back to your application after a successful sign-in experience.
-
-    For now, select the following:
-
-    - **Display Name**
-    - **Identity Provider**
-    - **Postal Code**
-    - **User's Object ID**
-
-    ![In the Add policy blade, Application claims (4 Selected) is selected. In the Select application claims blade, the following five application claims are selected: Display Name, Identity Provider, Postal Code, and User\'s Object ID.](media/2019-03-28-13-31-03.png "Add policy and Select application claims blades")
-
-8. Select the **OK** button.
-
-9. Select **Create**. Observe the policy just created appears as **B2C\_1\_SignIn** (the **B2C\_1\_** fragment is automatically added) in the **Sign-in policies** blade.
-
-10. Open the policy by clicking **B2C\_1\_SignIn**, then select **Run user flow**.
-
-11. You should see the **Contonso B2C Application** selected from the dropdown, if not choose it.  Leave the defaults selected.
-
-12. Select **Run user flow**. A new browser tab opens, and you can run through the consumer experience of signing into your application.
-
-    ![Browser sign-in page. User name and password are filled in.](media/2019-03-28-16-09-40.png "Sign-in Page")
-
-### Task 5: Create a profile editing policy
+### Task 4: Create a profile editing policy
 
 To enable profile editing on your application, you will need to create a profile editing policy. This policy describes the experiences that consumers will go through during profile editing and the contents of tokens that the application will receive on successful completion.
 
@@ -1212,15 +1168,15 @@ To enable profile editing on your application, you will need to create a profile
 
 14. Select **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
 
-### Task 6: Modify the Contoso.App.SportsLeague.Web
+### Task 5: Modify the Contoso.App.SportsLeague.Web
 
 1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Startup.cs** code file, locate the `public void Configure(` method declaration, then add the following line of code to this method:
 
     ```csharp
-    app.UseOwin();
+    app.UseAuthorization();
     ```
 
-    ![The Startup.cs file with the "app.UseOwin();" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
+    ![The Startup.cs file with the "app.UseAuthorization();" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
 
 2. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
@@ -1230,166 +1186,19 @@ To enable profile editing on your application, you will need to create a profile
 
 4. Add the following settings in the **Application Settings** section:
 
-   - ida:Tenant - **\[your Azure AD B2C name\].onmicrosoft.com**
-
-   - ida:ClientId - **\[B2C Application ID you copied down earlier\]**
-
-   - ida:RedirectUri - **https://\[your web app url\].azurewebsites.net**
-
-   - ida:SignupPolicyId - **B2C\_1\_SignUp**
-
-   - ida:SignInPolicyId - **B2C\_1\_SignIn**
-
-   - ida:UserProfilePolicyId - **B2C\_1\_EditProfile**
-
-   - ida:AadInstance - `https://login.microsoftonline.com/{0}/v2.0/.well-known/openid-configuration?p={1}`
-
-   Example of settings:
-
-   ![In the App settings section, the previously mentioned settings are circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image172.png "App settings ")
+   - AzureADB2C:Instance - `https://login.microsoftonline.com/tfp/`
+   - AzureADB2C:ClientId - **B2C Application ID you copied down earlier**
+   - AzureADB2C:CallbackPath - `/signin-oidc-b2c`
+   - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**
+   - AzureADB2C:SignUpSignInPolicyId - **B2C_1_SignUp**
+   - AzureADB2C:ResetPasswordPolicyId - **B2C_1_SSPR**
+   - AzureADB2C:EditProfilePolicyId - **B2C_1_EditProfile**
 
 5. Select **Save** when you are complete.
 
-6. Within Visual Studio, **right-click** on the **Contoso.Apps.SportsLeague.Web** project, and select **Add -\> New Item.**
+### Task 6: Send authentication requests to Azure AD
 
-    ![In Solution Explorer, the Web folder is expanded, and Contoso.Apps.SportsLeague.Web is selected. From its right-click menu, Add is selected, and from its menu, New item is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image173.png "Solution Explorer")
-
-7. In the **Search Installed Templates** search box, search for **OWIN**. Select the **OWIN Startup** class, change the name to **Startup.cs**, and then select **Add**.
-
-    ![In the New class section, the word \"partial\" is circled in the line, \"public partial class Startup\".](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/add-owin-class.png "New class section")
-
-8. In the new class, insert the word partial in between public and class to make this a partial class.
-
-    ![In the New class section, the word \"partial\" is circled in the line, \"public partial class Startup\".](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image174.png "New class section")
-
-9. Add the following code between the brackets of the Configuration method:
-
-    ```csharp
-    ConfigureAuth(app);
-    ```
-
-    Your **Startup** class code should look like:
-
-    ```csharp
-    // Startup.cs
-
-    public partial class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            ConfigureAuth(app);
-        }
-    }
-    ```
-
-    >**Note**: The OWIN middleware will invoke the Configuration(\...) method when your app starts.
-
-10. In the **Solution Explorer**, under **Contoso.Apps.SportsLeague.Web**, right-click on the **App\_Start** folder, and select **Add -\> Class**.
-
-    ![In Solution Explorer, on the App Start folder\'s right-click menu, Add is selected, and from its menu, Class is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image175.png "Solution Explorer")
-
-11. Select **Visual C\#** category and **Class** and name the new file **Startup.Auth.cs**.
-
-    ![In the Installed field, Visual C\# is selected. In the Sort by field, Class is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image176.png "Installed and Sort by fields")
-
-12. Replace the entire contents of Startup.Auth.cs with the following code and Save.
-
-   ```csharp
-    // App_Start\Startup.Auth.cs
-    using System;
-    using Owin;
-    using Microsoft.Owin.Security;
-    using Microsoft.Owin.Security.Cookies;
-    using Microsoft.Owin.Security.OpenIdConnect;
-    using System.Threading.Tasks;
-    using Microsoft.Owin.Security.Notifications;
-    using Microsoft.IdentityModel.Protocols;
-
-    using System.Configuration;
-    using System.IdentityModel.Tokens;
-    using System.Web.Helpers;
-    using System.IdentityModel.Claims;
-
-    namespace Contoso.Apps.SportsLeague.Web
-    {
-        public partial class Startup
-        {
-            // App config settings
-            private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
-            private static string aadInstance = ConfigurationManager.AppSettings["ida:AadInstance"];
-            private static string tenant = ConfigurationManager.AppSettings["ida:Tenant"];
-            private static string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
-
-            // B2C policy identifiers
-            public static string SignUpPolicyId = ConfigurationManager.AppSettings["ida:SignUpPolicyId"];
-            public static string SignInPolicyId = ConfigurationManager.AppSettings["ida:SignInPolicyId"];
-            public static string ProfilePolicyId = ConfigurationManager.AppSettings["ida:UserProfilePolicyId"];
-
-            public void ConfigureAuth(IAppBuilder app)
-            {
-                app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
-
-                app.UseCookieAuthentication(new CookieAuthenticationOptions());
-
-                // Configure OpenID Connect middleware for each policy
-                app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(SignUpPolicyId));
-                app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(ProfilePolicyId));
-                app.UseOpenIdConnectAuthentication(CreateOptionsFromPolicy(SignInPolicyId));
-                AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
-            }
-
-            // Used for avoiding yellow-screen-of-death
-            private Task AuthenticationFailed(AuthenticationFailedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
-            {
-                notification.HandleResponse();
-                if (notification.Exception.Message == "access_denied")
-                {
-                    notification.Response.Redirect("/");
-                }
-                else
-                {
-                    notification.Response.Redirect("/Home/Error?message=" + notification.Exception.Message);
-                }
-
-                return Task.FromResult(0);
-            }
-
-            private OpenIdConnectAuthenticationOptions CreateOptionsFromPolicy(string policy)
-            {
-                return new OpenIdConnectAuthenticationOptions
-                {
-                    // For each policy, give OWIN the policy-specific metadata address, and
-                    // set the authentication type to the id of the policy
-                    MetadataAddress = String.Format(aadInstance, tenant, policy),
-                    AuthenticationType = policy,
-
-                    // These are standard OpenID Connect parameters, with values pulled from web.config
-                    ClientId = clientId,
-                    RedirectUri = redirectUri,
-                    PostLogoutRedirectUri = redirectUri,
-                    Notifications = new OpenIdConnectAuthenticationNotifications
-                    {
-                        AuthenticationFailed = AuthenticationFailed,
-                    },
-                    Scope = "openid",
-                    ResponseType = "id_token",
-
-                    // This piece is optional - it is used for displaying the user's name in the navigation bar.
-                    TokenValidationParameters = new TokenValidationParameters
-                    {
-                        NameClaimType = "name",
-                    },
-                };
-            }
-        }
-    }
-   ```
-
-   > **Note**: The parameters you provide in **OpenIdConnectAuthenticationOptions** serve as coordinates for your app to communicate with Azure AD. You also need to set up cookie authentication. The OpenID Connect middleware uses cookies to maintain user sessions, among other things.
-
-### Task 7: Send authentication requests to Azure AD
-
-Your app is now properly configured to communicate with Azure AD B2C by using the OpenID Connect authentication protocol. OWIN has taken care of all of the details of crafting authentication messages, validating tokens from Azure AD, and maintaining user session. All that remains is to initiate each user's flow.
+Your app is now properly configured to communicate with Azure AD B2C by using ASP.NET Core Identity. OWIN has taken care of all of the details of crafting authentication messages, validating tokens from Azure AD, and maintaining user session. All that remains is to initiate each user's flow.
 
 1. Right select on the **Controllers** folder, and select **Add** -\> **Controller**.
 
@@ -1402,8 +1211,10 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
 3. Add the following using statement to the top of the controller:
 
     ```csharp
-    using Microsoft.Owin.Security;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.Extensions.Configuration;
+    using System.Threading.Tasks;
     ```
 
 4. Locate the default controller **Index** method.
@@ -1415,15 +1226,13 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
     ```csharp
     // Controllers\AccountController.cs
 
-    public static string SignUpPolicyId;
-    public static string SignInPolicyId;
-    public static string ProfilePolicyId;
+    public static string SignUpSignInPolicyId;
+    public static string EditProfilePolicyId;
 
     public AccountController(IConfiguration configuration)
     {
-        SignUpPolicyId = configuration.GetValue<string>("ida:SignUpPolicyId");
-        SignInPolicyId = configuration.GetValue<string>("ida:SignInPolicyId");
-        ProfilePolicyId = configuration.GetValue<string>("ida:UserProfilePolicyId");
+        SignUpSignInPolicyId = configuration.GetValue<string>("AzureADB2C:SignUpSignInPolicyId");
+        EditProfilePolicyId = configuration.GetValue<string>("AzureADB2C:EditProfilePolicyId");
     }
 
     public async Task SignIn()
@@ -1432,7 +1241,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
         {
             // To execute a policy, you simply need to trigger an OWIN challenge.
             // You can indicate which policy to use by specifying the policy id as the AuthenticationType
-            await HttpContext.ChallengeAsync(SignInPolicyId,
+            await HttpContext.ChallengeAsync(SignUpSignInPolicyId,
                 new AuthenticationProperties() { RedirectUri = "/" });
         }
     }
@@ -1441,7 +1250,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
     {
         if (!User.Identity.IsAuthenticated)
         {
-            await HttpContext.ChallengeAsync(SignUpPolicyId,
+            await HttpContext.ChallengeAsync(SignUpSignInPolicyId,
                 new AuthenticationProperties() { RedirectUri = "/" });
         }
     }
@@ -1451,7 +1260,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
     {
         if (User.Identity.IsAuthenticated)
         {
-            await HttpContext.ChallengeAsync(ProfilePolicyId,
+            await HttpContext.ChallengeAsync(EditProfilePolicyId,
                 new AuthenticationProperties() { RedirectUri = "/" });
         }
     }
@@ -1466,7 +1275,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using th
 
     ```
 
-### Task 8: Display user information
+### Task 7: Display user information
 
 When you authenticate users by using OpenID Connect, Azure AD returns an ID token to the app that contains **claims**. These are assertions about the user. You can use claims to personalize your app. You can access user claims in your controllers via the ClaimsPrincipal.Current security principal object.
 
@@ -1583,7 +1392,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
     </div>
     ```
 
-### Task 9: Run the sample app
+### Task 8: Run the sample app
 
 1. Right select on the **Contoso.Apps.SportsLeague.Web** project, and select **Publish**. Follow the steps to deploy the updated application to the Microsoft Azure Web App.
 
