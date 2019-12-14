@@ -628,7 +628,7 @@ In this exercise, the attendee will provision an Azure API app template using th
    - **Subscription:** Your Azure MSDN subscription.
    - **Resource Group:** select **Use existing** option.
    - **App Service Plan/Location** Select the same primary region used in previous steps.
-   - **Application Insights:** **Disabled**
+   - **Application Insights:** **Disabled**.
 
     ![On the API App blade. Configuration fields are displayed.](media/2019-04-20-14-55-42.png "Configuration fields are displayed")
 
@@ -1187,13 +1187,13 @@ To enable profile editing on your application, you will need to create a profile
 
 4. Add the following settings in the **Application Settings** section:
 
-   - AzureADB2C:Instance - `https://login.microsoftonline.com/tfp/`
-   - AzureADB2C:ClientId - **B2C Application ID you copied down earlier**
-   - AzureADB2C:CallbackPath - `/signin-oidc-b2c`
-   - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**
-   - AzureADB2C:SignUpSignInPolicyId - **B2C_1_SignUp**
-   - AzureADB2C:ResetPasswordPolicyId - **B2C_1_SSPR**
-   - AzureADB2C:EditProfilePolicyId - **B2C_1_EditProfile**
+   - AzureADB2C:Instance - `https://login.microsoftonline.com/tfp/`.
+   - AzureADB2C:ClientId - **B2C Application ID you copied down earlier**.
+   - AzureADB2C:CallbackPath - `/signin-oidc-b2c`.
+   - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**.
+   - AzureADB2C:SignUpSignInPolicyId - **B2C_1_SignUp**.
+   - AzureADB2C:ResetPasswordPolicyId - **B2C_1_SSPR**.
+   - AzureADB2C:EditProfilePolicyId - **B2C_1_EditProfile**.
 
 5. Select **Save** when you are complete.
 
@@ -1628,17 +1628,17 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
     - [**Resource Group**](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview): Use the existing resource group, **contososports**.
 
-    - **Runtime Stack**: .NET Core
+    - **Runtime Stack**: .NET Core.
 
     - **Region**: Choose the same region used for the e-commerce web apps in this lab.
 
-3. Select **Next: Hosting >**
+3. Select **Next: Hosting >**.
 
 4. On the **Hosting** tab, select the following values, then select **Review + create**:
 
-    - **Operating System**: Windows
+    - **Operating System**: Windows.
 
-    - **Plan type**: App service plan
+    - **Plan type**: App service plan.
 
     - **Windows Plan**: Choose the App Service Plan used for the e-commerce web app.
 
@@ -1652,7 +1652,7 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
 7. Add a new Application Setting with the following values, then select **Save**:
 
-    - **Name**: `contososportsstorage`
+    - **Name**: `contososportsstorage`.
     - **Value**: Enter the Connection String for your storage account.
 
     ![Updated Function App Application settings. Showing final values.](media/2019-04-15-16-18-36.png "Updated Function App Application settings.")
