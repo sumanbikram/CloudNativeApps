@@ -193,7 +193,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![Screenshot of the Firewall settings Save button.](media/2019-04-10-16-00-29.png "Firewall settings Save button")
 
-10. Update progress can be found by clicking on the **Notifications** link located at the top of the page.
+10. Update progress can be found by selecting the **Notifications** link located at the top of the page.
 
     ![Screenshot of the Success dialog box, which says that the server firewall rules have been successfully updated.](media/2019-04-19-13-39-41.png "Success dialog box")
 
@@ -203,11 +203,11 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
 1. Go back to the **contososports** blade resource group, and select on the **contoso** Storage account.
 
-7. On the **Storage account** blade, scroll down, and, under the **SETTINGS** menu area, select the **Access keys** option.
+2. On the **Storage account** blade, scroll down, and, under the **SETTINGS** menu area, select the **Access keys** option.
 
     ![In the Storage account blade, under Settings, Access keys is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image35.png "Storage account blade")
 
-8. On the **Access keys** blade, select the copy button by the **Connection String** field in the **key1** section. Paste the value into **Notepad** for later usage. 
+3. On the **Access keys** blade, select the copy button by the **Connection String** field in the **key1** section. Paste the value into **Notepad** for later usage. 
 
     ![In the Access keys blade default keys section, the copy button for the key1 connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image36.png "Access keys blade, default keys section")
 
@@ -230,7 +230,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![In the App Service blade, under Settings, select Configuration link.](media/2019-04-19-16-38-54.png "Configuration link")
 
-6. Add a new **Application setting** with the following values:
+5. Add a new **Application setting** with the following values:
 
    - Key: `AzureQueueConnectionString`
 
@@ -238,11 +238,11 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![In the App settings section for the App Service blade, the new entry for AzureQueueConnectionString is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image40.png "App settings section")
 
-7. Locate **Connection Strings** section below **Application Settings**.
+6. Locate **Connection Strings** section below **Application Settings**.
 
     ![The Connection Strings section for the App Service blade displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image41.png "Connection Strings section")
 
-8. Add a new **Connection String** with the following values:
+7. Add a new **Connection String** with the following values:
 
    - Name: `ContosoSportsLeague`
 
@@ -254,7 +254,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder value")
 
-9. Select **Save**.
+8. Select **Save**.
 
 #### Subtask 4: Deploy the e-commerce Web App from Visual Studio
 
@@ -265,6 +265,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 2. Right-click the **Contoso.Apps.SportsLeague.Web** project, and select **Publish**.
 
     >**Note**: Don't publish if the configuration does not show your settings. Choose **New Profile** to publish to your Azure portal.
+    
     > ![Visual Studio Publish configuration left over from developer. A don't publish message is displayed. There is a box around New Profile link.](media/2019-03-22-12-42-48.png "Select New Profile")
 
 3. Choose **Azure App Service** as the publish target, and choose **Select Existing** and then **Create Profile** at the bottom of the wizard.
@@ -289,13 +290,13 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
     >
     > ![App Service .NET Core 3.0.0 support warning](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/2019-11-15-18-12-21.png "App Service .NET Core 3.0.0 support warning")
 
-7. In the Visual Studio **Output** view, you will see a status that indicates the Web App was published successfully.
+8. In the Visual Studio **Output** view, you will see a status that indicates the Web App was published successfully.
 
     ![Screenshot of the Visual Studio Output view, with the Publish Succeeded message circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image50.png "Visual Studio Output view")
 
     >**Note**: Your URL will differ from the one shown in the Output screenshot because it must be globally unique.
 
-8. A new browser should automatically open the new web applications. Validate the website by clicking the **Store** link on the menu. You should see product items. If products are returned, then the connection to the database is successful.
+9. A new browser should automatically open the new web applications. Validate the website by clicking the **Store** link on the menu. You should see product items. If products are returned, then the connection to the database is successful.
 
     ![Screenshot of the Store link.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image51.png "Store link")
 
@@ -343,7 +344,7 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
 
     ![The fields in the New Server blade display with the previously defined settings.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image56.png "New Server blade")
 
-8. Once the values are accepted in the **New server** blade, select **Select**.
+8. Once the values are accepted in the **New server** blade, choose **Select**.
 
     ![Screenshot of the Select button.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image20.png "Select button")
 
@@ -427,13 +428,13 @@ The failover may take a few minutes to complete. You can continue with the next 
 
     ![On the SQL databases blade, under Name, the ContosoSportsDB Secondary replication role is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image68.png "SQL databases blade")
 
-2. Next, select on **Show database connection strings**, and copy it off thereby replacing the user and password.
+2. Next, select **Show database connection strings**, and copy it off thereby replacing the user and password.
 
     ![On the SQL database blade, on the left Overview is selected. On the right, under Essentials, the Connection strings (Show database connection strings) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image69.png "SQL database blade")
 
 3. From the Azure portal, select on **Resource Groups**, and select **contososports**.
 
-4. Select on the **Web App** created earlier.
+4. Select the **Web App** created earlier.
 
 5. On the **App Service** blade, scroll down in the left pane, and select on **Configuration settings**.
 
@@ -497,7 +498,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
 1. In the Azure Portal, select on **Resource Groups** **\>** **contososports** resource group.
 
-2. Select on the **Web App** created in a previous step.
+2. Select the **Web App** created in a previous step.
 
 3. On the **App Service** blade, scroll down in the left pane, and select on **Configuration settings**.
 
@@ -547,7 +548,7 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     ![On the Web App blade, the App name field is set to contososportscallcentercp](media/2019-03-28-05-29-59.png "Web App blade")
 
-4. Select on **Windows Plan**, and select the **ContosoSportsPlan** used by the front-end Web app.
+4. Select **Windows Plan**, and select the **ContosoSportsPlan** used by the front-end Web app.
 
 5. After the values are accepted, select **Review and create**, then **Create**.  It will take a few minutes to provision.
 
@@ -751,13 +752,13 @@ In this exercise, the attendee will provision an Azure API app template using th
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management Portal <http://portal.azure.com>.
 
-2. Select on **Resource groups** then the **contososports** resource group.
+2. Select **Resource groups** then the **contososports** resource group.
 
-3. Select on the **App Service Web App** for the front-end web application.
+3. Select the **App Service Web App** for the front-end web application.
 
     ![In the Resource Group blade on the right, under Name, contosoapp is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image113.png "Resource Group blade")
 
-4. On the **App Service** blade, scroll down, and select on **Configuration** in the left pane.
+4. On the **App Service** blade, scroll down, and select **Configuration** in the left pane.
 
     ![In the App Service blade, under Settings, select Configuration link.](media/2019-04-19-16-38-54.png "Configuration link")
 
@@ -787,7 +788,7 @@ In this exercise, the attendee will provision an Azure API app template using th
 
     >**Note**: Ensure both API URLs are using **SSL** (https://), or you will see a CORS errors.
 
-8. Select on **Save**.
+8. Select **Save**.
 
 #### Subtask 2: Validate App Settings are correct
 
@@ -1130,15 +1131,15 @@ To enable profile editing on your application, you will need to create a profile
 
 3. Select **Profile editing**.
 
-5. The Name determines the profile editing policy name used by your application. For example, enter **EditProfile**.
+4. The Name determines the profile editing policy name used by your application. For example, enter **EditProfile**.
 
     ![In the Add policy blade, Identity providers (1 Selected) is selected. Identities providers - select Local Account SignIn.](media/2019-03-28-16-24-26.png "select Local Account SignIn")
 
-6. Select Identity providers, and then "**Local Account SignIn**."
+5. Select Identity providers, and then "**Local Account SignIn**."
 
-7. Select the **Show more...** link
+6. Select the **Show more...** link
 
-8. Select **Collect attributes**. Here, you choose attributes the consumer can view and edit.
+7. Select **Collect attributes**. Here, you choose attributes the consumer can view and edit.
 
     For now, select the following:
 
@@ -1149,7 +1150,7 @@ To enable profile editing on your application, you will need to create a profile
     - **State/Province**
     - **Street Address**
 
-9. Select **Return claims**. Here, you choose claims you want returned in the tokens sent back to your application after a successful profile editing experience.
+8. Select **Return claims**. Here, you choose claims you want returned in the tokens sent back to your application after a successful profile editing experience.
 
     For now, select the following:
 
@@ -1158,15 +1159,15 @@ To enable profile editing on your application, you will need to create a profile
 
     ![Sign up - User attributes selected blade.](media/2019-03-28-16-28-53.png "Sign up - User attributes selected blade")
 
-10. Select **OK**.
+9. Select **OK**.
 
-11. Select **Create**. Observe the policy just created appears as \"**B2C\_1\_EditProfile**\" (the **B2C\_1\_** fragment is automatically added) in the **Profile editing policies** blade.
+10. Select **Create**. Observe the policy just created appears as \"**B2C\_1\_EditProfile**\" (the **B2C\_1\_** fragment is automatically added) in the **Profile editing policies** blade.
 
-12. Open the policy by selecting **B2C\_1\_EditProfile**, then **Run user flow**.
+11. Open the policy by selecting **B2C\_1\_EditProfile**, then **Run user flow**.
 
-13. Select **Contoso B2C application** in the **Select Application** drop-down.
+12. Select **Contoso B2C application** in the **Select Application** drop-down.
 
-14. Select **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
+13. Select **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
 
 ### Task 5: Modify the Contoso.App.SportsLeague.Web
 
@@ -1331,7 +1332,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 
     ```
 
-5. Right-click on the **Views -\> Shared** folder, select **Add**, add a new **View**, and set tit o **Create as a partial view**. Specify **\_LoginPartial** for the name.
+5. Right-click on the **Views -\> Shared** folder, select **Add**, add a new **View**, and set it to **Create as a partial view**. Specify **\_LoginPartial** for the name.
 
     ![In Solution Explorer, on the right-click menu for Views\\Shared, Add is selected, and from its menu, View is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image180.png  "Solution Explorer")
 
@@ -1394,7 +1395,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 
 ### Task 8: Run the sample app
 
-1. Right select on the **Contoso.Apps.SportsLeague.Web** project, and select **Publish**. Follow the steps to deploy the updated application to the Microsoft Azure Web App.
+1. Right-click on the **Contoso.Apps.SportsLeague.Web** project, and select **Publish**. Follow the steps to deploy the updated application to the Microsoft Azure Web App.
 
     Launch a browser outside of Visual Studio for testing if the page loads in Visual Studio.
 
@@ -1402,7 +1403,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 
 3. Next, test Sign out.
 
-4. When you select on Claims and are not signed in, it will bring you to the sign-in page and then display the claim information. Sign in, and test Edit Profile.
+4. When you select Claims and are not signed in, it will bring you to the sign-in page and then display the claim information. Sign in, and test Edit Profile.
 
     ![On the Contoso website, the following links are circled: Claims, Sign up, and Sign in.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image182.png "Contoso website")
 
@@ -1420,36 +1421,36 @@ To configure the application for logging and diagnostics, you have been asked to
 
 2. Navigate to the **Contoso.Apps.SportsLeague.Web** project located in the **Web** folder using the **Solution Explorer** in Visual Studio.
 
-3. Expand the **Contoso.Apps.SportsLeague.Web** project, then right-click on the **Dependencies** node, and select **Manage Nuget Packages...**.
+3. Expand the **Contoso.Apps.SportsLeague.Web** project, then right-click on the **Dependencies** node, and select **Manage NuGet Packages...**.
 
-4. Within the **Nuget Package Manager**, select the **Browse** tab, then search for and install the following Nuget package:
+4. Within the **NuGet Package Manager**, select the **Browse** tab, then search for and install the following NuGet package:
 
     - **Microsoft.ApplicationInsights**
     - **Microsoft.ApplicationInsights.Web**
 
-9. Open the file `\Helpers\TelemetryHelper.cs` located in the **Contoso.Apps.SportsLeague.Web** project.
+5. Open the file `\Helpers\TelemetryHelper.cs` located in the **Contoso.Apps.SportsLeague.Web** project.
 
-10. Add the following using statement to the top of the file:
+6. Add the following using statement to the top of the file:
 
     ```csharp
     using Microsoft.ApplicationInsights;
     ```
 
-11. Add the following code to the **TrackException** method to instantiate the telemetry client and track exceptions:
+7. Add the following code to the **TrackException** method to instantiate the telemetry client and track exceptions:
 
     ```csharp
     var client = new TelemetryClient();
     client.TrackException(new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(exc));
     ```
 
-12. Add the following code to the **TrackEvent** method to instantiate the telemetry client and track event data:
+8. Add the following code to the **TrackEvent** method to instantiate the telemetry client and track event data:
 
     ```csharp
     var client = new TelemetryClient();
     client.TrackEvent(eventName, properties);
     ```
 
-13. Save the `TelemetryHelper.cs` file.
+9. Save the `TelemetryHelper.cs` file.
 
 #### Subtask 2: Enable client side telemetry
 
@@ -1467,7 +1468,7 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![From the Configure menu, Getting started is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image196.png "Configure menu")
 
-5. In the portal, navigate to **How-to Guides** -> **Application Insights** -> **Code-based monitoring** -> **Web pages** -> **Client-side JavaScript**, then navigate to the **Snippet based setup** section under **Adding the Javascript SDK** within the documentation page.
+5. In the portal, navigate to **How-to Guides** -> **Application Insights** -> **Code-based monitoring** -> **Web pages** -> **Client-side JavaScript**, then navigate to the **Snippet based setup** section under **Adding the JavaScript SDK** within the documentation page.
 
     ![Screenshot of the MONITOR AND DIAGNOSE CLIENT SIDE APPLICATION arrow.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image197.png "MONITOR AND DIAGNOSE CLIENT SIDE APPLICATION ")
 
@@ -1477,7 +1478,7 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![Under Guidance in the Client application monitoring and diagnosis blade, JavaScript displays. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image198.png "Client application monitoring and diagnosis blade")
 
-    Here's the Javascript code to copy/paste for quick reference:
+    Here's the JavaScript code to copy/paste for quick reference:
 
     ```javascript
         <script type="text/javascript">
@@ -1545,7 +1546,7 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![The Subscription option displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image209.png "Subscription option")
 
-8. Select **Select location**. Next, select a Location.
+8. Choose **Select location**. Next, select a Location.
 
     ![The Select location option displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image210.png "Select location option ")
 
@@ -1929,7 +1930,7 @@ The advantages of using Logic Apps include the following:
 
     ![On the Your first Twilio Phone Number prompt, the number is obscured.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image274.png "Your first Twilio Phone Number prompt")
 
-9. Select on **Home**, then **Settings**. Authenticate if needed and then record the **Account SID** and **Auth Token** for use when configuring the Twilio Connector.
+7. Select on **Home**, then **Settings**. Authenticate if needed and then record the **Account SID** and **Auth Token** for use when configuring the Twilio Connector.
 
     ![On the Console, on the left, the Home button and the Settings menu tab are selected. On the right, under API Credentials, Account SID and Auth Token are circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image275.png "Console")
 
