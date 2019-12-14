@@ -71,13 +71,13 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 1. Select the following **Deploy to Azure** button to deploy the ARM Template with the Lab VM resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
 
-    [![Deploy to Azure](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Flabvm%2Ftemplate.json)
+    [![Deploy to Azure button.](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Flabvm%2Ftemplate.json)
 
     >**Note**: If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/labvm/template.json` ARM Template within the lab files.
 
 2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `ContosoSports-[your initials or first name]`.
 
-3. Select **Edit parameters**
+3. Select **Edit parameters**.
 
     ![Select Edit Parameters.](images/Setup/2019-06-24-17-17-05.png)
 
@@ -107,13 +107,13 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 1. Select the following **Deploy to Azure** button to deploy the ARM Template with the Environment resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
 
-    [![Deploy to Azure](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Fenvironment%2Ftemplate.json)
+    [![Deploy to Azure button.](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Fenvironment%2Ftemplate.json)
 
     >**Note**: If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/environment/template.json` ARM Template within the lab files.
 
 2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `contososports[your initials or first name]`.
 
-3. Select **Edit parameters**
+3. Select **Edit parameters**.
 
     ![Select Edit Parameters.](images/Setup/2019-06-24-17-17-05.png)
 
@@ -123,7 +123,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 6. Select **Save**.
 
-7. on the **Location** field for the Custom deployment, choose the Azure Region closest to you.
+7. On the **Location** field for the Custom deployment, choose the Azure Region closest to you.
 
     > **Note**: For this lab, it is recommended you use the **East US**, **North Europe**, or **Australia East** Azure Region. There are certain Azure regions that don't support all the resources provisioned by the ARM Template. This limitation can also vary depending on restrictions applied to the type of Azure Subscription you are using.
 
@@ -131,7 +131,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 8. Select **Purchase**.
 
-    ![Select Purchase.](images/Setup/2019-06-24-17-20-12.png)
+    ![The I agreed to the terms and conditions state box is checked, then select Purchase.](images/Setup/2019-06-24-17-20-12.png)
 
 9. The deployment will take 5 - 10 minutes to complete.
 
@@ -141,6 +141,7 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
     - **Admin username**: `demouser`
     - **Admin password**: `demo@pass123`
+
 
     > **Note**: Be sure to wait until the **Lab VM** ARM Template deployment has completed before connecting to the **LabVM** virtual machine.
 
