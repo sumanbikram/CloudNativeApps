@@ -22,13 +22,10 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-# Modern cloud apps whiteboard design session trainer guide
-
 **Contents**
 
 <!-- TOC -->
 
-- [Modern cloud apps whiteboard design session trainer guide](#modern-cloud-apps-whiteboard-design-session-trainer-guide)
 - [Trainer information](#trainer-information)
   - [Role of the trainer](#role-of-the-trainer)
   - [Whiteboard design session flow](#whiteboard-design-session-flow)
@@ -45,7 +42,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
   - [Additional references](#additional-references)
-- [Modern cloud apps whiteboard design session trainer guide](#modern-cloud-apps-whiteboard-design-session-trainer-guide-1)
+- [Modern cloud apps whiteboard design session trainer guide](#modern-cloud-apps-whiteboard-design-session-trainer-guide)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
   - [Step 3: Present the solution](#step-3-present-the-solution-1)
@@ -305,17 +302,17 @@ Directions: With all participants at your table, respond to the following questi
 
 1. Keeping only the e-commerce website and handling of cardholder data in scope for PCI, consider the following in your design:
 
-    a. Are web apps deployed in Azure App Service Environments an option?
+    - Are web apps deployed in Azure App Service Environments an option?
 
-    b. Explain how using Azure App Service Environments could address the PCI requirements.
+    - Explain how using Azure App Service Environments could address the PCI requirements.
 
-    c. Keeping in mind the best choice for securing inbound and outbound traffic for an App Service Environment, detail all inbound and outbound traffic for this solution that allows it to be PCI compliant and allows it to operate within Azure. It should include traffic into and out of the solution, outbound for the e-commerce website, and any other traffic between the apps within the solution.
+    - Keeping in mind the best choice for securing inbound and outbound traffic for an App Service Environment, detail all inbound and outbound traffic for this solution that allows it to be PCI compliant and allows it to operate within Azure. It should include traffic into and out of the solution, outbound for the e-commerce website, and any other traffic between the apps within the solution.
 
-    d. Make sure to describe in detail the network topology you are using.
+    - Make sure to describe in detail the network topology you are using.
 
-    e. For any inbound and outbound application communications you are securing, please detail the specific mechanisms you will use to do so.
+    - For any inbound and outbound application communications you are securing, please detail the specific mechanisms you will use to do so.
 
-    f. If your approach includes configuration scripts, please provide an example of the scripts.
+    - If your approach includes configuration scripts, please provide an example of the scripts.
 
 2. Would you recommend they use Azure virtual machines? Why or why not?
 
