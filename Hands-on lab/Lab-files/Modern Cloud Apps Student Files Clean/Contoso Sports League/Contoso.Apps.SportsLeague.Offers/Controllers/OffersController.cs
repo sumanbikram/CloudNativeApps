@@ -4,19 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Cors;
 using Contoso.Apps.Common.Extensions;
 using Contoso.Apps.SportsLeague.Offers.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace Contoso.Apps.SportsLeague.Offers.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class OffersController : ApiController
+    [ApiController]
+    [EnableCors()]
+    public class OffersController : ControllerBase
     {
-        private ProductContext db = new ProductContext();
+        public OffersController(ProductContext context)
+        {
+            _db = context;
+        }
+
+        private readonly ProductContext _db;
 
         // GET api/values
+        [HttpGet]
         [Route("api/get")]
         public IEnumerable<OfferedProduct> Get()
         {
@@ -24,7 +31,7 @@ namespace Contoso.Apps.SportsLeague.Offers.Controllers
             // Retrieve 3 random products.
             // In a real-world scenario, you may return a list of products that are on sale,
             // or based off of popularity or other factors.
-            var products = db.Products.ToList().Shuffle().Take(3);
+            var products = _db.Products.ToList().Shuffle().Take(3);
 
             if (products != null && products.Count() > 0)
             {

@@ -1,22 +1,33 @@
-﻿using Contoso.Apps.SportsLeague.Data.Logic;
+﻿using Contoso.Apps.SportsLeague.Admin.Models;
+using Contoso.Apps.SportsLeague.Data.Logic;
 using Contoso.Apps.SportsLeague.Data.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Diagnostics;
 
 namespace Contoso.Apps.SportsLeague.Admin.Controllers
 {
     public class HomeController : BaseController
     {
+        public HomeController(ProductContext context)
+        {
+            _db = context;
+        }
+
+        private readonly ProductContext _db;
+
+        [Authorize(AuthenticationSchemes = "EasyAuth")]
         public ActionResult Index()
         {
             //var orderId = 2;
             //var order = new Order();
             List<Order> orders = new List<Order>();
-            using (var orderActions = new OrderActions())
-            {
-                //order = orderActions.GetOrder(orderId);
-                orders = orderActions.GetCompletedOrders();
-            }
+            var orderActions = new OrderActions(_db);
+
+            //order = orderActions.GetOrder(orderId);
+            orders = orderActions.GetCompletedOrders();
+
 
             var vm = new Models.HomeModel
             {
@@ -24,7 +35,7 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
                 Orders = orders
             };
 
-            if (Request.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 var user = User.Identity.Name;
             }
@@ -47,10 +58,9 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
         public ActionResult Details(int Id)
         {
             var order = new Order();
-            using (var orderActions = new OrderActions())
-            {
-                order = orderActions.GetOrder(Id);
-            }
+            var orderActions = new OrderActions(_db);
+
+            order = orderActions.GetOrder(Id);
 
             var vm = new Models.DetailsModel
             {
@@ -59,6 +69,21 @@ namespace Contoso.Apps.SportsLeague.Admin.Controllers
             };
 
             return View(vm);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_db != null)
+            {
+                _db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

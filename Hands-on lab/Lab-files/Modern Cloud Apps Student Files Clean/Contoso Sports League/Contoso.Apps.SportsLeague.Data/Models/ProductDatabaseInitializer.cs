@@ -1,16 +1,49 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Contoso.Apps.SportsLeague.Data.Models
 {
-    public class ProductDatabaseInitializer : DropCreateDatabaseIfModelChanges<ProductContext>
+    public static class ProductDatabaseInitializer
     {
-        protected override void Seed(ProductContext context)
+        public static async Task Configure(ProductContext context)
         {
-            GetCategories().ForEach(c => context.Categories.Add(c));
-            GetProducts().ForEach(p => context.Products.Add(p));
-        }
+            // Database Initialization
+            context.Database.EnsureCreated();
 
+
+            context.Database.OpenConnection();
+            try
+            {
+                if (!await context.Categories.AnyAsync())
+                {
+                    context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Categories ON");
+
+                    GetCategories().ForEach(c => context.Categories.Add(c));
+                    await context.SaveChangesAsync();
+
+                    context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Categories OFF");
+                }
+
+                if (!await context.Products.AnyAsync())
+                {
+                    context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Products ON");
+
+                    GetProducts().ForEach(p => context.Products.Add(p));
+                    await context.SaveChangesAsync();
+
+                    context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Products OFF");
+                }
+            }
+            finally
+            {
+                context.Database.CloseConnection();
+            }
+
+
+            context.SaveChanges();
+        }
         private static List<Category> GetCategories()
         {
             var categories = new List<Category> {
@@ -37,14 +70,14 @@ namespace Contoso.Apps.SportsLeague.Data.Models
                 {
                     ProductID = 1,
                     ProductName = "Official CSL Hat",
-                    Description = "Be the envy of any jock, trucker, superfan, or hipster with the offical CSL logo hat." + 
-                                  "Tops off the perfect ensemble from the baseball field, to the trailer park, or your cousin's wedding. Yeehaw!", 
+                    Description = "Be the envy of any jock, trucker, superfan, or hipster with the offical CSL logo hat." +
+                                  "Tops off the perfect ensemble from the baseball field, to the trailer park, or your cousin's wedding. Yeehaw!",
                     ImagePath = "hat.jpg",
                     ThumbnailPath = "hat-thumb.jpg",
                     UnitPrice = 18.95,
                     CategoryID = 1
                },
-                new Product 
+                new Product
                 {
                     ProductID = 2,
                     ProductName = "Men's Tank Top",
@@ -82,7 +115,7 @@ namespace Contoso.Apps.SportsLeague.Data.Models
                 {
                     ProductID = 5,
                     ProductName = "Baseball Mitt",
-                    Description = "This 100% leather mitt is guaranteed to almost have been a potential candidate to be worn by baseball star Derek Jeter! " + 
+                    Description = "This 100% leather mitt is guaranteed to almost have been a potential candidate to be worn by baseball star Derek Jeter! " +
                                   "No batteries required.",
                     ImagePath = "baseball-mitt.jpg",
                     ThumbnailPath = "baseball-mitt-thumb.jpg",

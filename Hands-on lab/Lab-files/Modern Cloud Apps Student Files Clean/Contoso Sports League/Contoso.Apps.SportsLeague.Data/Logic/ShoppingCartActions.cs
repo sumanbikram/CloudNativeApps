@@ -2,23 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contoso.Apps.SportsLeague.Data.Logic
 {
-    public class ShoppingCartActions : IDisposable
+    public class ShoppingCartActions
     {
         private readonly ProductContext _db;
 
-        public ShoppingCartActions(string cartId)
+        public ShoppingCartActions(ProductContext context, string cartId)
         {
-            _db = new ProductContext();
+            _db = context;
 
             this.ShoppingCartId = cartId;
         }
 
         public string ShoppingCartId { get; private set; }
 
-        public void AddToCart(int id)
+        public async Task AddToCart(int id)
         {
             // Retrieve the product from the database.           
             //ShoppingCartId = GetCartId();
@@ -39,30 +41,23 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
                     DateCreated = DateTime.Now
                 };
 
-                _db.ShoppingCartItems.Add(cartItem);
+                await _db.ShoppingCartItems.AddAsync(cartItem);
             }
             else {
                 // If the item does exist in the cart,                  
                 // then add one to the quantity.                 
                 cartItem.Quantity++;
             }
-            _db.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            if (_db != null)
-            {
-                _db.Dispose();
-            }
+            await _db.SaveChangesAsync();
         }
 
         public List<CartItem> GetCartItems()
         {
             //ShoppingCartId = GetCartId();
 
-            return _db.ShoppingCartItems.Where(
-                c => c.CartId == ShoppingCartId).ToList();
+            return (from c in _db.ShoppingCartItems.Include("Product")
+                   where c.CartId == ShoppingCartId
+                   select c).ToList();
         }
 
         public decimal GetTotal()
@@ -81,82 +76,73 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
             return total ?? decimal.Zero;
         }
 
-        public void UpdateShoppingCartDatabase(String cartId, ShoppingCartUpdates[] CartItemUpdates)
+        public async Task UpdateShoppingCartDatabase(String cartId, ShoppingCartUpdates[] CartItemUpdates)
         {
-            using (var db = new Contoso.Apps.SportsLeague.Data.Models.ProductContext())
+            try
             {
-                try
+                int CartItemCount = CartItemUpdates.Count();
+                List<CartItem> myCart = GetCartItems();
+                foreach (var cartItem in myCart)
                 {
-                    int CartItemCount = CartItemUpdates.Count();
-                    List<CartItem> myCart = GetCartItems();
-                    foreach (var cartItem in myCart)
+                    // Iterate through all rows within shopping cart list
+                    for (int i = 0; i < CartItemCount; i++)
                     {
-                        // Iterate through all rows within shopping cart list
-                        for (int i = 0; i < CartItemCount; i++)
+                        if (cartItem.Product.ProductID == CartItemUpdates[i].ProductId)
                         {
-                            if (cartItem.Product.ProductID == CartItemUpdates[i].ProductId)
+                            if (CartItemUpdates[i].PurchaseQuantity < 1 || CartItemUpdates[i].RemoveItem == true)
                             {
-                                if (CartItemUpdates[i].PurchaseQuantity < 1 || CartItemUpdates[i].RemoveItem == true)
-                                {
-                                    RemoveItem(cartId, cartItem.ProductId);
-                                }
-                                else
-                                {
-                                    UpdateItem(cartId, cartItem.ProductId, CartItemUpdates[i].PurchaseQuantity);
-                                }
+                                await RemoveItem(cartId, cartItem.ProductId);
+                            }
+                            else
+                            {
+                                await UpdateItem(cartId, cartItem.ProductId, CartItemUpdates[i].PurchaseQuantity);
                             }
                         }
                     }
                 }
-                catch (Exception exp)
-                {
-                    throw new Exception("ERROR: Unable to Update Cart Database - " + exp.Message.ToString(), exp);
-                }
             }
-        }
-
-        public void RemoveItem(string removeCartID, int removeProductID)
-        {
-            using (var _db = new Contoso.Apps.SportsLeague.Data.Models.ProductContext())
+            catch (Exception exp)
             {
-                try
-                {
-                    var myItem = (from c in _db.ShoppingCartItems where c.CartId == removeCartID && c.Product.ProductID == removeProductID select c).FirstOrDefault();
-                    if (myItem != null)
-                    {
-                        // Remove Item.
-                        _db.ShoppingCartItems.Remove(myItem);
-                        _db.SaveChanges();
-                    }
-                }
-                catch (Exception exp)
-                {
-                    throw new Exception("ERROR: Unable to Remove Cart Item - " + exp.Message.ToString(), exp);
-                }
+                throw new Exception("ERROR: Unable to Update Cart Database - " + exp.Message.ToString(), exp);
             }
         }
 
-        public void UpdateItem(string updateCartID, int updateProductID, int quantity)
+        public async Task RemoveItem(string removeCartID, int removeProductID)
         {
-            using (var _db = new Contoso.Apps.SportsLeague.Data.Models.ProductContext())
+            try
             {
-                try
+                var myItem = (from c in _db.ShoppingCartItems where c.CartId == removeCartID && c.Product.ProductID == removeProductID select c).FirstOrDefault();
+                if (myItem != null)
                 {
-                    var myItem = (from c in _db.ShoppingCartItems where c.CartId == updateCartID && c.Product.ProductID == updateProductID select c).FirstOrDefault();
-                    if (myItem != null)
-                    {
-                        myItem.Quantity = quantity;
-                        _db.SaveChanges();
-                    }
+                    // Remove Item.
+                    _db.ShoppingCartItems.Remove(myItem);
+                    await _db.SaveChangesAsync();
                 }
-                catch (Exception exp)
-                {
-                    throw new Exception("ERROR: Unable to Update Cart Item - " + exp.Message.ToString(), exp);
-                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception("ERROR: Unable to Remove Cart Item - " + exp.Message.ToString(), exp);
             }
         }
 
-        public void EmptyCart()
+        public async Task UpdateItem(string updateCartID, int updateProductID, int quantity)
+        {
+            try
+            {
+                var myItem = (from c in _db.ShoppingCartItems where c.CartId == updateCartID && c.Product.ProductID == updateProductID select c).FirstOrDefault();
+                if (myItem != null)
+                {
+                    myItem.Quantity = quantity;
+                    await _db.SaveChangesAsync();
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception("ERROR: Unable to Update Cart Item - " + exp.Message.ToString(), exp);
+            }
+        }
+
+        public async Task EmptyCart()
         {
             //ShoppingCartId = GetCartId();
             var cartItems = _db.ShoppingCartItems.Where(
@@ -168,7 +154,7 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
             }
 
             // Save changes.             
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public int GetCount()
@@ -176,7 +162,7 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
             //ShoppingCartId = GetCartId();
 
             // Get the count of each item in the cart and sum them up          
-            int? count = (from cartItems in _db.ShoppingCartItems
+            var count = (from cartItems in _db.ShoppingCartItems
                           where cartItems.CartId == ShoppingCartId
                           select (int?)cartItems.Quantity).Sum();
 

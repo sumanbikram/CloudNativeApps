@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using Contoso.Apps.Common;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net.Http;
-using System.Web.Http;
-using System.Web.Cors;
-using Contoso.Apps.Common;
 using System.Text;
 
 namespace Contoso.Apps.PaymentGateway.Controllers
 {
-    public class ProcessorController : ApiController
+    [ApiController]
+    public class ProcessorController : ControllerBase
     {
+        private const string _success = "success";
+
         [Route("api/nvp")]
         [HttpPost]
-        public HttpResponseMessage PerformAction([FromBody] string data)
+        public ActionResult PerformAction([FromBody] string data)
         {
             string response = string.Empty;
             HttpResponseMessage resp = new HttpResponseMessage();
@@ -44,7 +43,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
                             if (status)
                             {
                                 // Success!
-                                encoder[NVPProperties.Properties.ACK] = "success";
+                                encoder[NVPProperties.Properties.ACK] = _success;
                                 encoder[NVPProperties.Properties.TOKEN] = token;
                             }
                         }
@@ -57,7 +56,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
                             if (status)
                             {
                                 // Success!
-                                encoder[NVPProperties.Properties.ACK] = "success";
+                                encoder[NVPProperties.Properties.ACK] = _success;
                                 encoder[NVPProperties.Properties.TRANSACTIONID] = transactionId;
                             }
                         }
@@ -71,9 +70,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
                 else
                 {
                     // Throw unauthorized response.
-                    resp.StatusCode = HttpStatusCode.Unauthorized;
-                    resp.Content = new StringContent("You are unauthorized to use this API. Check your credentials and try again.", Encoding.UTF8, "text/plain");
-                    return resp;
+                    return Unauthorized("You are unauthorized to use this API. Check your credentials and try again.");
                 }
             }
             catch (Exception ex)
@@ -89,9 +86,7 @@ namespace Contoso.Apps.PaymentGateway.Controllers
                 response = encoder.Encode();
             }
 
-            resp.StatusCode = HttpStatusCode.OK;
-            resp.Content = new StringContent(response, Encoding.UTF8, "text/plain");
-            return resp;
+            return base.Content(response, "text/plain", Encoding.UTF8);
         }
 
         /// <summary>

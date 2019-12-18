@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-September 2019
+November 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -30,17 +30,19 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Requirements](#Requirements)
   - [Before the hands-on lab](#Before-the-hands-on-lab)
     - [Task 1: Download GitHub resources](#Task-1-Download-GitHub-resources)
-    - [Task 2: Deploy resources to Azure](#Task-2-Deploy-resources-to-Azure)
-    - [Task 3: Explore the Contoso Sports League sample](#Task-3-Explore-the-Contoso-Sports-League-sample)
-
+    - [Task 2: Deploy Lab VM Resources to Azure](#Task-2-Deploy-Lab-VM-Resources-to-Azure)
+    - [Task 3: Deploy Environment Resources to Azure](#Task-3-Deploy-Environment-Resources-to-Azure)
+    - [Task 4: Explore the Contoso Sports League sample](#Task-4-Explore-the-Contoso-Sports-League-sample)
 
 <!-- /TOC -->
 
-# Modern cloud apps before the hands-on lab setup guide 
+# Modern cloud apps before the hands-on lab setup guide
 
 ## Requirements
 
 - Microsoft Azure MSDN subscription
+
+  - You will need permissions within the Azure Subscription and Azure Active Directory (Azure AD) to create users and setup Azure AD B2C.
 
 - Local machine or Azure virtual machine configured with:
 
@@ -65,62 +67,83 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
     ![Windows Explorer showing the extracted files.](images/Setup/2019-06-24-17-10-56.png)
 
-### Task 2: Deploy resources to Azure
+### Task 2: Deploy Lab VM Resources to Azure
 
-1. Open your Azure Portal.
+1. Select the following **Deploy to Azure** button to deploy the ARM Template with the Lab VM resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
 
-2. Select **Resource groups**.
+    [![Deploy to Azure button.](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Flabvm%2Ftemplate.json)
 
-3. Select **+Add**.
- 
-4. Type a resource group name, such as *ContosoSports-[your initials or first name]*.
+    >**Note**: If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/labvm/template.json` ARM Template within the lab files.
 
-5. Select **Review + Create**, then select **Create**.
+2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `ContosoSports-[your initials or first name]`.
 
-6. Select **Refresh** to see your new resource group displayed and select it.
-
-7. Select **Export template**, and then select **Deploy**.
-
-    ![Select Deploy](images/Setup/2019-06-24-17-15-18.png)
-
-8. Select **Build your own template in the editor**.
-
-9. In the extracted folder, open the `\Hands-on lab\Scripts\template.json` file.
-
-10. Copy and paste it into the window.
-
-11. Select **Save**
-
-12. Select **Edit parameters**
+3. Select **Edit parameters**.
 
     ![Select Edit Parameters.](images/Setup/2019-06-24-17-17-05.png)
 
-13. In the extracted folder, open the **\Hands-on lab\Scripts\parameters.json** file.
+4. On the **Edit parameters** pane, select the **Load file** button.
 
-14. Copy and paste it into the window.
+5. Locate and open the `\Hands-on lab\Scripts\labvm\parameters.json` file within the extracted files.
 
-15. Select **Save**.
+6. Select **Save**.
 
-16. Check the **I agree to the terms and conditions stated above** checkbox.
+7. Check the **I agree to the terms and conditions stated above** checkbox.
 
-17. Select **Purchase**.
+8. Select **Purchase**.
 
     ![Select Purchase.](images/Setup/2019-06-24-17-20-12.png)
 
-18. The deployment will take 15-30 minutes to complete. To view the progress, select the **Deployments** link, then select the **Microsoft.Template** deployment.
+9. The deployment will take 15-30 minutes to complete. Continue to the next Task while this is deploying.
+
+    To view the progress, select the **Deployments** link, then select the **Microsoft.Template** deployment.
 
     ![View template deployment status.](images/Setup/2019-06-24-17-22-19.png "Resource group deployments")
 
-19. **Note**: A configuration script to install SSMS and the require lab files will run after the deployment of the LabVM completes. The task will be listed on the deployment progress screen as `LabVM/CustomScriptExtension`. You should wait for this task to complete before attempting to log into the LabVM in the next task, as it downloads and installs files you will need for the next task.
+    > **Note**: A configuration script to install SSMS and the requires lab files will run after the deployment of the LabVM completes. The task will be listed on the deployment progress screen as `LabVM/CustomScriptExtension`. You should wait for this task to complete before attempting to log into the LabVM in the next task, as it downloads and installs files you will need.
+    >
+    > ![The CustomScriptExtension task in highlighted in the list of deployment tasks.](media/deployment-progress.png "Deployment progress")
 
-    ![The CustomScriptExtension task in highlighted in the list of deployment tasks.](media/deployment-progress.png "Deployment progress")
+### Task 3: Deploy Environment Resources to Azure
 
-### Task 3: Explore the Contoso Sports League sample
+1. Select the following **Deploy to Azure** button to deploy the ARM Template with the Environment resources for this lab. This link will deep link into the Azure Portal, passing in the ARM Template for deploying the resources for this lab.
+
+    [![Deploy to Azure button.](images/azure-deploy-button-small.png "Deploy to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Modern-cloud-apps%2Fmaster%2FHands-on%20lab%2Fscripts%2Fenvironment%2Ftemplate.json)
+
+    >**Note**: If you have issues with the **Deploy to Azure** link, then do a new **Custom deployment** in the Azure Portal using the `/Hands-on lab/scripts/environment/template.json` ARM Template within the lab files.
+
+2. On the **Custom deployment** blade, select **Create new** for the **Resource group** field, and enter `contososports[your initials or first name]`.
+
+3. Select **Edit parameters**.
+
+    ![Select Edit Parameters.](images/Setup/2019-06-24-17-17-05.png)
+
+4. On the **Edit parameters** pane, select the **Load file** button.
+
+5. Locate and open the `\Hands-on lab\Scripts\environment\parameters.json` file within the extracted files.
+
+6. Select **Save**.
+
+7. On the **Location** field for the Custom deployment, choose the Azure Region closest to you.
+
+    > **Note**: For this lab, it is recommended you use the **East US**, **North Europe**, or **Australia East** Azure Region. There are certain Azure regions that don't support all the resources provisioned by the ARM Template. This limitation can also vary depending on restrictions applied to the type of Azure Subscription you are using.
+
+7. Check the **I agree to the terms and conditions stated above** checkbox.
+
+8. Select **Purchase**.
+
+    ![The I agreed to the terms and conditions state box is checked, then select Purchase.](images/Setup/2019-06-24-17-20-12.png)
+
+9. The deployment will take 5 - 10 minutes to complete.
+
+### Task 4: Explore the Contoso Sports League sample
 
 1. Connect to the **LabVM** that was deployed using the previous template using Remote Desktop, using these credentials:
 
     - **Admin username**: `demouser`
     - **Admin password**: `demo@pass123`
+
+
+    > **Note**: Be sure to wait until the **Lab VM** ARM Template deployment has completed before connecting to the **LabVM** virtual machine.
 
 2. Open the `C:\MCW` folder.
 
@@ -128,8 +151,8 @@ Before initiating the hands-on lab, you will setup an environment to use for the
 
 4. The solution contains the following projects:
 
-    |    |            |
-    |----------|:-------------:|
+    | Project | Description |
+    |:----------|:-------------|
     | Contoso.Apps.SportsLeague.Web |   Contoso Sports League e-commerce application |
     | Contoso.Apps.SportsLeague.Admin |   Contoso Sports League call center admin application |
     | Contoso.Apps.Common  |   Shared tier |
@@ -138,4 +161,4 @@ Before initiating the hands-on lab, you will setup an environment to use for the
     | Contoso.Apps.SportsLeague.Offers |  API for returning list of available products |
     | Contoso.Apps.PaymentGateway   |     API for payment processing |
 
-You should follow all of the steps provided *before* performing the Hands-on lab.
+You should follow all the steps provided *before* performing the Hands-on lab.

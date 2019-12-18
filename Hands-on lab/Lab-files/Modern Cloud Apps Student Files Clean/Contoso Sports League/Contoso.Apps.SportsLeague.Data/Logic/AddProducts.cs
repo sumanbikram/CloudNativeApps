@@ -1,11 +1,19 @@
 ﻿using Contoso.Apps.SportsLeague.Data.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace Contoso.Apps.SportsLeague.Data.Logic
 {
     public class AddProducts
     {
-        public bool AddProduct(string ProductName, string ProductDesc, string ProductPrice, string ProductCategory, string ProductImagePath)
+        private readonly ProductContext _context;
+
+        public AddProducts(ProductContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> AddProduct(string ProductName, string ProductDesc, string ProductPrice, string ProductCategory, string ProductImagePath)
         {
             var myProduct = new Product()
             {
@@ -16,12 +24,10 @@ namespace Contoso.Apps.SportsLeague.Data.Logic
                 CategoryID = Convert.ToInt32(ProductCategory),
             };
 
-            using (var _db = new ProductContext())
-            {
-                // Add product to DB.
-                _db.Products.Add(myProduct);
-                _db.SaveChanges();
-            }
+            // Add product to DB.
+            await _context.Products.AddAsync(myProduct);
+            await _context.SaveChangesAsync();
+            
             // Success.
             return true;
         }

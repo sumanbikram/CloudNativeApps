@@ -1,5 +1,4 @@
 ﻿@model Contoso.Apps.SportsLeague.Admin.Models.HomeModel
-@using AspNet.Mvc.Grid
 @{
     ViewBag.Title = "Admin Home";
 }
@@ -16,11 +15,26 @@
 
 <h1>Completed Orders</h1>
 
-@Html.Grid(Model.Orders).Columns(cb =>
-{
-    cb.For(p => Html.ActionLink("Details", "Details", "Home", new { Id = p.OrderId }, null)).Named("Order Details");
-    cb.For(p => p.OrderDate);
-    cb.For(p => p.FirstName);
-    cb.For(p => p.LastName);
-    cb.For(p => p.Total).Format("{0:c}");
-}).Attributes(@class => "table table-striped table-hover table-condensed").HeaderRowAttributes(new Dictionary<string, object> { { "class", "active" } })
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr class="active">
+            <th>Order Details</th>
+            <th>Order Date</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Orders)
+        {
+            <tr>
+                <td>@(Html.ActionLink("Details", "Details", "Home", new { Id = item.OrderId }, null))</td>
+                <td>@(item.OrderDate)</td>
+                <td>@(item.FirstName)</td>
+                <td>@(item.LastName)</td>
+                <td>@(item.Total.ToString("{0:c}"))</td>
+            </tr>
+        }
+    </tbody>
+</table>
