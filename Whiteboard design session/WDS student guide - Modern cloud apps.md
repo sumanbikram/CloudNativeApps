@@ -176,17 +176,17 @@ Directions: With all participants at your table, respond to the following questi
 
 1. Keeping only the e-commerce website and handling of cardholder data in scope for PCI, consider the following in your design:
 
-    a. Are web apps deployed in Azure App Service Environments an option?
+    - Are web apps deployed in Azure App Service Environments an option?
 
-    b. Explain how using Azure App Service Environments could address the PCI requirements.
+    - Explain how using Azure App Service Environments could address the PCI requirements.
 
-    c. Keeping in mind the best choice for securing inbound and outbound traffic for an App Service Environment, detail all inbound and outbound traffic for this solution that allows it to be PCI compliant and allows it to operate within Azure. It should include traffic into and out of the solution, outbound for the e-commerce website, and any other traffic between the apps within the solution.
+    - Keeping in mind the best choice for securing inbound and outbound traffic for an App Service Environment, detail all inbound and outbound traffic for this solution that allows it to be PCI compliant and allows it to operate within Azure. It should include traffic into and out of the solution, outbound for the e-commerce website, and any other traffic between the apps within the solution.
 
-    d. Make sure to describe in detail the network topology you are using.
+    - Make sure to describe in detail the network topology you are using.
 
-    e. For any inbound and outbound application communications you are securing, please detail the specific mechanisms you will use to do so.
+    - For any inbound and outbound application communications you are securing, please detail the specific mechanisms you will use to do so.
 
-    f. If your approach includes configuration scripts, please provide an example of the scripts.
+    - If your approach includes configuration scripts, please provide an example of the scripts.
 
 2. Would you recommend they use Azure virtual machines? Why or why not?
 
