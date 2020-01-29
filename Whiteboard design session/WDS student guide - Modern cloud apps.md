@@ -116,7 +116,7 @@ Contoso is also looking to augment their data analytics story by introducing a d
 
 7. We have heard that Azure's data warehouse can be paused? Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
 
-8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure SQL Data Warehouse?
+8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure Synapse Analytics?
 
 ### Infographic for common scenarios
 

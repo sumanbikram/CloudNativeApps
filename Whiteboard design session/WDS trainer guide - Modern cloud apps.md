@@ -242,7 +242,7 @@ Contoso is also looking to augment their data analytics story by introducing a d
 
 7. We have heard that Azure's data warehouse can be paused? Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
 
-8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure SQL Data Warehouse?
+8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure Synapse Analytics?
 
 ### Infographic for common scenarios
 
@@ -612,11 +612,11 @@ The primary audience are the business decision makers and technology decision ma
 
 1. How would you recommend Contoso implement their data warehouse?
 
-    They could use Azure SQL Data Warehouse.
+    They could use Azure Synapse Analytics.
 
 2. How would Contoso schedule nightly data transfers from their OLTP database to their data warehouse?
 
-    They would need to provision an instance of Azure Data Factory, and then utilize the Azure Data Factory Copy Wizard to setup a recurring copy from their SQL Database instance to existing tables in their SQL Data Warehouse. They could enable PolyBase in the Copy Wizard to speed up the copying process.
+    They would need to provision an instance of Azure Data Factory, and then utilize the Azure Data Factory Copy Wizard to setup a recurring copy from their SQL Database instance to existing tables in Azure Synapse Analytics. They could enable PolyBase in the Copy Wizard to speed up the copying process.
 
 ## Checklist of preferred objection handling
 
@@ -650,15 +650,15 @@ The primary audience are the business decision makers and technology decision ma
 
 7. We have heard that Azure's data warehouse can be paused? Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
 
-    SQL Data Warehouse uses storage in two ways, and both enable the data to exist even while the SQL DW instance is paused. For data that is managed by SQL Data Warehouse (e.g., it is inserted directly into relational or columnar tables), it is stored in Azure Premium Storage. For data supporting external tables in SQL DW, this data resides in Azure Standard Storage and is referenced via PolyBase, a component of SQL Data Warehouse.
+    Azure Synapse Analytics uses storage in two ways, and both enable the data to exist even while the SQL DW instance is paused. For data that is managed by Azure Synapse Analytics (e.g., it is inserted directly into relational or columnar tables), it is stored in Azure Premium Storage. For data supporting external tables in SQL DW, this data resides in Azure Standard Storage and is referenced via PolyBase, a component of Azure Synapse Analytics.
 
-8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure SQL Data Warehouse?
+8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure Synapse Analytics?
 
-    It is true that Azure SQL Database can be used as a data warehouse. This is considered an SMP-based warehouse, or symmetric multiprocessing. Azure SQL Data Warehouse is classified as an MPP-based warehouse, or massively parallel processing. As a rule, SMP-based warehouses are best suited for small to medium data sets (up to 4-100 TB), while MPP is often used for big data. The delineation between small/medium and big data is partly to do with your organization's definition and supporting infrastructure.
+    It is true that Azure SQL Database can be used as a data warehouse. This is considered an SMP-based warehouse, or symmetric multiprocessing. Azure Synapse Analytics is classified as an MPP-based warehouse, or massively parallel processing. As a rule, SMP-based warehouses are best suited for small to medium data sets (up to 4-100 TB), while MPP is often used for big data. The delineation between small/medium and big data is partly to do with your organization's definition and supporting infrastructure.
 
-    Beyond data sizes, the type of workload pattern is likely to be a greater determining factor. For example, complex queries may be too slow for an SMP solution, and require an MPP solution instead. MPP-based systems are likely to impose a performance penalty with small data sizes, due to the way jobs are distributed and consolidated across nodes. If your data sizes already exceed 1 TB and are expected to continually grow, consider selecting an MPP solution. However, if your data sizes are less than this, but your workloads are exceeding the available resources of your SMP solution, then MPP may be your best option as well. Given this, consider Azure SQL Data Warehouse for small and medium datasets, where the workload is compute and memory intensive.
+    Beyond data sizes, the type of workload pattern is likely to be a greater determining factor. For example, complex queries may be too slow for an SMP solution, and require an MPP solution instead. MPP-based systems are likely to impose a performance penalty with small data sizes, due to the way jobs are distributed and consolidated across nodes. If your data sizes already exceed 1 TB and are expected to continually grow, consider selecting an MPP solution. However, if your data sizes are less than this, but your workloads are exceeding the available resources of your SMP solution, then MPP may be your best option as well. Given this, consider Azure Synapse Analytics for small and medium datasets, where the workload is compute and memory intensive.
 
-    Azure SQL Data Warehouse provides CSLA with a datastore that contains pre-aggregated data using column names that make sense to business users and analysts, a restructured schema to simplify data relationships, and consolidated tables. It also keeps historical data separate from the source transaction systems for performance reasons.
+    Azure Synapse Analytics provides CSLA with a datastore that contains pre-aggregated data using column names that make sense to business users and analysts, a restructured schema to simplify data relationships, and consolidated tables. It also keeps historical data separate from the source transaction systems for performance reasons.
 
 ## Customer quote (to be read back to the attendees at the end)
 
