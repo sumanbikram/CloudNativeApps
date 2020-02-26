@@ -119,7 +119,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
             if (ModelState.IsValid)
             {
                 _db.Entry(cartItem).State = EntityState.Modified;
-                _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.ProductId = new SelectList(_db.Products, "ProductID", "ProductName", cartItem.ProductId);
