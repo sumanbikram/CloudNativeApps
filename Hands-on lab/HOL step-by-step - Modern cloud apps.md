@@ -353,9 +353,11 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
 
     > **Note**: The Geo-Replication will take a few minutes to complete.
 
-10. After the Geo-Replication has finished provisioning, navigate back to the **contososports** Resource Group.
+10. After the Geo-Replication has finished provisioning, select **SQL Databases** in the navigation menu to the left.
 
-11. Select the name of the Secondary SQL Database you just created, within the list of resources for the resource group.
+    ![The SQL databases option in the Azure Portal navigation menu](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "SQL Databases")
+
+11. Select the name of the Secondary SQL Database you just created.
 
     ![In the list of Databases, the ContosoSportsDB secondary replication role is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image58.png "Database list")
 
