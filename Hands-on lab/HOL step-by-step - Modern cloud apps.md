@@ -324,8 +324,8 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
     The Secondary Azure Region should be the Region Pair for the region the SQL Database is hosted in. Consult <https://docs.microsoft.com/en-us/azure/best-practices-availability-paired-regions> to see which region pair the location you are using for this lab is in.
 
     >**Note**: If you choose a region that cannot be used as a secondary region, you will not be able to pick a pricing plan. Choose another region.
-
-    ![Wrong geo-replication region selected. Not available options presented.](media/2019-03-30-16-05-25.png "Not available options presented.")
+    > 
+    > ![Wrong geo-replication region selected. Not available options presented.](media/2019-03-30-16-05-25.png "Not available options presented.")
 
 5. On the **Create secondary** blade, select **Secondary Type** as **Readable**.
 
@@ -353,11 +353,9 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
 
     > **Note**: The Geo-Replication will take a few minutes to complete.
 
-10. After the Geo-Replication has finished provisioning, select **SQL Databases** in the navigation menu to the left.
+10. After the Geo-Replication has finished provisioning, navigate back to the **contososports** Resource Group.
 
-    ![The SQL databases option in the Azure Portal navigation menu](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "SQL Databases")
-
-11. Select the name of the Secondary SQL Database you just created.
+11. Select the name of the Secondary SQL Database you just created, within the list of resources for the resource group.
 
     ![In the list of Databases, the ContosoSportsDB secondary replication role is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image58.png "Database list")
 
