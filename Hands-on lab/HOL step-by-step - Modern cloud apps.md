@@ -404,7 +404,11 @@ With SQL Database Geo-Replication configured, the Azure SQL Failover Groups feat
 
     ![Failover groups setting option](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlserverfailovergroupslink.png "Failover groups setting option")
 
-5. 
+5. On the **Failover groups** pane, select the **Add group** button.
+
+    ![Add group button](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/failovergroupsaddgroupbutton.png "Add group buton")
+
+6. TODO
 
 #### Subtask 3: Failover secondary SQL database
 
