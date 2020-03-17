@@ -39,10 +39,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
       - [Subtask 4: Deploy the e-commerce Web App from Visual Studio](#subtask-4-deploy-the-e-commerce-web-app-from-visual-studio)
     - [Task 2: Setup SQL Database Geo-Replication](#task-2-setup-sql-database-geo-replication)
       - [Subtask 1: Add secondary database](#subtask-1-add-secondary-database)
-      - [Subtask 2: Failover secondary SQL database](#subtask-2-failover-secondary-sql-database)
-      - [Subtask 3: Test e-commerce Web App after Failover](#subtask-3-test-e-commerce-web-app-after-failover)
-      - [Subtask 4: Revert Failover back to Primary database](#subtask-4-revert-failover-back-to-primary-database)
-      - [Subtask 5: Test e-commerce Web App after reverting failover](#subtask-5-test-e-commerce-web-app-after-reverting-failover)
+      - [Subtask 2: Setup SQL Failover Group](#subtask-2-setup-sql-failover-group)
+      - [Subtask 3: Failover secondary SQL database](#subtask-3-failover-secondary-sql-database)
+      - [Subtask 4: Test e-commerce Web App after Failover](#subtask-4-test-e-commerce-web-app-after-failover)
+      - [Subtask 5: Revert Failover back to Primary database](#subtask-5-revert-failover-back-to-primary-database)
+      - [Subtask 6: Test e-commerce Web App after reverting failover](#subtask-6-test-e-commerce-web-app-after-reverting-failover)
     - [Task 3: Deploying the Call Center admin website](#task-3-deploying-the-call-center-admin-website)
       - [Subtask 1: Provision the call center admin Web App](#subtask-1-provision-the-call-center-admin-web-app)
       - [Subtask 2: Update the configuration in the starter project](#subtask-2-update-the-configuration-in-the-starter-project)
@@ -361,37 +362,51 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
 
     ![In the list of Databases, the ContosoSportsDB secondary replication role is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image58.png "Database list")
 
-12. On the **SQL Database** blade, open the **Show database connection strings** link.
-
-    ![On the SQL database blade, in the Essentials blade, the Connection strings (show database connection strings) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image59.png "SQL database blade")
-
-13. On the **Database connection strings** blade, select and copy the **ADO.NET** connection string, and save it in Notepad for use later.
-
-    ![On the Database connection strings blade, ADO.NET tab, the connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image60.png "Database connection strings blade")
-
-14. On the SQL database blade in the Essentials section, select the SQL Database Server name link.
+12. On the SQL database blade in the Essentials section, select the SQL Database Server name link.
 
     ![On the SQL database blade in the Essentials section, the Server name (contososqlserver2.database.windows.net) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image61.png "SQL database blade, Essentials section")
 
-15. On the **SQL Server** blade, select **Set server firewall** at the top.
+13. On the **SQL Server** blade, within the **Overview** pane, select **Show firewall settings** link.
 
     ![On the SQL Server blade, at the top, the Set server firewall tile is boxed in red.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image62.png "SQL Server blade, Essentials section")
 
-16. On the **Firewall Settings** blade, specify a new rule named **ALL**, with START IP **0.0.0.0**, and END IP **255.255.255.255**.
+14. On the **Firewall Settings** blade, specify a new rule named **ALL**, with START IP **0.0.0.0**, and END IP **255.255.255.255**.
 
     ![On the Firewall Settings blade, in the New rule section, a new rule has been created with the previously defined settings.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image27.png "New rule section ")
 
-17. Select **Save**.
+    >**Note**: This is only done to make the lab easier to do. In production, you do **NOT** want to open your SQL Database to all IP Addresses this way. Instead, you will want to specify just the IP Addresses you wish to allow through the Firewall.
+
+15. Select **Save**.
 
     ![Screenshot of the Firewall settings Save button.](media/2019-04-10-16-00-29.png "Firewall settings Save button")
 
-18. Update progress can be found by choosing the **Notifications** link located at the top of the page.
+16. Update progress can be found by choosing the **Notifications** link located at the top of the page.
 
     ![Screenshot of the Success dialog box, which says that the server firewall rules have been successfully updated.](media/2019-04-19-13-39-41.png "Success dialog box")
 
-19. Close all configuration blades.
+17. Close all configuration blades.
 
-#### Subtask 2: Failover secondary SQL database
+#### Subtask 2: Setup SQL Failover Group
+
+With SQL Database Geo-Replication configured, the Azure SQL Failover Groups feature can be used to enable "auto failover" scenarios for the SQL Database. This enables a single connection string endpoint to be used by the application, and SQL Database will automatically handle failing over from Primary to Secondary database in the event of a SQL Database outage / down time.
+
+1. Using a new tab or instance of your browser, navigate to the Azure Management Portal <http://portal.azure.com>.
+
+2. In the navigation menu to the left, select **SQL databases**, and select the name of the *primary* SQL Database you created previously.
+
+    ![Screenshot of SQL Databases tile](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "Azure Portal")
+
+3. On the **SQL database** blade, within the **Overview** pane, select the **Server name**.
+
+    ![SQL database blade with server name highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/primarysqldatabaseserverlink.png "SQL database blade with server name highlighted")
+
+4. On the **SQL server** blade, select **Failover groups** under **Settings**.
+
+    ![Failover groups setting option](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlserverfailovergroupslink.png "Failover groups setting option")
+
+5. 
+
+#### Subtask 3: Failover secondary SQL database
 
 >**Note**: This subtask is optional.
 
@@ -421,7 +436,7 @@ Since the Replication and Failover process can take anywhere from 10 to 30 minut
 
 The failover may take a few minutes to complete. You can continue with the next Subtask modifying the Web App to point to the Secondary SQL Database while the Failover is pending.
 
-#### Subtask 3: Test e-commerce Web App after Failover
+#### Subtask 4: Test e-commerce Web App after Failover
 
 1. Once completed, in the Azure Portal, select **SQL databases**, and select the NEW **ContosoSportsDB** secondary.
 
@@ -467,7 +482,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
     ![Screenshot of the Contoso store webpage. Under Team Apparel, a Contoso hat, tank top, and hoodie display.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image74.png "Contoso store webpage")
 
-#### Subtask 4: Revert Failover back to Primary database
+#### Subtask 5: Revert Failover back to Primary database
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management Portal <http://portal.azure.com>.
 
@@ -493,7 +508,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
 The failover may take a few minutes to complete. You can continue with the next Subtask modifying the Web App to point back to the Primary SQL Database while the Failover is pending.
 
-#### Subtask 5: Test e-commerce Web App after reverting failover
+#### Subtask 6: Test e-commerce Web App after reverting failover
 
 1. In the Azure Portal, select **Resource Groups** **\>** **contososports** resource group.
 
