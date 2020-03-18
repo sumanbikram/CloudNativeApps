@@ -1185,7 +1185,7 @@ To enable profile editing on your application, you will need to create a profile
 
     ```csharp
     services.AddAuthentication(Microsoft.AspNetCore.Authentication.AzureADB2C.UI.AzureADB2CDefaults.AuthenticationScheme)
-                .AddAzureADB2C(options => Configuration.Bind("AzureAdB2C", options));
+                .AddAzureADB2C(options => Configuration.Bind("AzureADB2C", options));
     ```
 
     ![The Startup.cs file with the "app.UseAuthorization();" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
@@ -1195,6 +1195,17 @@ To enable profile editing on your application, you will need to create a profile
     ```
     using Microsoft.AspNetCore.Authentication;
     ```
+
+3. Locate the `app.UseAuthentication();` line within the `public void Configure` method, and add the following line of code after it:
+
+    ```
+    app.UseAuthentication();
+    ```
+
+    The result will look similar to the following:
+
+    ![app.UseAuthentication code inserted](media/2020-03-18-14-44-13.png "app.UseAuthentication code inserted")
+    
 
 3. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
