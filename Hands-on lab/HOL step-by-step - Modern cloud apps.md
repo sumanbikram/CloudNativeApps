@@ -1086,17 +1086,17 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 13. Select **Run user flow** and open the dialog.
     ![In the Policies section, Sign-in policies is selected.](media/2019-03-28-12-52-27.png "Policies section")
 
-14. **Run user flow** - Choose application and run user flow. 
+14. Select **Run user flow** - Choose application and run user flow. 
 
     ![Choose application options are displayed. Contoso B2C Application option is selected. Run user flow button is displayed.](media/2019-03-28-12-55-51.png "Test the user flow")
 
 15. A browser tab/window will open that looks like the following screenshot.
 
     ![Test the user flow.  Sample sign in presented in the browser.](media/2019-03-28-13-00-01.png "Test the user flow")
-
+    
 16. Select **Sign up now**.
 
-   ![Sign up now fields are presented to the user](media/2019-03-28-13-02-25.png "Sign up now")
+    ![Sign up now fields are presented to the user](media/2019-03-28-13-02-25.png "Sign up now")
 
 ### Task 4: Create a profile editing policy
 
@@ -1152,15 +1152,22 @@ To enable profile editing on your application, you will need to create a profile
 
 ### Task 5: Modify the Contoso.App.SportsLeague.Web
 
-1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Startup.cs** code file, locate the `public void Configure(` method declaration, then add the following line of code to this method:
+1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Startup.cs** code file, locate the `public void ConfigureServices(` method declaration, then add the following line of code to the bottom of this method:
 
     ```csharp
-    app.UseAuthorization();
+    services.AddAuthentication(Microsoft.AspNetCore.Authentication.AzureADB2C.UI.AzureADB2CDefaults.AuthenticationScheme)
+                .AddAzureADB2C(options => Configuration.Bind("AzureAdB2C", options));
     ```
 
     ![The Startup.cs file with the "app.UseAuthorization();" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
 
-2. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
+2. Add the following `using` statement to the top of the **Startup.cs** code file:
+
+    ```
+    using Microsoft.AspNetCore.Authentication;
+    ```
+
+3. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
     ![List of all of the resources within the ContosoSports resource group. Pointing to the B2C tenant name.](media/2019-03-28-16-51-14.png "Locate B2C tenant name")
 
@@ -1170,11 +1177,11 @@ To enable profile editing on your application, you will need to create a profile
 
    - AzureADB2C:Instance - `https://login.microsoftonline.com/tfp/`.
    - AzureADB2C:ClientId - **B2C Application ID you copied down earlier**.
-   - AzureADB2C:CallbackPath - `/signin-oidc-b2c`.
+   - AzureADB2C:CallbackPath - `/signin-oidc-b2c`
    - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**.
-   - AzureADB2C:SignUpSignInPolicyId - **B2C_1_SignUp**.
-   - AzureADB2C:ResetPasswordPolicyId - **B2C_1_SSPR**.
-   - AzureADB2C:EditProfilePolicyId - **B2C_1_EditProfile**.
+   - AzureADB2C:SignUpSignInPolicyId - `B2C_1_SignUp`
+   - AzureADB2C:ResetPasswordPolicyId - `B2C_1_SSPR`
+   - AzureADB2C:EditProfilePolicyId - `B2C_1_EditProfile`
 
 5. Select **Save** when you are complete.
 
@@ -1217,34 +1224,33 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
         EditProfilePolicyId = configuration.GetValue<string>("AzureADB2C:EditProfilePolicyId");
     }
 
-    public async Task SignIn()
+    public ActionResult SignIn()
     {
         if (!User.Identity.IsAuthenticated)
         {
             // To execute a policy, you simply need to trigger an OWIN challenge.
             // You can indicate which policy to use by specifying the policy id as the AuthenticationType
-            await HttpContext.ChallengeAsync(SignUpSignInPolicyId,
-                new AuthenticationProperties() { RedirectUri = "/" });
+            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, SignUpSignInPolicyId);
         }
+        return NotFound();
     }
-
-    public async Task SignUp()
+            
+    public ActionResult SignUp()
     {
         if (!User.Identity.IsAuthenticated)
         {
-            await HttpContext.ChallengeAsync(SignUpSignInPolicyId,
-                new AuthenticationProperties() { RedirectUri = "/" });
+            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, SignUpSignInPolicyId);
         }
+        return NotFound();
     }
 
-
-    public async Task Profile()
+    public ActionResult Profile()
     {
         if (User.Identity.IsAuthenticated)
         {
-            await HttpContext.ChallengeAsync(EditProfilePolicyId,
-                new AuthenticationProperties() { RedirectUri = "/" });
+            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, EditProfilePolicyId);
         }
+        return NotFound();
     }
 
     public async Task SignOut()
@@ -1254,7 +1260,6 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
             await HttpContext.SignOutAsync();
         }
     }
-
     ```
 
 ### Task 7: Display user information
@@ -1266,7 +1271,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
     ```csharp
     using System.Linq;
     using System.Security.Claims;
-    using Microsoft.AspNetCore.Authorization
+    using Microsoft.AspNetCore.Authorization;
     ```
 
 2. Still in the **Controllers\\HomeController.cs** file, add the following method to the **HomeController** class:
@@ -1275,8 +1280,9 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
     [Authorize]
     public ActionResult Claims()
     {
-        Claim displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType);
-        ViewBag.DisplayName = displayName != null ? displayName.Value : string.Empty;
+        var displayName = User.Identity.Name;
+        ViewBag.DisplayName = displayName;
+        ViewBag.Claims = User.Claims;
         return View();
     }
     ```
@@ -1302,7 +1308,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
             <th class="claim-data claim-head">Claim Value</th>
         </tr>
 
-        @foreach (Claim claim in ClaimsPrincipal.Current.Claims)
+        @foreach (Claim claim in ViewBag.Claims)
         {
             <tr>
                 <td class="claim-type claim-data">@claim.Type</td>
@@ -1310,7 +1316,6 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
             </tr>
         }
     </table>
-
     ```
 
 5. Right-click on the **Views -\> Shared** folder, select **Add**, add a new **View**, and set it to **Create as a partial view**. Specify **\_LoginPartial** for the name.
@@ -1349,10 +1354,9 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
             <li>@Html.ActionLink("Sign in", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         </ul>
     }
-
     ```
 
-7. Open **Views\\Shared\\\_Layout.cshtml** in Visual Studio. Locate the header-top div. and add the line that starts with **@Html.ActionLink** and the line that starts with **@Html.Partial**.
+7. Open **Views\\Shared\\\_Layout.cshtml** in Visual Studio. Locate the header-top div, and add the line that starts with **@Html.ActionLink** and the line that starts with **@Html.Partial**.
 
     ```html
     <div class="header-top">
@@ -1462,14 +1466,16 @@ To configure the application for logging and diagnostics, you have been asked to
     Here's the JavaScript code to copy/paste for quick reference:
 
     ```javascript
-        <script type="text/javascript">
-        var sdkInstance="appInsightsSDK";window[sdkInstance]="appInsights";var aiName=window[sdkInstance],aisdk=window[aiName]||function(e){function n(e){t[e]=function(){var n=arguments;t.queue.push(function(){t[e].apply(t,n)})}}var t={config:e};t.initialize=!0;var i=document,a=window;setTimeout(function(){var n=i.createElement("script");n.src=e.url||"https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js",i.getElementsByTagName("script")[0].parentNode.appendChild(n)});try{t.cookie=i.cookie}catch(e){}t.queue=[],t.version=2;for(var r=["Event","PageView","Exception","Trace","DependencyData","Metric","PageViewPerformance"];r.length;)n("track"+r.pop());n("startTrackPage"),n("stopTrackPage");var s="Track"+r[0];if(n("start"+s),n("stop"+s),n("addTelemetryInitializer"),n("setAuthenticatedUserContext"),n("clearAuthenticatedUserContext"),n("flush"),t.SeverityLevel={Verbose:0,Information:1,Warning:2,Error:3,Critical:4},!(!0===e.disableExceptionTracking||e.extensionConfig&&e.extensionConfig.ApplicationInsightsAnalytics&&!0===e.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)){n("_"+(r="onerror"));var o=a[r];a[r]=function(e,n,i,a,s){var c=o&&o(e,n,i,a,s);return!0!==c&&t["_"+r]({message:e,url:n,lineNumber:i,columnNumber:a,error:s}),c},e.autoExceptionInstrumented=!0}return t}(
-        {
-          instrumentationKey:"INSTRUMENTATION_KEY"
-        }
-        );window[aiName]=aisdk,aisdk.queue&&0===aisdk.queue.length&&aisdk.trackPageView({});
-        </script>
+    <script type="text/javascript">
+    var sdkInstance="appInsightsSDK";window[sdkInstance]="appInsights";var aiName=window[sdkInstance],aisdk=window[aiName]||function(n){var o={config:n,initialize:!0},t=document,e=window,i="script";setTimeout(function(){var e=t.createElement(i);e.src=n.url||"https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js",t.getElementsByTagName(i)[0].parentNode.appendChild(e)});try{o.cookie=t.cookie}catch(e){}function a(n){o[n]=function(){var e=arguments;o.queue.push(function(){o[n].apply(o,e)})}}o.queue=[],o.version=2;for(var s=["Event","PageView","Exception","Trace","DependencyData","Metric","PageViewPerformance"];s.length;)a("track"+s.pop());var r="Track",c=r+"Page";a("start"+c),a("stop"+c);var u=r+"Event";if(a("start"+u),a("stop"+u),a("addTelemetryInitializer"),a("setAuthenticatedUserContext"),a("clearAuthenticatedUserContext"),a("flush"),o.SeverityLevel={Verbose:0,Information:1,Warning:2,Error:3,Critical:4},!(!0===n.disableExceptionTracking||n.extensionConfig&&n.extensionConfig.ApplicationInsightsAnalytics&&!0===n.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)){a("_"+(s="onerror"));var p=e[s];e[s]=function(e,n,t,i,a){var r=p&&p(e,n,t,i,a);return!0!==r&&o["_"+s]({message:e,url:n,lineNumber:t,columnNumber:i,error:a}),r},n.autoExceptionInstrumented=!0}return o}(
+    {
+    instrumentationKey:"INSTRUMENTATION_KEY"
+    }
+    );(window[aiName]=aisdk).queue&&0===aisdk.queue.length&&aisdk.trackPageView({});
+    </script>
     ```
+
+    >**Note**: Make sure to replace the `INSTRUMENTATION_KEY` placeholder with the Applicaiton Insights Instrumentation Key.
 
 7. Navigate to the **Contoso.Apps.SportsLeague.Web** project located in the **Web** folder using the **Solution Explorer** in Visual Studio.
 
@@ -1569,7 +1575,7 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![The Application Insights configuration option Contoso.Apps.SportsLeague.Web is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image216.png "Application Insights configuration option")
 
-5. Select **Dashboard**.  View the performance timeline to see the overall number of requests and page load time.
+5. Select **Application Dashboard**.  View the performance timeline to see the overall number of requests and page load time.
 
     ![Application Insights - Contoso.Apps.SportsLeague.Web - At the top of the page, the Application Dashboard link is highlighted and has an arrow pointing to it. Failed requests and server response metrics are displayed.](media/2019-03-29-11-10-04.png "Click the Dashboard link")
 
@@ -1585,7 +1591,7 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![A screenshot using the Events button under the Usage Preview section.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image218.png "The Usage Preview section")
 
-8. Select **View More Metrics**, then scroll down to see event list.
+8. Select **View More Insights**, then scroll down to see event list.
 
     ![In the Custom events section, event metrics are displayed for users and sessions. Different web pages are listed. e.g. OrderCompleted and SuccessfulPaymentAuth.](media/2019-03-29-11-35-33.png "Event Statistics")
 
