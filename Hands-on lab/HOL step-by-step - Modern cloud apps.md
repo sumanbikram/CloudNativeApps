@@ -40,10 +40,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 2: Setup SQL Database Geo-Replication](#task-2-setup-sql-database-geo-replication)
       - [Subtask 1: Add secondary database](#subtask-1-add-secondary-database)
       - [Subtask 2: Setup SQL Failover Group](#subtask-2-setup-sql-failover-group)
-      - [Subtask 3: Failover secondary SQL database](#subtask-3-failover-secondary-sql-database)
+      - [Subtask 3: Failover SQL Database Failover Group](#subtask-3-failover-sql-database-failover-group)
       - [Subtask 4: Test e-commerce Web App after Failover](#subtask-4-test-e-commerce-web-app-after-failover)
-      - [Subtask 5: Revert Failover back to Primary database](#subtask-5-revert-failover-back-to-primary-database)
-      - [Subtask 6: Test e-commerce Web App after reverting failover](#subtask-6-test-e-commerce-web-app-after-reverting-failover)
     - [Task 3: Deploying the Call Center admin website](#task-3-deploying-the-call-center-admin-website)
       - [Subtask 1: Provision the call center admin Web App](#subtask-1-provision-the-call-center-admin-web-app)
       - [Subtask 2: Update the configuration in the starter project](#subtask-2-update-the-configuration-in-the-starter-project)
@@ -408,13 +406,60 @@ With SQL Database Geo-Replication configured, the Azure SQL Failover Groups feat
 
     ![Add group button](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/failovergroupsaddgroupbutton.png "Add group buton")
 
-6. TODO
+6. On the **Failover group** pane, enter a unique **Failover group name**.
 
-#### Subtask 3: Failover secondary SQL database
+    ![Failover group name field](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupname.png "Failover group name field")
+
+7. Select **Secondary server**, then choose the **Secondary SQL Database** that was previously created.
+
+    ![Secondary SQL Database is highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailoversecondaryserver.png "Secondary SQL Database is highlighted")
+
+8. Select **Database within the group**, then choose the the **ContosoSportsDB** database, then click **Select**.
+
+    ![Steps to choose the ContosoSportsDB are highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailoversecondarydatabase.png "Steps to choose the ContosoSportsDB are highlighted")
+
+9. Select **Create** to create the SQL Failover Group.
+
+10. Once the Failover Group has been created, select it in the list.
+
+    ![Failover Group is highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergrouplist.png "Failover Group is highlighted")
+
+11. Notice, on the **Failover group** pane, the map and display showing the _Primary_ and _Secondary_ SQL Database servers within the failover group. The _Primary_ database shows as **Automatic** failover for Read/Write of data, while the _Secondary_ database doesn't since it is currently Readonly.
+
+    ![Map display of Primary and Seconary databases](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupmap.png "Map display of Primary and Seconary databases")
+
+12. Scroll down, below the map, to where the **Read/write listener endpoint** and **Read-only listener endpoint** are displayed. These allow for applications to be configured to connect to the SQL Failover Group endpoints instead of the individual SQL Server endpoints.
+
+    Copy both **Listener Endpoint** values for later reference.
+
+    ![Read/Write and Read-only listener endpoints are displayed](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupendpoints.png "Read/Write and Read-only listener endpoints are displayed")
+
+13. Go back to the **contososports** resource group blade.
+
+14. Select the **contosoapp** web app (**App Service** type).
+
+    ![contosoapp is highlighted](media/2019-04-19-13-46-40.png "contosoapp is highlighted")
+
+15. On the **App Service** blade, scroll down in the left pane. Under the **Settings** menu, select **Configuration**.
+
+    ![Configuration option is highlighted](media/2019-04-19-16-38-54.png "Configuration option is highlighted")
+
+16. Locate the **Connection Strings** section, and modify the value of the **ContosoSportsLeague** connection string to include the **Azure SQL Failover Group Read/Write Listener Endpoint** that was copied previously.
+
+    > Note: The connection string will need to be in the following format:
+    > ```
+    > Server=tcp:{failover_group_endpoint};Initial Catalog=ContosoSportsDB;Persist Security Info=False;User ID={your_username};Password={your_password_here};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+    > ```
+    >
+    > Be sure to replace the string placeholder values **{your_username}**, **{your_password_here}**, and **{failover_group_endpoint}** with the username, password, and read/write listener endpoint for the SQL Database Failover Group. The username and password will remain the same as they were for the SQL Server.
+
+17. Select **Save**.
+
+#### Subtask 3: Failover SQL Database Failover Group
 
 >**Note**: This subtask is optional.
 
-Since the Replication and Failover process can take anywhere from 10 to 30 minutes to complete, you have the choice to skip Subtask 2 through 5, and go directly to Task 3. However, if you have the time, it is recommended that you complete these steps.
+Since the Replication and Failover process can take anywhere from 10 to 30 minutes to complete, you have the choice to skip Subtask 3 and 4, and go directly to Task 3. However, if you have the time, it is recommended that you complete these steps.
 
 1. Using a new tab or instance of your browser, navigate to the Azure Management Portal <http://portal.azure.com>.
 
@@ -422,133 +467,43 @@ Since the Replication and Failover process can take anywhere from 10 to 30 minut
 
     ![Screenshot of SQL Databases tile](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "Azure Portal")
 
-3. On the **Settings** blade, select **Geo-Replication**.
+3. On the **Overview** pane, select the **Server name**.
 
-    ![On the Settings blade, under Settings, Geo-Replication is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image64.png "Settings section")
+    ![Server name is highlighted](images/2020-03-17-19-35-23.png "Server name is highlighted")
 
-4. On the **Geo-Replication** blade, select the *secondary* database.
+4. On the **SQL server** blade, select **Failover groups** under Settings.
 
-    ![The Geo-Replication blade has a map of the world with locations marked on it. Under the map, Primary is set to West US, which on the map has a blue check mark. Under Secondaries, East US is circled, and displays on the map with a green check mark. A line connects the West Coast (blue) and East Coast (green) check marks.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image65.png "Geo-Replication blade")
+    ![Failover groups option is highlighted](images/2020-03-17-19-37-00.png "Failover groups option is highlighted")
 
-5. Select the **Forced Failover** button.
+5. Select the **Failover group** in the list.
 
-    ![the Forced Failover button is circled on the Secondary database blade.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image66.png "Secondary database blade")
+    ![Failover group is highlighted in the list](images/2020-03-17-19-38-01.png "Failover group is highlighted in the list")
 
-6. On the **Forced Failover** prompt, select **Yes**.
+6. On the Failover group blade, select the **Forced Failover** button, then select **Yes** to confirm the forced failover of the SQL Database Failover Group.
 
-    ![On the East US Secondary database blade, in response to the questing asking if you are sure you want to proceed, the Yes button is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image67.png "Failover prompt")
+    ![Forced failover confirmation is displayed](images/2020-03-17-19-39-56.png "Forced failover confirmation is displayed")
 
-The failover may take a few minutes to complete. You can continue with the next Subtask modifying the Web App to point to the Secondary SQL Database while the Failover is pending.
+The failover may take a few minutes to complete. You can continue with the next Subtask.
 
 #### Subtask 4: Test e-commerce Web App after Failover
 
-1. Once completed, in the Azure Portal, select **SQL databases**, and select the NEW **ContosoSportsDB** secondary.
+1. From the Azure portal, select **Resource Groups**, and select **contososports**.
 
-    ![On the SQL databases blade, under Name, the ContosoSportsDB Secondary replication role is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image68.png "SQL databases blade")
+2. Select the **Web App** created earlier.
 
-2. Next, select **Show database connection strings**, and copy it off thereby replacing the user and password.
-
-    ![On the SQL database blade, on the left Overview is selected. On the right, under Essentials, the Connection strings (Show database connection strings) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image69.png "SQL database blade")
-
-3. From the Azure portal, select **Resource Groups**, and select **contososports**.
-
-4. Select the **Web App** created earlier.
-
-5. On the **App Service** blade, scroll down in the left pane, and select **Configuration settings**.
-
-    ![In the App Service blade, under Settings, select Configuration link.](media/2019-04-19-16-38-54.png "Configuration link")
-
-6. Scroll down, and locate the **Connection strings** section.
-
-7. Update the **ContosoSportsLeague** Connection String to the value of the **original Secondary Azure SQL Database**.
-
-    ![On the App Service blade, in the Connection strings section, the ContosoSportsLeague connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image70.png "App Service blade")
-
-    >**Note**: Ensure you replace the string placeholder values **{your\_username}** and **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
-
-    ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder values")
-
-8. Select the **Save** button.
-
-9. On the **App Service** blade, select **Overview**.
+3. On the **App Service** blade, select **Overview**.
 
     ![Screenshot of Overview menu option](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image71.png "App Service blade")
 
-10. On the **Overview** pane, select the **URL** for the Web App to open it in a new browser tab.
+4. On the **Overview** pane, select the **URL** for the Web App to open it in a new browser tab.
 
     ![On the App Service blade, in the Essentials section, the URL (http;//contososportsweb4azurewebsites.net) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image72.png "App Service blade Essentials section")
 
-11. After the e-commerce Web App loads in Internet Explorer, select **STORE** in the top navigation bar of the website.
+5. After the e-commerce Web App loads in Internet Explorer, select **STORE** in the top navigation bar of the website.
 
     ![On the Contoso sports league website navigation bar, the Store button is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image73.png "Contoso sports league website navigation bar")
 
-12. Verify the product list from the database displays.
-
-    ![Screenshot of the Contoso store webpage. Under Team Apparel, a Contoso hat, tank top, and hoodie display.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image74.png "Contoso store webpage")
-
-#### Subtask 5: Revert Failover back to Primary database
-
-1. Using a new tab or instance of your browser, navigate to the Azure Management Portal <http://portal.azure.com>.
-
-2. In the new **SQL databases**, and select the name of the SQL Database you created previously.
-
-    ![Screenshot of SQL Databases menu option.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "SQL Databases")
-
-3. On the **Settings** blade, select **Geo-Replication**.
-
-    ![In the Settings section, Geo-Replication is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image64.png "Settings section")
-
-4. On the **Geo-Replication** blade, select the Secondary database.
-
-    ![The Geo-Replication blade has a map of the world with locations marked on it. Under the map, Primary is set to East US, which on the map has a blue check mark. Under Secondaries, West US is circled, and displays on the map with a green check mark. A line connects the East US (blue) and West US (green) check marks.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image75.png "Geo-Replication blade")
-
-5. Select the **Forced Failover** button.
-
-    ![The Forced Failover button in the Secondary Database blade is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image76.png "Secondary Database blade")
-
-6. On the **Forced Failover** prompt, select **Yes**.
-
-    ![On the West US Secondary database blade, in response to the questing asking if you are sure you want to proceed, the Yes button is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image77.png "Failover prompt")
-
-The failover may take a few minutes to complete. You can continue with the next Subtask modifying the Web App to point back to the Primary SQL Database while the Failover is pending.
-
-#### Subtask 6: Test e-commerce Web App after reverting failover
-
-1. In the Azure Portal, select **Resource Groups** **\>** **contososports** resource group.
-
-2. Select the **Web App** created in a previous step.
-
-3. On the **App Service** blade, scroll down in the left pane, and select **Configuration settings**.
-
-    ![In the App Service blade, under Settings, select Configuration link.](media/2019-04-19-16-38-54.png "Configuration link")
-
-4. Scroll down, and locate the **Connection strings** section.
-
-5. Update the **ContosoSportsLeague** Connection String back to the value of the Connection String for the **original Primary SQL Database**.
-
-    ![In the App Service blade Connection strings section, the ContosoSportsLeague connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image70.png "App Service blade")
-
-    > **Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
-
-    ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder value")
-
-6. Select **Save**.
-
-    ![the Save button is circled on the App Service blade.](media/2019-03-28-05-36-38.png "App Service blade")
-
-7. On the **App Service** blade, select **Overview**.
-
-    ![Overview is selected on the App Service blade.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image71.png "App Service blade")
-
-8. On the **Overview** pane, select the **URL** for the Web App to open it in a new browser tab.
-
-    ![In the App Service blade Essentials section, the URL (http:/contososportsweb4.azurewebsites.net) link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image72.png "App Service blade, Essentials section")
-
-9. After the e-commerce Web App loads in Internet Explorer, select **STORE** in the top navigation bar of the website.
-
-    ![On the Contoso sports league website navigation bar, the Store button is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image73.png "Contoso sports league website navigation bar")
-
-10. Verify the product list from the database displays.
+6. Verify the product list from the database displays.
 
     ![Screenshot of the Contoso store webpage. Under Team Apparel, a Contoso hat, tank top, and hoodie display.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image74.png "Contoso store webpage")
 
@@ -562,11 +517,11 @@ In this exercise, you will provision a website via the Azure Web App template us
 
 2. Select **+Create a resource** then select **Web**, then **Web App**.
 
-3. Specify a **unique URL** for the Web App, and ensure the **same App Service Plan** and **resource group** you have used throughout the lab are selected. Also, specify **.NET Core 3.0** as the **Runtime stack**.
+3. Specify a **unique URL** for the Web App, **resource group** you have used throughout the lab are selected. Also, specify **.NET Core 3.1 (LTS)** as the **Runtime stack**.
 
     ![On the Web App blade, the App name field is set to contososportscallcentercp.](media/2019-03-28-05-29-59.png "Web App blade")
 
-4. Select **Windows Plan**, and select the **ContosoSportsPlan** used by the front-end Web app.
+4. Select **Linux Plan**, and create a new Linux-based App Service Plan for the Web App.
 
 5. After the values are accepted, select **Review and create**, then **Create**.  It will take a few minutes to provision.
 
@@ -574,7 +529,7 @@ In this exercise, you will provision a website via the Azure Web App template us
 
 1. Navigate to the **App Service** blade for the Call Center Admin App just provisioned.
 
-    ![The App Service blade displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image80.png "App Service blade")
+    ![The App Service blade displays.](media/2020-03-17-19-59-03.png "App Service blade")
 
 2. On the **App Service** blade, select **Configuration** in the left pane.
 
@@ -586,19 +541,15 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     - Name: `ContosoSportsLeague`
 
-    - Value: **Enter the Connection String for the primary SQL Database**.
+    - Value: **Enter the Connection String for the SQL Database Failover Group Read/Write Listener Endpoint**.
 
     - Type: `SQL Azure`
 
     ![The Connection Strings fields display the previously defined values.](media/2019-04-11-04-31-51.png "Connection Strings fields")
 
-    >**Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
+5. Select the **Update** button.
 
-    ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder values")
-
-    - Select the **Update** button.
-
-5. Select the **Save** button.
+6. Select the **Save** button.
 
     ![the Save button is circled on the App Service blade.](media/2019-03-28-05-36-38.png "App Service blade")
 
@@ -610,9 +561,9 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     ![In Solution Explorer, the right-click menu for Contoso.Apps.SportsLeague.Admin displays, and Publish is selected.](media/2019-04-19-14-30-03.png "Right-Click menu")
 
-3. Choose **App Service** as the publish target, choose **Select Existing**, then select **Create Profile**
+3. Choose **App Service Linux** as the publish target, choose **Select Existing**, then select **Create Profile**
 
-    ![On the Publish tab, Microsoft Azure App Service is selected. Below that, the radio button is selected for Select Existing.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image87.png "Publish tab")
+    ![On the Publish tab, App Service Linux is selected. Below that, the radio button is selected for Select Existing.](media/2020-03-17-20-09-01.png "Publish tab")
 
 4. Select the **Web App** for the Call Center Admin App.
 
@@ -722,19 +673,27 @@ In this exercise, the attendee will provision an Azure API app template using th
 
       - Name: `ContosoSportsLeague`
 
-      - Value: **Enter the Connection String for the SQL Database that was created**.
+      - Value: **Enter the Connection String for the SQL Database Failover Group Read-only Listener Endpoint**.
 
       - Type: `SQL Azure`
 
         ![The Connection Strings fields display the previously defined values.](media/2019-04-11-04-31-51.png "Connection Strings fields")
 
-        >**Note**: Ensure you replace the string placeholder values **{your\_username}** **{your\_password\_here}** with the username and password you respectively setup during creation (demouser & demo@pass123).
+        >**Note**: The Connection String for the SQL Database Failover Group Read-only Listener Endpoint will be in the following format:
+        >
+        > ```
+        > Server=tcp:{failover_group_endpoint};Initial Catalog=ContosoSportsDB;Persist Security Info=False;User ID={your_username};Password={your_password_here};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+        > ```
+        >
+        > Ensure you replace the string placeholder values **{your\_username}**, **{your\_password\_here}**, and **{failover_group_endpoint}** with the username, password, and Failover Group Read-only Listener Endpoint you respectively setup during creation (demouser & demo@pass123).
+        >
+        > ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder value")
+        >
+        > The SQL Failover Group Read-only Listener Endpoint will be the DNS name that ends in `.secondary.database.windows.net`. You will have copied this previously when setting up the SQL Failover Group.
 
-        ![The password string placeholder value displays: Password={your\_password\_here};](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image43.png "String placeholder value")
+3. Select the **Update** button.
 
-      - Select the **Update** button.
-
-3. Select the **Save** button.
+4. Select the **Save** button.
 
     ![The Save button is circled on the App Service blade.](media/2019-03-28-05-36-38.png "App Service blade")
 
@@ -763,6 +722,10 @@ In this exercise, the attendee will provision an Azure API app template using th
 8. Viewing the Web App in a browser will display the Swagger UI for the API.
 
     ![Payment Gateway is up and running and the Swagger UI is displayed](media/2019-04-11-05-20-40.png "Swagger UI")
+
+9. Within the Swagger UI for the Offers API, select the `/api/get` method on the API. Then select the **Try it out** button, and then **Execute** to test out the API call from within the Swagger UI in the web browser. Once it executes, scroll down to view the results of the API call execution.
+
+    ![Swagger UI displaying API call response](media/2020-03-17-20-56-31.png "Swagger UI")
 
 ### Task 6: Update and deploy the e-commerce website
 
