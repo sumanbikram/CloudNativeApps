@@ -62,6 +62,7 @@ namespace Contoso.Apps.SportsLeague.Web.Controllers
                 PostalCode = "23456",
                 Country = "United States",
                 Email = "bobloblaw@contososportsleague.com",
+                Phone = "5551234",
                 NameOnCard = "Bob Loblaw",
                 CreditCardType = "Visa",
                 CreditCardNumber = "4111111111111111",

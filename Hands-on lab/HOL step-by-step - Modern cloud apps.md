@@ -35,8 +35,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 1: Deploy the e-commerce website, SQL Database, and storage](#task-1-deploy-the-e-commerce-website-sql-database-and-storage)
       - [Subtask 1: Configure SQL Database Firewall and Retrieve Connection String](#subtask-1-configure-sql-database-firewall-and-retrieve-connection-string)
       - [Subtask 2: Retrieve Storage Account Access Keys](#subtask-2-Retrieve-Storage-Account-Access-Keys)
-      - [Subtask 3: Update the configuration in the starter project](#subtask-3-update-the-configuration-in-the-starter-project)
-      - [Subtask 4: Deploy the e-commerce Web App from Visual Studio](#subtask-4-deploy-the-e-commerce-web-app-from-visual-studio)
+      - [Subtask 3: Retrieve Service Bus Queue Connection String](#subtask-3-retrieve-service-bus-queue-connection-string)
+      - [Subtask 4: Update the configuration in the starter project](#subtask-4-update-the-configuration-in-the-starter-project)
+      - [Subtask 5: Deploy the e-commerce Web App from Visual Studio](#subtask-5-deploy-the-e-commerce-web-app-from-visual-studio)
     - [Task 2: Setup SQL Database Geo-Replication](#task-2-setup-sql-database-geo-replication)
       - [Subtask 1: Add secondary database](#subtask-1-add-secondary-database)
       - [Subtask 2: Setup SQL Failover Group](#subtask-2-setup-sql-failover-group)
@@ -209,7 +210,37 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![In the Access keys blade default keys section, the copy button for the key1 connection string is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image36.png "Access keys blade, default keys section")
 
-#### Subtask 3: Update the configuration in the starter project
+#### Subtask 3: Retrieve Service Bus Queue Connection String
+
+1. Go back to the **contososports** blade resource group, and select the **contoso** Service Bus Namespace.
+
+    ![Service Bus Namespace resource is highlighted](media/2020-03-18-10-38-09.png "Service Bus Namespace")
+
+2. Select the **Queues** link under Entities
+
+    ![Queues link under Entities](media/2020-03-18-10-38-57.png "Queues link")
+
+3. On the **Queues** pane, select the **receiptgenerator** Service Bus Queue.
+
+    ![receiptgenerator queue is highlighted](media/2020-03-18-10-40-40.png "receiptgenerator queue is highlighted")
+
+4. On the **receiptgenerator** Service Bus Queue blade, select the **Shared access policies** link under Settings.
+
+    ![Shared access policies link is shown](media/2020-03-18-10-42-03.png "Shared access policies link is shown")
+
+5. Select the **Publisher** shared access policy.
+
+    ![Publisher policy is highlighted](media/2020-03-18-10-43-12.png "Publisher policy is highlighted")
+
+    >**Note**: The _Publisher_ and _Listener_ shared access policies for the Azure Service Bus Queue were deployed as part of the ARM Template that was used to setup the lab environment. As you can see, the **Publisher** policy that we're copying the connection string for, only has permissions to _Send_ messages to the queue.
+    >
+    > By default, no policies are created. Additionally, it is best practice to use least privilege security to create separate shared access policies for publishers sending messsages and listeners receiving messages from the queue. 
+
+6. On the **SAS Policy** pane, copy the **Primary Connection String**. Paste the value into **Notepad** for later usage. 
+
+    ![Primary Connection String is highlighted](media/2020-03-18-10-54-39.png "Primary Connection String is highlighted")
+
+#### Subtask 4: Update the configuration in the starter project
 
 1. Go back to the **contososports** resource group blade.
 
@@ -232,7 +263,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
    - Key: `AzureQueueConnectionString`
 
-   - Value: Enter the Connection String for the **Azure Storage Account** just created.
+   - Value: Enter the Connection String for the **Azure Service Bus Queue** just created.
 
     ![In the App settings section for the App Service blade, the new entry for AzureQueueConnectionString is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image40.png "App settings section")
 
@@ -254,7 +285,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
 8. Select **Save**.
 
-#### Subtask 4: Deploy the e-commerce Web App from Visual Studio
+#### Subtask 5: Deploy the e-commerce Web App from Visual Studio
 
 1. Navigate to the **Contoso.Apps.SportsLeague.Web** project located in the **Web** folder using the **Solution Explorer** of Visual Studio.
 
@@ -744,8 +775,6 @@ In this exercise, the attendee will provision an Azure API app template using th
     ![In the App Service blade, under Settings, select Configuration link.](media/2019-04-19-16-38-54.png "Configuration link")
 
 5. Scroll down, and locate the **Applications settings** section.
-
-    ![The App settings section of the App Service blade displays with AzureQueueConnectionString selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image115.png "App settings section")
 
 6. Add a new **Application Setting** with the following values:
 
@@ -1747,87 +1776,90 @@ The advantages of using Logic Apps include the following:
 
 6. Select the **All** tabe, then select **Azure Queues**.
 
-    ![In the Services section, the Azure Queues tile is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image241.png "Services section")
+    ![In the Services section, the Azure Service Bus tile is selected.](media/2020-03-18-12-12-10.png "Services section")
 
-7. Select **Azure Queues -- When there are messages in a queue**.
+7. Select **Service Bus - When a message is received in a queue (auto-complete)**.
 
-    ![In the Search all triggers section, Azure Queues - When there are messages in a queue is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image242.png "Search all triggers section")
+    ![In the Search all triggers section, Service Bus - When a message is received in a queue (auto-complete).](media/2020-03-18-12-13-24.png "Search all triggers section")
+    ![]()
 
-8. Specify **ContosoStorage** as the connection name, select the Contoso storage account from the list, and select **Create**.
+8. Specify **ContosoQueue** as the connection name, select the Contoso storage account from the list, and select **Create**.
 
-    ![In When there are messages in a queue, the Connection Name is ContosoStorage, and under Storage Account, contosostorage123321 is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image243.png "When there are messages in a queue ")
+    ![In When there are messages in a queue, the Connection Name is ContosoQueue, and under Service Bus Namespace, contosooiyxeonvhew7u is selected.](media/2020-03-18-12-15-23.png "When there are messages in a queue ")
 
-9. Select the **receiptgenerator** queue from the drop-down, select **New Step**, and **Add an Action**.
+9. Select the **RootManageSharedAccessKey*** from the list of Service Bus Policies, then select **Create**.
 
-    ![Under When there are messages in a queue, the Queue name is set to receiptgenerator. At the bottom, the New Step and Add an action buttons are selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image244.png "Queue name")
+    ![RootManageSharedAccessKey is selected](media/2020-03-18-12-17-17.png "RootManageSharedAccessKey is selected")
 
-10. Select **Azure Functions**.
+10. Select the **receiptgenerator** queue from the drop-down, select **New Step**, and **Add an Action**.
 
-    ![In the Choose an action section, under Services ,the Azure Functions tile is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image245.png "Choose an action")
+    ![Under When there are messages in a queue, the Queue name is set to receiptgenerator.](media/2020-03-18-12-19-06.png "Queue name")
 
-11. Select the **Azure Function App** you just created.
+    >**Note**: If you wish, you can set the **Interval** and **Frequency** to check for new items to a shorter interval than the default; such as every 30 seconds. This could help reduce delay for when the Logic App is triggered when new messages are sent to the Service Bus Queue while you progres through this lab.
 
-    ![Under Azure Functions, on the Actions tab, a single Action, the Azure function contosofunction2101, is listed.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image246.png "Azure Functions")
+11. Select the **+ New step** button, then select **Azure Functions**.
 
-12. Select the Azure function **ContosoMakePDF**.
+    ![In the Choose an action section, under Services ,the Azure Functions tile is selected.](media/2020-03-18-12-21-44.png "Choose an action")
 
-    ![Under Azure Functions, on the Actions tab, a single Action, the Azure function contosofunction2101, is listed.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image247.png "Azure Functions")
+12. Select the **Azure Function App** you just created.
 
-13. Type this in the Request Body:
+    ![Under Azure Functions, on the Actions tab, a single Action, the Azure function ContosoFunctionApp, is listed.](media/2020-03-18-12-22-46.png "Azure Functions")
 
-    ```json
-    {"Order": pick MessageText from list on right }
-    ```
+13. Select the Azure function **ContosoMakePDF**.
 
-    Make sure the syntax is json format. Sometimes the ":" will go to the right side of MessageText by mistake. Keep it on the left. It should look like this:
+    ![Under Azure Functions, on the Actions tab, a single Action, the Azure function ContosoMakePDF, is listed.](media/2020-03-18-12-23-39.png "Azure Functions")
 
-    ![Under ContosoMakePDF, the previous JSON code is typed in the Request Body, and to the right of this, in Insert parameters from previous steps, Message text is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image248.png "ContosoMakePDF")
-
-14. Select **Save** to save the Logic App.
-
-15. There is one modification we need to make in the code. select the **CodeView** button.
-
-    ![In the Logic App, the CodeView button is selected from the top menu.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image250.png "Logic App")
-
-16. Find the line of code in the body for the Order item that reads the MessageText value from the queue, and add the base64 function around it to ensure it encoded before passing it off to the Azure function. It should look like the following:
+14. Type this in the Request Body:
 
     ```json
-    "Order": "@{base64(triggerBody()?['MessageText'])}"
+    {"Order": pick Content from list }
     ```
 
-    ![In the Order item code, the following line of code is circled: \"Order\": \"@{base64(triggerBody()?\[\'MessageText\'\])}\"](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image251.png "Order item code")
+    Make sure the syntax is json format. Sometimes the ":" will go to the right side of Content by mistake. Keep it on the left. It should look like this:
 
-17. Select **Save** again.
+    ![Under ContosoMakePDF, the previous JSON code is typed in the Request Body, and to the right of this, in Insert parameters from previous steps, Content is selected.](media/2020-03-18-12-25-29.png "ContosoMakePDF")
 
-18. Run the logic app. It should process the orders you have submitted previously to test PDF generation. Using Azure Storage Explorer or Visual Studio Cloud Explorer you can navigate to the storage account and open the receipts container to see the created PDFs.
+15. Select **Save** to save the Logic App.
+
+16. Run the logic app. It should process the orders you have submitted previously to test PDF generation. Using Azure Storage Explorer or Visual Studio Cloud Explorer you can navigate to the storage account and open the receipts container to see the created PDFs.
 
     ![In Azure Storage Explorer, on the left, the following tree view is expanded: Storage Accounts\\contososportsstorage01r\\Blob Containers. Under Blob Containers, receipts is selected. On the right, the ContosoSportsLeague-Store-Receipt-72.pdf is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image252.png "Azure Storage Explorer")
 
-18. Double-click it to see the Purchase receipt.
+17. Double-click it to see the Purchase receipt.
 
-19. Now, select the **Designer** button in the Logic Apps Designer screen. add two more steps to the flow for updating the database and removing the message from the queue after it has been processed. Switch back to the designer, select **+ New step**.
+18. Now, select the **Designer** button in the Logic Apps Designer screen. add two more steps to the flow for updating the database and removing the message from the queue after it has been processed. Switch back to the designer, select **+ New step**.
 
     ![In Designer, the New Step link is circled. Under New step, the Add an action tile is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image254.png "Designer")
 
-20. Select **SQL Server**.
+19. Select **SQL Server**.
 
     ![In the Services section, under Services, SQL Server is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image255.png "Services section")
 
-21. Select **SQL Server - Update row**.
+20. Select **SQL Server - Update row (V2)**.
 
-    ![In the SQL Server section, on the Actions tab, SQL Server - Update row is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image256.png "SQL Server section")
+    ![In the SQL Server section, on the Actions tab, SQL Server - Update row (V2) is selected.](media/2020-03-18-12-35-07.png "SQL Server section")
 
-22. Name the connection `ContosoSportsDB`, and select the primary ContosoSportsDB database for your solution. Under the user name and password used to create it, select **Create**.
+21. Enter the following values, then select **Create**:
 
-    ![The Update row section displays the previously defined settings.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image257.png "Update row")
+    - Authentication Type: **SQL Server Authentication**
 
-23. From the drop-down select the name of the table, **Orders**.
+    - SQL server name: _enter the DNS name of the SQL Database Failover Cluster Read/Write Listender Endpoint that was copied previously_
 
-    ![In the Update row section, under Table name, Orders is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image258.png "Update row section")
+    - SQL database name: `ContosoSportsDB`
 
-24. Press **Save** and ignore the error. Select the **Code View** button.
+    - Username: `demouser`
 
-25. Replace these lines:
+    - Password: `demo@pass123`
+
+    ![The Update row section displays the previously defined settings.](media/2020-03-18-12-37-03.png "Update row")
+
+22. Select the **Server name** and **Database name** previously specified, then from the drop-down select the name of the **Orders** table, and enter `OrderId` into the **Row id** field.
+
+    ![In the Update row section, under Table name, Orders is selected.](media/2020-03-18-12-41-11.png "Update row section")
+
+23. Press **Save**, then select the **Code View** button.
+
+24. Replace these lines:
 
     ![Screenshot of code to be replaced.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image259.png "Code view")
 
@@ -1868,28 +1900,30 @@ The advantages of using Logic Apps include the following:
 
     ![The Update row section displays the purchase fields.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image261.png "Update row section")
 
-29. Finally, let us add one more step to remove the message from the queue. Press **+New Step**. Type in Queue in the search box, and select Azure Queues -- Delete message.
+29. Finally, let us add one more step to remove the message from the queue. Press **+New Step**. Select **Service Bus**, then select the **Complete the message in a queue** action.
 
-    ![In the Choose an action section, queue is typed in the search field. Under Services, Azure Queues is selected. On the Actions tab, Azure Queues - Delete message is selected. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image262.png "Choose an action section")
+    ![In the Choose an action section, under Service Bus, the Complete the message in a queue is selected. ](media/2020-03-18-12-51-40.png "Choose an action section")
 
 30. Select the **receiptgenerator** queue from the list.
 
-31. Select **Message Id** **\>** **Pop Receipt** from the list, and select **Save**.
+31. Select **Lock token of the message** **\>** **Lock Token** from the list of outputs form the Trigger, and select **Save**.
 
-    ![In the Update row section, on the left in the Delete message fields, Message ID and Pop receipt are selected. On the right, under When there are messages in a queue, Message ID and Pop receipt are selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image263.png "Update row section")
+    ![Lock token of the message field is set to the Lock Token of the Service Bus Trigger.](media/2020-03-18-12-54-28.png "Lock token is highlighted")
 
-32. Select Run on the Logic App Designer, and then run the Contoso sports Web App and check out an Item.
+32. Select **Save**.
 
-33. Run the call center website app, and select the last Details link in the list.
+33. Select Run on the Logic App Designer, and then run the Contoso sports Web App and check out an Item.
+
+34. Run the call center website app, and select the last Details link in the list.
     ![Screenshot of the Details link.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image264.png "Details link")
 
-34. You should now see a Download receipt link because the database has been updated.
+35. You should now see a Download receipt link because the database has been updated.
 
     ![In the Order Details window, the Download receipt link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image265.png "Order Details window")
 
-35. Select the Download receipt link to see the receipt.
+36. Select the Download receipt link to see the receipt.
 
-36. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
+37. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
 
     ![In the Logic app, all steps have green checkmarks.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image267.png "Logic app")
 
