@@ -2070,9 +2070,9 @@ The advantages of using Logic Apps include the following:
 
     ![In the Azure Portal, on the left side, the Create a resource menu option is selected. On the right, Web and Logic App are selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image279.png "Azure Portal")
 
-8. On the **Create logic app** blade, assign a value for **Name**, and set the Resource Group to **contososports**.
+8. On the **Create logic app** blade, assign a value for **Name**, and set the Resource Group to **contososports**, then create the Logic App.
 
-    ![In the Create logic app blade, the Name field is set to contososportssms. Under Resource group, Use existing is selected, and contososports is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image280.png "Create logic app blade")
+    ![In the Create logic app blade, the Name field is set to contososportssms. Under Resource group, Use existing is selected, and contososports is selected.](media/2020-03-19-11-31-05.png "Create logic app blade")
 
 9. In the navigation menu to the left in the Portal, select **Resource Groups** then **contososports**, then the new Logic App you just created. 
 
@@ -2088,23 +2088,17 @@ The advantages of using Logic Apps include the following:
 
     ![Under Recurrence, the Frequency field is Minute, and the Interval field is 1.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image284.png "Recurrence section")
 
-13. Select the **New Step** button followed by **Add an action**.
+13. Select the **+ New Step** button.
 
-    ![The New step button and Add an action buttons are selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image285.png "Recurrence section")
+14. Type **SQL Server** into the filter box, and select the **SQL Server -- Execute stored procedure (V2)** action.
 
-14. Type **SQL Server** into the filter box, and select the SQL **Server -- Execute stored procedure** action.
+    ![Under Choose an action, sql server is typed in the search field. On the Actions tab, SQL Server (Execute stored procedure V2) is selected.](media/2020-03-19-11-34-57.png "Choose an action section")
 
-    ![Under Choose an action, sql server is typed in the search field. On the Actions tab, SQL Server (Execute stored procedure) is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image286.png "Choose an action section")
+15. Select the **Server name**, **Database name**, and `'[dbo].[GetUnprocessedOrders]` **Procedure name** values.
 
-15. The first time you add a SQL action, you will be prompted for the connection information. Name the connection **ContosoDB**, input the server and database details used earlier, and select **Create**.
+    ![In the Execute stored procedure section, the Procedure name is \[dbo\].\[GetUnprocessedOrders\].](media/2020-03-19-11-37-08.png "Execute stored procedure section")
 
-    ![In the SQL Server - Execute stored procedure section, the Connection Name is contosoDB. Server and database details are the same as used earlier.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image287.png "SQL Server - Execute stored procedure section")
-
-16. Select the **\[dbo\].\[GetUnprocessedOrders\]** stored procedure from the drop-down on the Procedure Name field.
-
-    ![In the Execute stored procedure section, the Procedure name is \[dbo\].\[GetUnprocessedOrders\].](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image288.png "Execute stored procedure section")
-
-17. Select **New Step**, and search for and select the **Control** object.
+16. Select **New Step**, and search for and select the **Control** object.
 
     ![The Control object is highlighted on the logic app designer pick tool.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image289.png "Buttons")
 
@@ -2124,13 +2118,13 @@ The advantages of using Logic Apps include the following:
 
     ![Under If true, the Add an action button is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image291.png "If yes section")
 
-22. Select **SQL Server**, and then select the **SQL Server -- Execute stored procedure** action
+22. Select **SQL Server**, and then select the **SQL Server -- Execute stored procedure (V2)** action
 
-    ![Under If Yes, SQL Server - Execute stored procedure is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image292.png "If yes section")
+    ![Under If Yes, SQL Server - Execute stored procedure is circled.](media/2020-03-19-11-39-54.png "If yes section")
 
 23. Select the **ProcessOrders** stored procedure in the Procedure name dropdown.
 
-    ![Under If Yes, Execute stored procedure 2 is selected, and the Procedure name is \[dbo\].\[ProcessOrders\].](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image293.png "If yes section")
+    ![Under If Yes, Execute stored procedure 2 is selected, and the Procedure name is \[dbo\].\[ProcessOrders\].](media/2020-03-19-11-40-49.png "If yes section")
 
 24. Select the **Add an action** link.
 
@@ -2146,7 +2140,7 @@ The advantages of using Logic Apps include the following:
 
 27. Using the drop-down, select your Twilio number for the **FROM PHONE NUMBER** field. Specify a place holder phone number in the **TO PHONE NUMBER**, and a **TEXT** message.
 
-    ![Under Send Text Message (SMS), the From Phone Number and To Phone Number fields are circled, and in the Text field is the message, Hello, your order has shipped!](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image297.png "Send Text Message (SMS)")
+    ![Under Send Text Message (SMS), the From Phone Number and To Phone Number fields are circled, and in the Text field is the message, Hello, your order has shipped!](media/2020-03-19-11-43-06.png "Send Text Message (SMS)")
 
 28. On the Logic App toolbar, select the **Code View** button.
 
