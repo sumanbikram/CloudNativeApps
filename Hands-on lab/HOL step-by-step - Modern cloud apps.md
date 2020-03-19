@@ -1936,7 +1936,7 @@ The advantages of using Logic Apps include the following:
 
 35. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
 
-    ![In the Logic app, all steps have green checkmarks.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image267.png "Logic app")
+    ![In the Logic app, all steps have green checkmarks.](media/2020-03-18-19-05-39.png "Logic app")
 
 ### Task 3: Use Twilio to send SMS Order Notifications
 
