@@ -1272,7 +1272,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
             // You can indicate which policy to use by specifying the policy id as the AuthenticationType
             return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, SignUpSignInPolicyId);
         }
-        return NotFound();
+        return RedirectToAction("Index", "Home");
     }
             
     public ActionResult SignUp()
@@ -1281,7 +1281,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
         {
             return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, SignUpSignInPolicyId);
         }
-        return NotFound();
+        return RedirectToAction("Index", "Home");
     }
 
     public ActionResult Profile()
@@ -1290,7 +1290,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
         {
             return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, EditProfilePolicyId);
         }
-        return NotFound();
+        return RedirectToAction("Index", "Home");
     }
 
     public async Task SignOut()
@@ -1301,6 +1301,8 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
         }
     }
     ```
+
+5. Save the file.
 
 ### Task 7: Display user information
 
@@ -1870,71 +1872,69 @@ The advantages of using Logic Apps include the following:
 
 23. Press **Save**, then select the **Code View** button.
 
-24. Replace these lines:
-
-    ![Screenshot of code to be replaced.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image259.png "Code view")
-
-    With these:
+24. Add the following JSON within the `Update_row_(V2).inputs` object:
 
     ```json
-    "OrderDate": "@{body('ContosoMakePDF')['OrderDate']}",
-    "FirstName": "@{body('ContosoMakePDF')['FirstName']}",
-    "LastName": "@{body('ContosoMakePDF')['LastName']}",
-    "Address": "@{body('ContosoMakePDF')['Address']}",
-    "City": "@{body('ContosoMakePDF')['City']}",
-    "State": "@{body('ContosoMakePDF')['State']}",
-    "PostalCode": "@{body('ContosoMakePDF')['PostalCode']}",
-    "Country": "@{body('ContosoMakePDF')['Country']}",
-    "Phone": "@{body('ContosoMakePDF')['Phone']}",
-    "SMSOptIn": "@{body('ContosoMakePDF')['SMSOptIn']}",
-    "SMSStatus": "@{body('ContosoMakePDF')['SMSStatus']}",
-    "Email": "@{body('ContosoMakePDF')['Email']}",
-    "ReceiptUrl": "@{body('ContosoMakePDF')['ReceiptUrl']}",
-    "Total": "@{body('ContosoMakePDF')['Total']}",
-    "PaymentTransactionId": "@{body('ContosoMakePDF')['PaymentTransactionId']}",
-    "HasBeenShipped": "@{body('ContosoMakePDF')['HasBeenShipped']}"
+    "body": {
+        "OrderDate": "@{body('ContosoMakePDF')['OrderDate']}",
+        "FirstName": "@{body('ContosoMakePDF')['FirstName']}",
+        "LastName": "@{body('ContosoMakePDF')['LastName']}",
+        "Address": "@{body('ContosoMakePDF')['Address']}",
+        "City": "@{body('ContosoMakePDF')['City']}",
+        "State": "@{body('ContosoMakePDF')['State']}",
+        "PostalCode": "@{body('ContosoMakePDF')['PostalCode']}",
+        "Country": "@{body('ContosoMakePDF')['Country']}",
+        "Phone": "@{body('ContosoMakePDF')['Phone']}",
+        "SMSOptIn": "@{body('ContosoMakePDF')['SMSOptIn']}",
+        "SMSStatus": "@{body('ContosoMakePDF')['SMSStatus']}",
+        "Email": "@{body('ContosoMakePDF')['Email']}",
+        "ReceiptUrl": "@{body('ContosoMakePDF')['ReceiptUrl']}",
+        "Total": "@{body('ContosoMakePDF')['Total']}",
+        "PaymentTransactionId": "@{body('ContosoMakePDF')['PaymentTransactionId']}",
+        "HasBeenShipped": "@{body('ContosoMakePDF')['HasBeenShipped']}"
+    },
     ```
 
-26. And modify the path variable to include the index key or OrderId to be as follows:
+    After this has been added, the JSON will look as follows:
+
+    ![JSON edits have been made](media/2020-03-18-18-21-47.png "JSON edits have been made")
+
+25. And modify the `path` variable for the `Update_row_(V2)` action to include the index key or OrderId as follows:
 
     ```json
-    "path": "/datasets/default/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[Orders]'))}/items/@{encodeURIComponent(encodeURIComponent(body('ContosoMakePDF')['OrderId']))}"
+    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[Orders]'))}/items/@{encodeURIComponent(encodeURIComponent(body('ContosoMakePDF')['OrderId']))}"
     ```
 
-    The code should now look as follows for the update\_row method:
+25. **Save** and return to the designer.
 
-    ![Screenshot of replacement code.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image260.png "Code")
-
-27. **Save** and return to the designer.
-
-28. Your updated designer view should look like this:
+26. Your updated designer view should look like this:
 
     ![The Update row section displays the purchase fields.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image261.png "Update row section")
 
-29. Finally, let us add one more step to remove the message from the queue. Press **+New Step**. Select **Service Bus**, then select the **Complete the message in a queue** action.
+27. Finally, let us add one more step to remove the message from the queue. Press **+New Step**. Select **Service Bus**, then select the **Complete the message in a queue** action.
 
     ![In the Choose an action section, under Service Bus, the Complete the message in a queue is selected. ](media/2020-03-18-12-51-40.png "Choose an action section")
 
-30. Select the **receiptgenerator** queue from the list.
+28. Select the **receiptgenerator** queue from the list.
 
-31. Select **Lock token of the message** **\>** **Lock Token** from the list of outputs form the Trigger, and select **Save**.
+29. Select **Lock token of the message** **\>** **Lock Token** from the list of outputs form the Trigger, and select **Save**.
 
     ![Lock token of the message field is set to the Lock Token of the Service Bus Trigger.](media/2020-03-18-12-54-28.png "Lock token is highlighted")
 
-32. Select **Save**.
+30. Select **Save**.
 
-33. Select Run on the Logic App Designer, and then run the Contoso sports Web App and check out an Item.
+31. Select Run on the Logic App Designer, and then run the Contoso sports Web App and check out an Item.
 
-34. Run the call center website app, and select the last Details link in the list.
+32. Run the call center website app, and select the last Details link in the list.
     ![Screenshot of the Details link.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image264.png "Details link")
 
-35. You should now see a Download receipt link because the database has been updated.
+33. You should now see a Download receipt link because the database has been updated.
 
     ![In the Order Details window, the Download receipt link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image265.png "Order Details window")
 
-36. Select the Download receipt link to see the receipt.
+34. Select the Download receipt link to see the receipt.
 
-37. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
+35. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
 
     ![In the Logic app, all steps have green checkmarks.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image267.png "Logic app")
 
