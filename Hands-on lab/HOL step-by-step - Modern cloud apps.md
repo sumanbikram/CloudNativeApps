@@ -71,10 +71,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 2: Add a new application](#task-2-add-a-new-application)
     - [Task 3: Create Policies, Sign up and sign in](#task-3-create-policies-sign-up-and-sign-in)
     - [Task 4: Create a profile editing policy](#task-4-create-a-profile-editing-policy)
-    - [Task 5: Modify the Contoso.App.SportsLeague.Web](#task-5-modify-the-contosoappsportsleagueweb)
-    - [Task 6: Send authentication requests to Azure AD](#task-6-send-authentication-requests-to-azure-ad)
-    - [Task 7: Display user information](#task-7-display-user-information)
-    - [Task 8: Run the sample app](#task-8-run-the-sample-app)
+    - [Task 5: Create a password reset policy](#task-5-create-a-password-reset-policy)
+    - [Task 6: Modify the Contoso.App.SportsLeague.Web](#task-6-modify-the-contosoappsportsleagueweb)
+    - [Task 7: Send authentication requests to Azure AD](#task-7-send-authentication-requests-to-azure-ad)
+    - [Task 8: Display user information](#task-8-display-user-information)
+    - [Task 9: Run the sample app](#task-9-run-the-sample-app)
   - [Exercise 4: Enabling Telemetry with Application Insights](#exercise-4-enabling-telemetry-with-application-insights)
     - [Task 1: Configure the application for telemetry](#task-1-configure-the-application-for-telemetry)
       - [Subtask 1: Add Application Insights Telemetry to the e-commerce website project](#subtask-1-add-application-insights-telemetry-to-the-e-commerce-website-project)
@@ -1179,9 +1180,9 @@ To enable profile editing on your application, you will need to create a profile
 
 13. Select **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
 
-### Task 4: Create a password update policy
+### Task 5: Create a password reset policy
 
-To enable profile editing on your application, you will need to create a profile editing policy. This policy describes the experiences that consumers will go through during profile editing and the contents of tokens that the application will receive on successful completion.
+To enable profile editing on your application, you will need to create a profile password reset. This policy describes the experiences that consumers will go through during password reset and the contents of tokens that the application will receive on successful completion.
 
 1. Select **User flows** link on the left blade.
 
@@ -1218,7 +1219,7 @@ To enable profile editing on your application, you will need to create a profile
 
 13. Select **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
 
-### Task 5: Modify the Contoso.App.SportsLeague.Web
+### Task 6: Modify the Contoso.App.SportsLeague.Web
 
 1. Expand the **Contoso.Apps.SportsLeague.Web** project. Find the **Startup.cs** code file, locate the `public void ConfigureServices(` method declaration, then add the following line of code to the bottom of this method:
 
@@ -1264,7 +1265,7 @@ To enable profile editing on your application, you will need to create a profile
 
 5. Select **Save** when you are complete.
 
-### Task 6: Send authentication requests to Azure AD
+### Task 7: Send authentication requests to Azure AD
 
 Your app is now properly configured to communicate with Azure AD B2C by using ASP.NET Core Identity. OWIN has taken care of all of the details of crafting authentication messages, validating tokens from Azure AD, and maintaining user session. All that remains is to initiate each user's flow.
 
@@ -1294,22 +1295,18 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
     ```csharp
     // Controllers\AccountController.cs
 
-    public static string SignUpSignInPolicyId;
-    public static string EditProfilePolicyId;
+    private string _editProfilePolicyId;
 
     public AccountController(IConfiguration configuration)
     {
-        SignUpSignInPolicyId = configuration.GetValue<string>("AzureADB2C:SignUpSignInPolicyId");
-        EditProfilePolicyId = configuration.GetValue<string>("AzureADB2C:EditProfilePolicyId");
+        _editProfilePolicyId = configuration.GetValue<string>("AzureADB2C:EditProfilePolicyId");
     }
 
     public ActionResult SignIn()
     {
         if (!User.Identity.IsAuthenticated)
         {
-            // To execute a policy, you simply need to trigger an OWIN challenge.
-            // You can indicate which policy to use by specifying the policy id as the AuthenticationType
-            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, SignUpSignInPolicyId);
+            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, AzureADB2CDefaults.AuthenticationScheme);
         }
         return RedirectToAction("Index", "Home");
     }
@@ -1318,7 +1315,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
     {
         if (!User.Identity.IsAuthenticated)
         {
-            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, SignUpSignInPolicyId);
+            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, AzureADB2CDefaults.AuthenticationScheme);
         }
         return RedirectToAction("Index", "Home");
     }
@@ -1327,23 +1324,39 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
     {
         if (User.Identity.IsAuthenticated)
         {
-            return Challenge(new AuthenticationProperties() { RedirectUri = "/" }, EditProfilePolicyId);
+                var properties = new AuthenticationProperties() { RedirectUri = "/" };
+                properties.Items[AzureADB2CDefaults.PolicyKey] = _editProfilePolicyId;
+                return Challenge(
+                    properties,
+                    AzureADB2CDefaults.AuthenticationScheme);
         }
         return RedirectToAction("Index", "Home");
     }
 
-    public async Task SignOut()
+    public ActionResult SignOut()
     {
-        if (User.Identity.IsAuthenticated)
+        if (!User.Identity.IsAuthenticated)
         {
-            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
+        string redirectUri = Url.Action("Index", "Home", null, Request.Scheme);
+        var properties = new AuthenticationProperties
+        {
+            RedirectUri = redirectUri
+        };
+        return SignOut(properties, AzureADB2CDefaults.CookieScheme, AzureADB2CDefaults.OpenIdScheme);
     }
     ```
 
-5. Save the file.
+5. Add the following `using` statement to the top of the file:
 
-### Task 7: Display user information
+    ```csharp
+    using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
+    ```
+
+6. Save the file.
+
+### Task 8: Display user information
 
 When you authenticate users by using OpenID Connect, Azure AD returns an ID token to the app that contains **claims**. These are assertions about the user. You can use claims to personalize your app. You can access user claims in your controllers via the ClaimsPrincipal.Current security principal object.
 
@@ -1459,7 +1472,7 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
     </div>
     ```
 
-### Task 8: Run the sample app
+### Task 9: Run the sample app
 
 1. Right-click on the **Contoso.Apps.SportsLeague.Web** project, and select **Publish**. Follow the steps to deploy the updated application to the Microsoft Azure Web App.
 
