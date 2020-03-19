@@ -1230,7 +1230,7 @@ To enable profile editing on your application, you will need to create a profile
 
     ![The Startup.cs file with the "app.UseAuthorization();" line of code highlighted.](media/2019-04-19-15-08-40.png "Startup.cs")
 
-2. Add the following `using` statement to the top of the **Startup.cs** code file:
+2. Add the following `using` directives to the top of the **Startup.cs** code file:
 
     ```
     using Microsoft.AspNetCore.Authentication;
@@ -1256,7 +1256,7 @@ To enable profile editing on your application, you will need to create a profile
 
 4. Add the following settings in the **Application Settings** section:
 
-   - AzureADB2C:Instance - `https://login.microsoftonline.com/tfp/`.
+   - AzureADB2C:Instance - `https://[your Azure AD B2C name].b2clogin.com/tfp/`.
    - AzureADB2C:ClientId - **B2C Application ID you copied down earlier**.
    - AzureADB2C:CallbackPath - `/signin-oidc-b2c`
    - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**.
@@ -1358,9 +1358,10 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 1. Open the **Controllers\\HomeController.cs** file and add the following using statements at the end of the other using statements at the top of the file.
 
     ```csharp
-    using System.Linq;
-    using System.Security.Claims;
+    using Contoso.Apps.SportsLeague.Web.Models;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
     ```
 
 2. Still in the **Controllers\\HomeController.cs** file, add the following method to the **HomeController** class:
