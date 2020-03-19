@@ -1234,18 +1234,19 @@ To enable profile editing on your application, you will need to create a profile
 
     ```
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
     ```
 
 3. Locate the `app.UseAuthentication();` line within the `public void Configure` method, and add the following line of code after it:
 
     ```
     app.UseAuthentication();
+    app.UseAuthorization();
     ```
 
     The result will look similar to the following:
 
     ![app.UseAuthentication code inserted](media/2020-03-18-14-44-13.png "app.UseAuthentication code inserted")
-    
 
 3. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
@@ -1280,10 +1281,10 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
 3. Add the following using statement to the top of the controller:
 
     ```csharp
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
-    using System.Threading.Tasks;
     ```
 
 4. Locate the default controller **Index** method.
@@ -1348,13 +1349,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
     }
     ```
 
-5. Add the following `using` statement to the top of the file:
-
-    ```csharp
-    using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
-    ```
-
-6. Save the file.
+5. Save the file.
 
 ### Task 8: Display user information
 
