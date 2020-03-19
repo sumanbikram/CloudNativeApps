@@ -78,7 +78,7 @@ namespace Contoso.Apps.SportsLeague.Offers
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetService<ProductContext>();
-                ProductDatabaseInitializer.Configure(dbContext);
+                ProductDatabaseInitializer.Configure(dbContext).Wait();
             }
         }
     }
