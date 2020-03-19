@@ -1063,7 +1063,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 
 1. Navigate back to the **Azure AD B2C** blade that was opened in the last task.
 
-2. To enable sign-up on your application, you will need to create a sign-up policy. This policy describes the experiences consumers will go through during sign-up and the contents of tokens the application will receive on successful sign-ups. Select **User flows (policies)** link on the left menu and then **+New user flow** link at the top of the blade.
+2. To enable sign-up on your application, you will need to create a sign-up policy. This policy describes the experiences consumers will go through during sign-up and the contents of tokens the application will receive on successful sign-ups. Select **User flows** link on the left menu and then **+New user flow** link at the top of the blade.
 
     ![In the Azure Portal, on the left, Azure AD B2C - User Flows selected.](media/2019-03-28-12-17-22.png "Azure AD B2C - User Flows selected")
 
@@ -1131,7 +1131,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 
 To enable profile editing on your application, you will need to create a profile editing policy. This policy describes the experiences that consumers will go through during profile editing and the contents of tokens that the application will receive on successful completion.
 
-1. Select **User flows (polices)** link on the left blade.
+1. Select **User flows** link on the left blade.
 
 2. Select **+ New user flow** link at the top of the blade.
 
@@ -1174,6 +1174,45 @@ To enable profile editing on your application, you will need to create a profile
 10. Select **Create**. Observe the policy just created appears as \"**B2C\_1\_EditProfile**\" (the **B2C\_1\_** fragment is automatically added) in the **Profile editing policies** blade.
 
 11. Open the policy by selecting **B2C\_1\_EditProfile**, then **Run user flow**.
+
+12. Select **Contoso B2C application** in the **Select Application** drop-down.
+
+13. Select **Run user flow**. A new browser tab opens, and you can run through the profile editing consumer experience in your application.
+
+### Task 4: Create a password update policy
+
+To enable profile editing on your application, you will need to create a profile editing policy. This policy describes the experiences that consumers will go through during profile editing and the contents of tokens that the application will receive on successful completion.
+
+1. Select **User flows** link on the left blade.
+
+2. Select **+ New user flow** link at the top of the blade.
+
+3. Select **Password reset**.
+
+    ![The Create a user flow pane is displayed.  The Recommended tab is selected. The Password reset is highlighted.](media/2020-03-19-09-47-15.png "Select Password reset")
+
+4. The Name determines the profile editing policy name used by your application. For example, enter **SSPR**.
+
+    ![In the Add policy blade, Identity providers (1 Selected) is selected. Identities providers - select Reset password using email address.](media/2020-03-19-09-50-24.png "select Reset password using email address")
+
+5. Select Identity providers, and then "**Reset password using email address**."
+
+6. Select the **Show more...** link
+
+7. Select **Return claim**. Here, you choose attributes about the user that are returned to the application in the token.
+
+    For now, select the following:
+
+    - **Email Addresses**
+    - **Given Name**
+
+    ![Return claim attributes selected blade](media/2020-03-19-09-54-28.png "Return claims")
+
+8. Select **OK**.
+
+10. Select **Create**. Observe the policy just created appears as \"**B2C\_1\_SSPR**\" (the **B2C\_1\_** fragment is automatically added) in the **Profile editing policies** blade.
+
+11. Open the policy by selecting **B2C\_1\_SSPR**, then **Run user flow**.
 
 12. Select **Contoso B2C application** in the **Select Application** drop-down.
 
