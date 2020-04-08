@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -217,7 +217,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     ![Service Bus Namespace resource is highlighted](media/2020-03-18-10-38-09.png "Service Bus Namespace")
 
-2. Select the **Queues** link under Entities
+2. Select the **Queues** link under Entities.
 
     ![Queues link under Entities](media/2020-03-18-10-38-57.png "Queues link")
 
@@ -235,7 +235,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     >**Note**: The _Publisher_ and _Listener_ shared access policies for the Azure Service Bus Queue were deployed as part of the ARM Template that was used to setup the lab environment. As you can see, the **Publisher** policy that we're copying the connection string for, only has permissions to _Send_ messages to the queue.
     >
-    > By default, no policies are created. Additionally, it is best practice to use least privilege security to create separate shared access policies for publishers sending messsages and listeners receiving messages from the queue. 
+    > By default, no policies are created. Additionally, it is best practice to use least privilege security to create separate shared access policies for publishers sending messages and listeners receiving messages from the queue. 
 
 6. On the **SAS Policy** pane, copy the **Primary Connection String**. Paste the value into **Notepad** for later usage. 
 
@@ -318,7 +318,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
     >**Note**: If prompted with a warning about App Service supporting .NET Core 3.0.0, select **OK** to dismiss the warning.
     >
-    > ![App Service .NET Core 3.0.0 support warning](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/2019-11-15-18-12-21.png "App Service .NET Core 3.0.0 support warning")
+    > ![App Service .NET Core 3.0.0 support warning.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/2019-11-15-18-12-21.png "App Service .NET Core 3.0.0 support warning")
 
 8. In the Visual Studio **Output** view, you will see a status that indicates the Web App was published successfully.
 
@@ -366,7 +366,7 @@ In this exercise, the attendee will provision a secondary SQL Database and confi
 
 7. On the **New server** blade, specify the following configuration:
 
-   - Server name: **A unique value (ensure the green checkmark appears)**
+   - Server name: **A unique value (ensure the green checkmark appears)**.
 
    - Server admin login: **demouser**
 
@@ -444,11 +444,11 @@ With SQL Database Geo-Replication configured, the Azure SQL Failover Groups feat
 
 7. Select **Secondary server**, then choose the **Secondary SQL Database** that was previously created.
 
-    ![Secondary SQL Database is highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailoversecondaryserver.png "Secondary SQL Database is highlighted")
+    ![Secondary SQL Database is highlighted.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailoversecondaryserver.png "Secondary SQL Database is highlighted")
 
-8. Select **Database within the group**, then choose the the **ContosoSportsDB** database, then click **Select**.
+8. Select **Database within the group**, then choose the **ContosoSportsDB** database, then click **Select**.
 
-    ![Steps to choose the ContosoSportsDB are highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailoversecondarydatabase.png "Steps to choose the ContosoSportsDB are highlighted")
+    ![Steps to choose the ContosoSportsDB are highlighted.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailoversecondarydatabase.png "Steps to choose the ContosoSportsDB are highlighted")
 
 9. Select **Create** to create the SQL Failover Group.
 
@@ -456,15 +456,15 @@ With SQL Database Geo-Replication configured, the Azure SQL Failover Groups feat
 
     ![Failover Group is highlighted](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergrouplist.png "Failover Group is highlighted")
 
-11. Notice, on the **Failover group** pane, the map and display showing the _Primary_ and _Secondary_ SQL Database servers within the failover group. The _Primary_ database shows as **Automatic** failover for Read/Write of data, while the _Secondary_ database doesn't since it is currently Readonly.
+11. Notice, on the **Failover group** pane, the map and display showing the _Primary_ and _Secondary_ SQL Database servers within the failover group. The _Primary_ database shows as **Automatic** failover for Read/Write of data, while the _Secondary_ database doesn't since it is currently Read only.
 
-    ![Map display of Primary and Seconary databases](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupmap.png "Map display of Primary and Seconary databases")
+    ![Map display of Primary and Seconary databases.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupmap.png "Map display of Primary and Seconary databases")
 
 12. Scroll down, below the map, to where the **Read/write listener endpoint** and **Read-only listener endpoint** are displayed. These allow for applications to be configured to connect to the SQL Failover Group endpoints instead of the individual SQL Server endpoints.
 
     Copy both **Listener Endpoint** values for later reference.
 
-    ![Read/Write and Read-only listener endpoints are displayed](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupendpoints.png "Read/Write and Read-only listener endpoints are displayed")
+    ![Read/Write and Read-only listener endpoints are displayed.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/sqlfailovergroupendpoints.png "Read/Write and Read-only listener endpoints are displayed")
 
 13. Go back to the **contososports** resource group blade.
 
@@ -474,7 +474,7 @@ With SQL Database Geo-Replication configured, the Azure SQL Failover Groups feat
 
 15. On the **App Service** blade, scroll down in the left pane. Under the **Settings** menu, select **Configuration**.
 
-    ![Configuration option is highlighted](media/2019-04-19-16-38-54.png "Configuration option is highlighted")
+    ![Configuration option is highlighted.](media/2019-04-19-16-38-54.png "Configuration option is highlighted")
 
 16. Locate the **Connection Strings** section, and modify the value of the **ContosoSportsLeague** connection string to include the **Azure SQL Failover Group Read/Write Listener Endpoint** that was copied previously.
 
@@ -497,23 +497,23 @@ Since the Replication and Failover process can take anywhere from 10 to 30 minut
 
 2. In the navigation menu to the left, select **SQL databases**, and select the name of the *primary* SQL Database you created previously.
 
-    ![Screenshot of SQL Databases tile](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "Azure Portal")
+    ![Screenshot of SQL Databases tile.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image52.png "Azure Portal")
 
 3. On the **Overview** pane, select the **Server name**.
 
-    ![Server name is highlighted](images/2020-03-17-19-35-23.png "Server name is highlighted")
+    ![Server name is highlighted.](images/2020-03-17-19-35-23.png "Server name is highlighted")
 
 4. On the **SQL server** blade, select **Failover groups** under Settings.
 
-    ![Failover groups option is highlighted](images/2020-03-17-19-37-00.png "Failover groups option is highlighted")
+    ![Failover groups option is highlighted.](images/2020-03-17-19-37-00.png "Failover groups option is highlighted")
 
 5. Select the **Failover group** in the list.
 
-    ![Failover group is highlighted in the list](images/2020-03-17-19-38-01.png "Failover group is highlighted in the list")
+    ![Failover group is highlighted in the list.](images/2020-03-17-19-38-01.png "Failover group is highlighted in the list")
 
 6. On the Failover group blade, select the **Forced Failover** button, then select **Yes** to confirm the forced failover of the SQL Database Failover Group.
 
-    ![Forced failover confirmation is displayed](images/2020-03-17-19-39-56.png "Forced failover confirmation is displayed")
+    ![Forced failover confirmation is displayed.](images/2020-03-17-19-39-56.png "Forced failover confirmation is displayed")
 
 The failover may take a few minutes to complete. You can continue with the next Subtask.
 
@@ -525,7 +525,7 @@ The failover may take a few minutes to complete. You can continue with the next 
 
 3. On the **App Service** blade, select **Overview**.
 
-    ![Screenshot of Overview menu option](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image71.png "App Service blade")
+    ![Screenshot of Overview menu option.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image71.png "App Service blade")
 
 4. On the **Overview** pane, select the **URL** for the Web App to open it in a new browser tab.
 
@@ -593,7 +593,7 @@ In this exercise, you will provision a website via the Azure Web App template us
 
     ![In Solution Explorer, the right-click menu for Contoso.Apps.SportsLeague.Admin displays, and Publish is selected.](media/2019-04-19-14-30-03.png "Right-Click menu")
 
-3. Choose **App Service Linux** as the publish target, choose **Select Existing**, then select **Create Profile**
+3. Choose **App Service Linux** as the publish target, choose **Select Existing**, then select **Create Profile**.
 
     ![On the Publish tab, App Service Linux is selected. Below that, the radio button is selected for Select Existing.](media/2020-03-17-20-09-01.png "Publish tab")
 
@@ -627,7 +627,7 @@ In this exercise, the attendee will provision an Azure API app template using th
 
    - **App name:** Specify a unique name for the App Name.
    - **Subscription:** Your Azure MSDN subscription.
-   - **Resource Group:** select **Use existing** option.
+   - **Resource Group:** Select **Use existing** option.
    - **App Service Plan/Location** Select the same primary region used in previous steps.
    - **Application Insights:** **Disabled**
 
@@ -649,19 +649,19 @@ In this exercise, the attendee will provision an Azure API app template using th
 
 4. Select the Payment Gateway API app created earlier, select **OK**.
 
-    ![In the App Service section, the contososports folder is expanded, and PaymentsAPIO is selected. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image98.png "App Service section")
+    ![In the App Service section, the contososports folder is expanded, and PaymentsAPIO is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image98.png "App Service section")
 
 5. Select **Publish**.
 
 6. In the Visual Studio **Output** view, you will see a status indicating the Web App was published successfully.
 
-    ![The Visual Studio output shows that the web app was published successfully. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image99.png "Visual Studio output")
+    ![The Visual Studio output shows that the web app was published successfully.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image99.png "Visual Studio output")
 
 7. Copy and paste the gateway **URL** of the deployed **API App** into Notepad for later use.
 
 8. Viewing the Web App in a browser will display the Swagger UI for the API.
 
-   ![Payment Gateway is up and running and the Swagger UI is displayed](media/2019-04-11-04-58-04.png "Swagger UI")
+   ![Payment Gateway is up and running and the Swagger UI is displayed.](media/2019-04-11-04-58-04.png "Swagger UI")
 
 ### Task 5: Deploying the Offers Web API
 
@@ -753,11 +753,11 @@ In this exercise, the attendee will provision an Azure API app template using th
 
 8. Viewing the Web App in a browser will display the Swagger UI for the API.
 
-    ![Payment Gateway is up and running and the Swagger UI is displayed](media/2019-04-11-05-20-40.png "Swagger UI")
+    ![Payment Gateway is up and running and the Swagger UI is displayed.](media/2019-04-11-05-20-40.png "Swagger UI")
 
 9. Within the Swagger UI for the Offers API, select the `/api/get` method on the API. Then select the **Try it out** button, and then **Execute** to test out the API call from within the Swagger UI in the web browser. Once it executes, scroll down to view the results of the API call execution.
 
-    ![Swagger UI displaying API call response](media/2020-03-17-20-56-31.png "Swagger UI")
+    ![Swagger UI displaying API call response.](media/2020-03-17-20-56-31.png "Swagger UI")
 
 ### Task 6: Update and deploy the e-commerce website
 
@@ -1565,7 +1565,7 @@ To configure the application for logging and diagnostics, you have been asked to
     </script>
     ```
 
-    >**Note**: Make sure to replace the `INSTRUMENTATION_KEY` placeholder with the Applicaiton Insights Instrumentation Key.
+    >**Note**: Make sure to replace the `INSTRUMENTATION_KEY` placeholder with the Application Insights Instrumentation Key.
 
 7. Navigate to the **Contoso.Apps.SportsLeague.Web** project located in the **Web** folder using the **Solution Explorer** in Visual Studio.
 
@@ -1705,7 +1705,7 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
     - **Resource Group**: Use the existing resource group, **contososports**.
 
-    - **Function App name**: _choose a unqiue name_
+    - **Function App name**: _choose a unique name_
 
     - **Publish**: Code
 
@@ -1835,7 +1835,7 @@ The advantages of using Logic Apps include the following:
 
     ![In the Logic Apps Designer, the Blank Logic App tile is selected.](media/2019-03-29-12-56-10.png "Logic Apps Designer")
 
-6. Select the **All** tabe, then select **Azure Queues**.
+6. Select the **All** tab, then select **Azure Queues**.
 
     ![In the Services section, the Azure Service Bus tile is selected.](media/2020-03-18-12-12-10.png "Services section")
 
@@ -1856,7 +1856,7 @@ The advantages of using Logic Apps include the following:
 
     ![Under When there are messages in a queue, the Queue name is set to receiptgenerator.](media/2020-03-18-12-19-06.png "Queue name")
 
-    >**Note**: If you wish, you can set the **Interval** and **Frequency** to check for new items to a shorter interval than the default; such as every 30 seconds. This could help reduce delay for when the Logic App is triggered when new messages are sent to the Service Bus Queue while you progres through this lab.
+    >**Note**: If you wish, you can set the **Interval** and **Frequency** to check for new items to a shorter interval than the default; such as every 30 seconds. This could help reduce delay for when the Logic App is triggered when new messages are sent to the Service Bus Queue while you progress through this lab.
 
 11. Select the **+ New step** button, then select **Azure Functions**.
 
@@ -1904,7 +1904,7 @@ The advantages of using Logic Apps include the following:
 
     - Authentication Type: **SQL Server Authentication**
 
-    - SQL server name: _enter the DNS name of the SQL Database Failover Cluster Read/Write Listender Endpoint that was copied previously_
+    - SQL server name: _enter the DNS name of the SQL Database Failover Cluster Read/Write Listener Endpoint that was copied previously_
 
     - SQL database name: `ContosoSportsDB`
 
