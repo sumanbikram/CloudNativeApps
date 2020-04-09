@@ -835,7 +835,7 @@ The Contoso call center admin application will only be accessible by users of th
 
 2. In the left-hand navigation menu, select **Azure Active Directory**.
 
-    ![The Azure Active Directory menu option](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image123.png "Azure Portal")
+    ![The Azure Active Directory menu option.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image123.png "Azure Portal")
 
 3. On the **Azure Active Directory** blade, locate and select the **Company branding** option.
 
@@ -861,7 +861,7 @@ The Contoso call center admin application will only be accessible by users of th
 
 2. Select **Azure Active Directory** in the navigation menu to the left.
 
-    ![Screenshot of Azure Active Directory menu option](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image123.png "Azure Portal")
+    ![Screenshot of Azure Active Directory menu option.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image123.png "Azure Portal")
 
 3. On the **Azure Active Directory** blade, select **Custom Domain names**.
 
@@ -1083,7 +1083,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 6. **Multifactor authentication** set to **Disabled**.
 
 7. **User attributes and claims**.
-    - Select the **Show more...** link
+    - Select the **Show more...** link.
 
     ![In the Azure AD B2C - User flow policy - create user flow pane, the Show more link is highlighted after the default user attributes and claims.](media/2019-03-28-12-38-39.png "Show more link")
 
@@ -1114,6 +1114,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
 12. Open the policy by selecting the link in the list e.g. **B2C\_1\_SignUp**.
 
 13. Select **Run user flow** and open the dialog.
+
     ![In the Policies section, Sign-in policies is selected.](media/2019-03-28-12-52-27.png "Policies section")
 
 14. Select **Run user flow** - Choose application and run user flow. 
@@ -1126,7 +1127,7 @@ In this exercise, you will configure an Azure AD Business to Consumer (B2C) inst
     
 16. Select **Sign up now**.
 
-    ![Sign up now fields are presented to the user](media/2019-03-28-13-02-25.png "Sign up now")
+    ![Sign up now fields are presented to the user.](media/2019-03-28-13-02-25.png "Sign up now")
 
 ### Task 4: Create a profile editing policy
 
@@ -1148,7 +1149,7 @@ To enable profile editing on your application, you will need to create a profile
 
 5. Select Identity providers, and then "**Local Account SignIn**."
 
-6. Select the **Show more...** link
+6. Select the **Show more...** link.
 
 7. Select **Collect attributes**. Here, you choose attributes the consumer can view and edit.
 
@@ -1198,7 +1199,7 @@ To enable profile editing on your application, you will need to create a profile
 
 5. Select Identity providers, and then "**Reset password using email address**."
 
-6. Select the **Show more...** link
+6. Select the **Show more...** link.
 
 7. Select **Return claim**. Here, you choose attributes about the user that are returned to the application in the token.
 
@@ -1207,7 +1208,7 @@ To enable profile editing on your application, you will need to create a profile
     - **Email Addresses**
     - **Given Name**
 
-    ![Return claim attributes selected blade](media/2020-03-19-09-54-28.png "Return claims")
+    ![Return claim attributes selected blade.](media/2020-03-19-09-54-28.png "Return claims")
 
 8. Select **OK**.
 
@@ -1246,25 +1247,25 @@ To enable profile editing on your application, you will need to create a profile
 
     The result will look similar to the following:
 
-    ![app.UseAuthentication code inserted](media/2020-03-18-14-44-13.png "app.UseAuthentication code inserted")
+    ![app.UseAuthentication code inserted.](media/2020-03-18-14-44-13.png "app.UseAuthentication code inserted")
 
-3. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
+4. Locate the Azure AD B2C name by navigating to your resource group. Copy the name to Notepad.
 
     ![List of all of the resources within the ContosoSports resource group. Pointing to the B2C tenant name.](media/2019-03-28-16-51-14.png "Locate B2C tenant name")
 
-3. Next, using the Azure Management Portal, using your main subscription, open the Contoso Web App blade, and select **Configuration**.
+5. Next, using the Azure Management Portal, using your main subscription, open the Contoso Web App blade, and select **Configuration**.
 
-4. Add the following settings in the **Application Settings** section:
+6. Add the following settings in the **Application Settings** section:
 
-   - AzureADB2C:Instance - `https://[your Azure AD B2C name].b2clogin.com/tfp/`.
+   - AzureADB2C:Instance - `https://[your Azure AD B2C name].b2clogin.com/tfp/`
    - AzureADB2C:ClientId - **B2C Application ID you copied down earlier**.
    - AzureADB2C:CallbackPath - `/signin-oidc-b2c`
-   - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**.
+   - AzureADB2C:Domain - **[your Azure AD B2C name].onmicrosoft.com**
    - AzureADB2C:SignUpSignInPolicyId - `B2C_1_SignUp`
    - AzureADB2C:ResetPasswordPolicyId - `B2C_1_SSPR`
    - AzureADB2C:EditProfilePolicyId - `B2C_1_EditProfile`
 
-5. Select **Save** when you are complete.
+7. Select **Save**.
 
 ### Task 7: Send authentication requests to Azure AD
 
@@ -1291,7 +1292,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
 
     ![The Default controller method Index is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image179.png "Default controller method Index")
 
-    Replace the method with the following code, then **Save** the file.
+    Replace the method with the following code, then **Save** the file:
 
     ```csharp
     // Controllers\AccountController.cs
@@ -1355,7 +1356,7 @@ Your app is now properly configured to communicate with Azure AD B2C by using AS
 
 When you authenticate users by using OpenID Connect, Azure AD returns an ID token to the app that contains **claims**. These are assertions about the user. You can use claims to personalize your app. You can access user claims in your controllers via the ClaimsPrincipal.Current security principal object.
 
-1. Open the **Controllers\\HomeController.cs** file and add the following using statements at the end of the other using statements at the top of the file.
+1. Open the **Controllers\\HomeController.cs** file and add the following using statements at the end of the other using statements at the top of the file:
 
     ```csharp
     using Contoso.Apps.SportsLeague.Web.Models;
@@ -1482,7 +1483,8 @@ When you authenticate users by using OpenID Connect, Azure AD returns an ID toke
 
     ![On the Contoso website, the following links are circled: Claims, Sign up, and Sign in.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image182.png "Contoso website")
 
-    Claims information page![On the Contoso website, the following links are circled: Russell, Sign out, and Edit Profile.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image183.png "Contoso website, Claims information page")
+    Claims information page:    
+    ![On the Contoso website, the following links are circled: Russell, Sign out, and Edit Profile.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image183.png "Contoso website, Claims information page")
 
 ## Exercise 4: Enabling Telemetry with Application Insights
 
@@ -1533,9 +1535,10 @@ To configure the application for logging and diagnostics, you have been asked to
 
 2. Select the **Application Insights** instance with the name that starts with **contososportsai** that is associated with the Contoso E-Commerce Site.
 
-3. Capture the **Instrumentation Key**
-       - Select the **Overview** menu item.
-       - Copy the **Instrumentation Key** to Notepad for later use.
+3. Capture the **Instrumentation Key**.
+
+    - Select the **Overview** menu item.
+    - Copy the **Instrumentation Key** to Notepad for later use.
 
     ![Contoso.Apps.SportsLeague Application Insights Overview. Instrumentation Key selected.](media/2019-03-29-10-36-23.png "Instrumentation Key selected")
 
@@ -1547,11 +1550,11 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![Screenshot of the MONITOR AND DIAGNOSE CLIENT SIDE APPLICATION arrow.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image197.png "MONITOR AND DIAGNOSE CLIENT SIDE APPLICATION ")
 
-    > **Note**: You can find the documentation page at the following URL: <https://docs.microsoft.com/azure/azure-monitor/app/javascript#snippet-based-setup>
+    > **Note**: You can find the documentation page at the following URL: <https://docs.microsoft.com/azure/azure-monitor/app/javascript#snippet-based-setup>.
 
 6. Select and copy the full contents of the JavaScript under the **Snippet based setup** heading.
 
-    ![Under Guidance in the Client application monitoring and diagnosis blade, JavaScript displays. ](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image198.png "Client application monitoring and diagnosis blade")
+    ![Under Guidance in the Client application monitoring and diagnosis blade, JavaScript displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image198.png "Client application monitoring and diagnosis blade")
 
     Here's the JavaScript code to copy/paste for quick reference:
 
@@ -1677,7 +1680,7 @@ To configure the application for logging and diagnostics, you have been asked to
 
     ![Contoso.Apps.SportsLeague.Web Performance - Endpoint performance metrics are displayed for various types of HTTP requests.](media/2019-03-29-11-20-06.png "Endpoint performance")
 
-7. Under **Usage** link area. select the **Events** menu option. Select the **View More Insights** button.
+7. Under **Usage** link area, select the **Events** menu option. Select the **View More Insights** button.
 
     ![A screenshot using the Events button under the Usage Preview section.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image218.png "The Usage Preview section")
 
@@ -1705,21 +1708,21 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
     - **Resource Group**: Use the existing resource group, **contososports**.
 
-    - **Function App name**: _choose a unique name_
+    - **Function App name**: _Choose a unique name_.
 
     - **Publish**: Code
 
     - **Runtime Stack**: .NET Core.
 
-    - **Region**: _Choose the same region used for the e-commerce web apps in this lab._
+    - **Region**: _Choose the same region used for the e-commerce web apps in this lab_.
 
 3. Select **Next: Hosting >**.
 
 4. On the **Hosting** tab, select the following values, then select **Review + create**:
 
-    - **Operating System**: Windows.
+    - **Operating System**: Windows
 
-    - **Plan type**: App service plan.
+    - **Plan type**: App service plan
 
     - **Windows Plan**: Choose the App Service Plan used for the e-commerce web app.
 
@@ -1735,7 +1738,7 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
 8. Add a new Application Setting with the following values, then select **Save**:
 
-    - **Name**: `contososportsstorage`.
+    - **Name**: `contososportsstorage`
     - **Value**: Enter the Connection String for your storage account.
 
     ![Updated Function App Application settings. Showing final values.](media/2019-04-15-16-18-36.png "Updated Function App Application settings.")
@@ -1752,13 +1755,13 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
 12. Select **Publish**.
 
-    The publish should only take minute or so. You can check the **Output** window for any errors that may occur.
+    The publish should only take a minute or so. You can check the **Output** window for any errors that may occur.
 
     ![The build Output window is displayed. Publish succeeded message is shown.](media/2019-04-15-15-33-20.png "Output window.")
 
 13. To test your newly published Function App, start by navigating back to your Contoso Function App in the Azure Portal. Select the newly created **ContosoMakePDF** function listed in the functions.
 
-14. select the **Test** link located on the right-hand blade.
+14. Select the **Test** link located on the right-hand blade.
 
     ![Function apps are listed on the left hand side. ContosoMakePDF is selected.  There is an arrow pointing to the Test link on the right pane.](media/2019-04-15-15-40-27.png "Function Test link")
 
@@ -1787,13 +1790,13 @@ Contoso wants to automate the process of generating receipts in PDF format and a
 
 19. Choose the newly created **receipts** blob container.
 
-    ![The storage account blobs are listed. Receipts blob container is highlighted.](media/2019-04-15-16-08-35.png "Click the Blobs link")
+    ![The storage account blobs are listed. The receipts blob container is highlighted.](media/2019-04-15-16-08-35.png "Click the Blobs link")
 
 20. Open **ContosoSportsLeague-Store-Receipt-XX.pdf** link.
 
     ![There is a screenshot displaying a list of the newly created PDF receipts. An arrow pointing to the Download link is located on the right side of the screen.](media/2019-04-15-16-11-24.png "PDF Receipts")
 
-    - Open the `...` link and choose download menu item.
+21. Open the `...` link and choose download menu item.
 
     ![A sample Contoso Sports League PDF receipt is displayed.](media/2019-04-15-16-15-06.png "Sample PDF receipt")
 
@@ -1827,7 +1830,7 @@ The advantages of using Logic Apps include the following:
 
     ![In the Azure Portal, logic is in the search field, and under that, Logic apps is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image238.png "Azure Portal")
 
-4. select the **Logic App Designer** link.
+4. Select the **Logic App Designer** link.
 
     ![In the Logic app blade, under Development tools, Logic App Designer is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image239.png "Logic app blade")
 
@@ -1842,7 +1845,6 @@ The advantages of using Logic Apps include the following:
 7. Select **Service Bus - When a message is received in a queue (auto-complete)**.
 
     ![In the Search all triggers section, Service Bus - When a message is received in a queue (auto-complete).](media/2020-03-18-12-13-24.png "Search all triggers section")
-    ![]()
 
 8. Specify **ContosoQueue** as the connection name, select the Contoso storage account from the list, and select **Create**.
 
@@ -1850,7 +1852,7 @@ The advantages of using Logic Apps include the following:
 
 9. Select the **RootManageSharedAccessKey*** from the list of Service Bus Policies, then select **Create**.
 
-    ![RootManageSharedAccessKey is selected](media/2020-03-18-12-17-17.png "RootManageSharedAccessKey is selected")
+    ![RootManageSharedAccessKey is selected.](media/2020-03-18-12-17-17.png "RootManageSharedAccessKey is selected")
 
 10. Select the **receiptgenerator** queue from the drop-down, select **New Step**, and **Add an Action**.
 
@@ -1904,7 +1906,7 @@ The advantages of using Logic Apps include the following:
 
     - Authentication Type: **SQL Server Authentication**
 
-    - SQL server name: _enter the DNS name of the SQL Database Failover Cluster Read/Write Listener Endpoint that was copied previously_
+    - SQL server name: _Enter the DNS name of the SQL Database Failover Cluster Read/Write Listener Endpoint that was copied previously_.
 
     - SQL database name: `ContosoSportsDB`
 
@@ -1945,7 +1947,7 @@ The advantages of using Logic Apps include the following:
 
     After this has been added, the JSON will look as follows:
 
-    ![JSON edits have been made](media/2020-03-18-18-21-47.png "JSON edits have been made")
+    ![JSON edits have been made.](media/2020-03-18-18-21-47.png "JSON edits have been made")
 
 25. And modify the `path` variable for the `Update_row_(V2)` action to include the index key or OrderId as follows:
 
@@ -1953,36 +1955,37 @@ The advantages of using Logic Apps include the following:
     "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[Orders]'))}/items/@{encodeURIComponent(encodeURIComponent(body('ContosoMakePDF')['OrderId']))}"
     ```
 
-25. **Save** and return to the designer.
+26. **Save** and return to the designer.
 
-26. Your updated designer view should look like this:
+27. Your updated designer view should look like this:
 
     ![The Update row section displays the purchase fields.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image261.png "Update row section")
 
-27. Finally, let us add one more step to remove the message from the queue. Press **+New Step**. Select **Service Bus**, then select the **Complete the message in a queue** action.
+28. Finally, let us add one more step to remove the message from the queue. Press **+New Step**. Select **Service Bus**, then select the **Complete the message in a queue** action.
 
     ![In the Choose an action section, under Service Bus, the Complete the message in a queue is selected. ](media/2020-03-18-12-51-40.png "Choose an action section")
 
-28. Select the **receiptgenerator** queue from the list.
+29. Select the **receiptgenerator** queue from the list.
 
-29. Select **Lock token of the message** **\>** **Lock Token** from the list of outputs form the Trigger, and select **Save**.
+30. Select **Lock token of the message** **\>** **Lock Token** from the list of outputs form the Trigger, and select **Save**.
 
     ![Lock token of the message field is set to the Lock Token of the Service Bus Trigger.](media/2020-03-18-12-54-28.png "Lock token is highlighted")
 
-30. Select **Save**.
+31. Select **Save**.
 
-31. Select Run on the Logic App Designer, and then run the Contoso sports Web App and check out an Item.
+32. Select Run on the Logic App Designer, and then run the Contoso sports Web App and check out an Item.
 
-32. Run the call center website app, and select the last Details link in the list.
+33. Run the call center website app, and select the last Details link in the list.
+
     ![Screenshot of the Details link.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image264.png "Details link")
 
-33. You should now see a Download receipt link because the database has been updated.
+34. You should now see a Download receipt link because the database has been updated.
 
     ![In the Order Details window, the Download receipt link is circled.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image265.png "Order Details window")
 
-34. Select the Download receipt link to see the receipt.
+35. Select the Download receipt link to see the receipt.
 
-35. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
+36. Return to the Logic app and you should see all green check marks for each step. If not, select the yellow status icon to find out details.
 
     ![In the Logic app, all steps have green checkmarks.](media/2020-03-18-19-05-39.png "Logic app")
 
@@ -1992,9 +1995,9 @@ The advantages of using Logic Apps include the following:
 
 1. If you do not have a Twilio account, sign up for one for free at the following URL:
 
-    [**https://www.twilio.com/try-twilio**](https://www.twilio.com/try-twilio)
+[**https://www.twilio.com/try-twilio**](https://www.twilio.com/try-twilio)
 
-    ![Screenshot of the Twilio account Sign up for free webpage.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image268.png "Twilio account Sign up webpage")
+   ![Screenshot of the Twilio account Sign up for free webpage.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image268.png "Twilio account Sign up webpage")
 
 2. Select **All Products & Services**.
 
@@ -2029,6 +2032,7 @@ The advantages of using Logic Apps include the following:
     > - In the Overview, locate the **Show database connection strings** link.
     > - Copy the **Server** parameter value.
     e.g. Server=tcp:``contososqlserver2019th.database.windows.net,1433``
+    
 
     ![In Object Explorer, ContosoSportsDBserver1234.database is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image276.png "Object Explorer")
 
@@ -2102,51 +2106,51 @@ The advantages of using Logic Apps include the following:
 
     ![The Control object is highlighted on the logic app designer pick tool.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image289.png "Buttons")
 
-18. Select **New Step**, and search for and select the **Control -> Condition** object.
+17. Select **New Step**, and search for and select the **Control -> Condition** object.
 
     ![The Control Condition object is highlighted on the logic app designer pick tool.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image290b.png "Buttons")  
 
-19. Select **Choose a value**, and then select **Return Code** from the Dynamic content tile.
+18. Select **Choose a value**, and then select **Return Code** from the Dynamic content tile.
 
     ![The Choose a value box and Return Code objects are highlighte in the Dynamic content tile in the Logic Designer.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image290c.png "Buttons")
 
-20. Specify **ReturnCode**, set the RELATIONSHIP to **is greater than**, and set the VALUE to **0**.
+19. Specify **ReturnCode**, set the RELATIONSHIP to **is greater than**, and set the VALUE to **0**.
 
     ![Under Condition, Object Name is ReturnCode, Relationship is greater than, and Value is 0.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image290.png "Condition section")
 
-21. Select the **Add an action** link on the **If true** condition.
+20. Select the **Add an action** link on the **If true** condition.
 
     ![Under If true, the Add an action button is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image291.png "If yes section")
 
-22. Select **SQL Server**, and then select the **SQL Server -- Execute stored procedure (V2)** action
+21. Select **SQL Server**, and then select the **SQL Server -- Execute stored procedure (V2)** action.
 
     ![Under If Yes, SQL Server - Execute stored procedure is circled.](media/2020-03-19-11-39-54.png "If yes section")
 
-23. Select the **ProcessOrders** stored procedure in the Procedure name dropdown.
+22. Select the **ProcessOrders** stored procedure in the Procedure name dropdown.
 
     ![Under If Yes, Execute stored procedure 2 is selected, and the Procedure name is \[dbo\].\[ProcessOrders\].](media/2020-03-19-11-40-49.png "If yes section")
 
-24. Select the **Add an action** link.
+23. Select the **Add an action** link.
 
     ![The Add an action button is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image294.png "Add an action button")
 
-25. Type **Twilio** in the filter box, and select the **Twilio -- Send Text Message (SMS)** connector.
+24. Type **Twilio** in the filter box, and select the **Twilio -- Send Text Message (SMS)** connector.
 
     ![Under Show Microsoft managed APIs, the Search box is set to Twilio, and below, Twilio - Send Text Message (SMS) is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image295.png "Show Microsoft managed APIs")
 
-26. Set the Connection Name to Twilio, specify your Twilio **Account SID** and **Authentication Token**, then select the **Create** button.
+25. Set the Connection Name to Twilio, specify your Twilio **Account SID** and **Authentication Token**, then select the **Create** button.
 
     ![In the Twilio - Send Text Message (SMS) section, fields are set to the previously defined settings.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image296.png "Twilio - Send Text Message (SMS)")
 
-27. Using the drop-down, select your Twilio number for the **FROM PHONE NUMBER** field. Specify a place holder phone number in the **TO PHONE NUMBER**, and a **TEXT** message.
+26. Using the drop-down, select your Twilio number for the **FROM PHONE NUMBER** field. Specify a place holder phone number in the **TO PHONE NUMBER**, and a **TEXT** message.
 
     ![Under Send Text Message (SMS), the From Phone Number and To Phone Number fields are circled, and in the Text field is the message, Hello, your order has shipped!](media/2020-03-19-11-43-06.png "Send Text Message (SMS)")
 
-28. On the Logic App toolbar, select the **Code View** button.
+27. On the Logic App toolbar, select the **Code View** button.
 
     ![The code view button is selected on the Logic App toolbar.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image298.png "Logic App toolbar")
 
-29. Find the **Send\_Text\_Message\_(SMS)** action, and modify the body property of the Twilio action:
+28. Find the **Send\_Text\_Message\_(SMS)** action, and modify the body property of the Twilio action:
 
     ![The Code view displays the text message, and the from and to phone numbers.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image299.png "Code view")
 
@@ -2158,7 +2162,7 @@ The advantages of using Logic Apps include the following:
 
     ![The Code view now displays the added code in the text message.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image300.png "Code view")
 
-30. Modify the **to** property to pull the phone number from the item.
+29. Modify the **to** property to pull the phone number from the item.
 
     ```json
     "to": "@{item()['Phone']}"
@@ -2166,7 +2170,7 @@ The advantages of using Logic Apps include the following:
 
     ![The to phone number code now displays the updated line of code.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image301.png "Code view")
 
-31. Immediately before the **Send\_Text\_Message\_(SMS)** section, create a new line, and add the following code:
+30. Immediately before the **Send\_Text\_Message\_(SMS)** section, create a new line, and add the following code:
 
   ```json
     "forEach_email": {
@@ -2175,11 +2179,11 @@ The advantages of using Logic Apps include the following:
       "actions": {
   ```
 
-32. Remove the **runAfter** block from the **Send\_Text\_Message\_(SMS)** action.
+31. Remove the **runAfter** block from the **Send\_Text\_Message\_(SMS)** action.
 
     ![The runAfter block of code displays.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image302.png "Code view")
 
-33. Locate the closing bracket of the **Send\_Text\_Message\_(SMS)** action, create a new line after it (be **SURE** to place a leading comma after the closing bracket), and add the following code:
+32. Locate the closing bracket of the **Send\_Text\_Message\_(SMS)** action, create a new line after it (be **SURE** to place a leading comma after the closing bracket), and add the following code:
 
   ```json
         },
@@ -2191,15 +2195,15 @@ The advantages of using Logic Apps include the following:
     }
   ```
 
-34. Select **Save** on the toolbar to enable the logic app.
+33. Select **Save** on the toolbar to enable the logic app.
 
     ![On the Logic Apps Designer toolbar, the Save button is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image304.png "Logic Apps Designer toolbar")
 
-35. After the code for the **Send\_Text\_Message\_(SMS)** has been modified to be contained within the **forEach\_email** action and you save it, it should look like the following:
+34. After the code for the **Send\_Text\_Message\_(SMS)** has been modified to be contained within the **forEach\_email** action and you save it, it should look like the following:
 
     ![The Code view displays the code from \"Foreach\" to \"Execute stored procedure.\"](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image303.png "Code view")
 
-36. Your workflow should look like below, and you should receive a text for each order you have placed.
+35. Your workflow should look like the image below, and you should receive a text for each order you placed.
 
     ![The Workflow diagram begins with Recurrence, then flows to Execute stored procedure, then to Condition. The Condition fields are as follows: Object Name, ReturnCode; Relationship, is greater than; Value, 0. Below the Workflow diagram is an If Yes box, with a workflow that begins wtih Execute stored procedure 2, and flows to forEach email. There is also an If No, Do Nothing box.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image305.png "Workflow diagram")
 
