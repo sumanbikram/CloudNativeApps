@@ -251,7 +251,7 @@ In this exercise, you will provision a website via the Azure **Web App + SQL** t
 
 3. Copy the web app URL to Notepad.
 
-    - select the **Overview** link.
+    - Select the **Overview** link.
     - Copy the URL to Notepad for later use. Use the **Copy to clipboard** link.
 
     ![In the Web App Overview settings, the URL has a box around the link.](media/2019-03-22-16-33-05.png "Contoso Web App Overview")
@@ -964,7 +964,7 @@ The Contoso call center admin application will only be accessible by users of th
 
     ![On the Azure Active Directory blade, Company branding is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image148.png "Azure Active Directory blade")
 
-4. select the **Configure...** information box.
+4. Select the **Configure...** information box.
 
     ![The Configure company branding link is selected.](images/Hands-onlabstep-by-step-Moderncloudappsimages/media/image149.png "Configure company branding link")
 
