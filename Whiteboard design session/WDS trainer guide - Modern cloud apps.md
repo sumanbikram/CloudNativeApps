@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -240,7 +240,7 @@ Contoso is also looking to augment their data analytics story by introducing a d
 
 6. Our previous infrastructure did not have great performance monitoring of our websites. What options would you recommend we investigate that would work with our web apps in Azure?
 
-7. We have heard that Azure's data warehouse can be paused? Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
+7. We have heard that Azure's data warehouse can be paused. Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
 
 8. We know it's possible to use Azure SQL Database as our data warehouse. What should we consider when deciding between this and Azure Synapse Analytics?
 
@@ -649,7 +649,7 @@ The primary audience are the business decision makers and technology decision ma
 
     Web apps in Azure include first-class support for both Microsoft Application Insights and NewRelic Application Performance Monitoring, both of which enable you to collect performance telemetry from your web apps as they are running. You can view and analyze traces from both server-side and browser-side telemetry, diagnose errors, and set alerts from within the Azure Portal. Contoso can also capitalize on Log Analytics, a feature of Microsoft Operations Management Suite, by having the Application Insights logs or the Web App Diagnostic logs pushed to a Storage Account and then picked up and made searchable using the Custom Log. Alternately, they can also push their New Relic logs into Log Analytics, as well giving them a single pane of glass to do all their monitoring through Operations Management Suite.
 
-7. We have heard that Azure's data warehouse can be paused? Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
+7. We have heard that Azure's data warehouse can be paused. Does that mean we must store all our data in Azure Storage first before we can pause the instances and risk losing our data?
 
     Azure Synapse Analytics uses storage in two ways, and both enable the data to exist even while the SQL DW instance is paused. For data that is managed by Azure Synapse Analytics (e.g., it is inserted directly into relational or columnar tables), it is stored in Azure Premium Storage. For data supporting external tables in SQL DW, this data resides in Azure Standard Storage and is referenced via PolyBase, a component of Azure Synapse Analytics.
 
@@ -663,6 +663,6 @@ The primary audience are the business decision makers and technology decision ma
 
 ## Customer quote (to be read back to the attendees at the end)
 
-_"I can sleep better at night knowing that our e-commerce solution is scalable to handle our biggest days, doesn't sacrifice our required PCI compliance, and actually lowers our infrastructure burden."_
+"I can sleep better at night knowing that our e-commerce solution is scalable to handle our biggest days, doesn't sacrifice our required PCI compliance, and actually lowers our infrastructure burden."
 
 Miles Strom, CEO of Contoso Sports League Association
